@@ -2,6 +2,8 @@
   "dependencies": {
     "com.microsoft.mixedreality.openxr": "1.11.2",
     "com.microsoft.mixedreality.visualprofiler": "https://github.com/microsoft/VisualProfiler-Unity.git#v2.2.0",
+    "com.microsoft.mrtk.databinding": "file:../../../ExternalDependencies/com.microsoft.mrtk.databinding-0.1.0-preview.2.tgz",
+    "com.microsoft.mrtk.editortools": "file:../../../ExternalDependencies/com.microsoft.mrtk.editortools-0.1.1-preview.1.tgz",
     "com.microsoft.mrtk.graphicstools.unity": "0.8.0",
     "com.microsoft.mrtk.tts.windows": "1.0.4",
     "com.microsoft.spatialaudio.spatializer.unity": "2.0.55",
