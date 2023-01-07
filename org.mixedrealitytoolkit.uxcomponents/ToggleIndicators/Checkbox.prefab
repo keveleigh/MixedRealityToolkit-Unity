@@ -172,6 +172,7 @@ GameObject:
   - component: {fileID: 1989956866083351710}
   - component: {fileID: 269199439855791924}
   - component: {fileID: 6136921357999623811}
+  - component: {fileID: 1709573045826051096}
   m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
@@ -249,3 +250,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fda4953718e0264291c42cb2a637fb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1709573045826051096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7189414470030404245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12f1486c4a2482d46abfddc88e1354bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  binders:
+    _items:
+    - rid: 2096456570607239185
+  themeViewModelRecord: {fileID: 0}
+  materialSwaps:
+    _items: []
+  objectVisibilityToggles:
+    _items: []
+  colorSwaps:
+    _items: []
+  textureSwaps:
+    _items: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 2096456570607239185
+      type: {class: ThemedColorBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: MRTK.DataBinding}
+      data:
+        themeRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
+        TargetValueName: Primary Text Color
+        targetValueId: 629473106
+        ColorSwapTarget: {fileID: 269199439855791924}
+        AlsoSetAlpha: 1
