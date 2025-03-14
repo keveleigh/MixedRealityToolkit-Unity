@@ -31,8 +31,13 @@ internal class AndroidXRConfig
     {
         if (request.IsCompleted)
         {
+            Debug.Log("DONE: " + request.Status);
             EditorApplication.update -= Progress;
             request = null;
+        }
+        else
+        {
+            Debug.Log("UPDATE: " + request.Status);
         }
     }
 #endif
