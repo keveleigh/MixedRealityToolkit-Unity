@@ -2,6 +2,7 @@
     "name": "MixedReality.Toolkit.Core",
     "rootNamespace": "MixedReality.Toolkit",
     "references": [
+        "Unity.InputSystem",
         "Unity.XR.CoreUtils",
         "Unity.XR.Interaction.Toolkit",
         "Unity.XR.Management"
