@@ -26,7 +26,7 @@ namespace Microsoft.MixedReality.Toolkit.EditorTools
 
 		#region Private Members
 
-		private UnityEditor.UIElements.PopupField<T> _popup;
+		private UnityEngine.UIElements.PopupField<T> _popup;
 		private List<T> _values;
 		private List<string> _options;
 
@@ -111,7 +111,7 @@ namespace Microsoft.MixedReality.Toolkit.EditorTools
 
 		private void CreatePopup()
 		{
-			_popup = new UnityEditor.UIElements.PopupField<T>(_values, value, Format, Format);
+			_popup = new UnityEngine.UIElements.PopupField<T>(_values, value, Format, Format);
 			_popup.AddToClassList(InputUssClassName);
 			_popup.RegisterCallback<ChangeEvent<T>>(evt =>
 			{

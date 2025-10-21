@@ -20,18 +20,18 @@
       "hash": "22d727d4d1641c27fa85a7519cf76b81890c8f3d"
     },
     "com.microsoft.mrtk.databinding": {
-      "version": "file:../../../ExternalDependencies/com.microsoft.mrtk.databinding-0.1.0-preview.2.tgz",
+      "version": "file:../../../ExternalDependencies/com.microsoft.mrtk.databinding-0.1.0-preview.2/package",
       "depth": 0,
-      "source": "local-tarball",
+      "source": "local",
       "dependencies": {
         "com.microsoft.mrtk.editortools": "0.1.1-preview.0",
         "com.unity.textmeshpro": "3.0.6"
       }
     },
     "com.microsoft.mrtk.editortools": {
-      "version": "file:../../../ExternalDependencies/com.microsoft.mrtk.editortools-0.1.1-preview.1.tgz",
+      "version": "file:../../../ExternalDependencies/com.microsoft.mrtk.editortools-0.1.1-preview.1/package",
       "depth": 0,
-      "source": "local-tarball",
+      "source": "local",
       "dependencies": {}
     },
     "com.microsoft.mrtk.graphicstools.unity": {
