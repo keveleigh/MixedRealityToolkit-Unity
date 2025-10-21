@@ -1,0 +1,22 @@
+﻿.uxtools-reference-field
+{
+}
+
+.uxtools-reference-field__foldout
+{
+}
+
+.uxtools-reference-field--set .uxtools-reference-field__set-button
+{
+	display: none;
+}
+
+.uxtools-reference-field--null .uxtools-reference-field__clear-button
+{
+	display: none;
+}
+
+.uxtools-reference-field--missing .uxtools-reference-field__set-button
+{
+	display: none;
+}

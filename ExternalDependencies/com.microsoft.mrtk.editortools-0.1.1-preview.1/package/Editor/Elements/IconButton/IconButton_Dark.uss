@@ -1,0 +1,9 @@
+﻿.uxtools-icon-button:hover
+{
+	background-color: #808080;
+}
+
+.uxtools-icon-button:active
+{
+	background-color: #6B6B6B;
+}

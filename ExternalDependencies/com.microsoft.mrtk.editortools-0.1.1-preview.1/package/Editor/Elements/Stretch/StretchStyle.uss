@@ -1,0 +1,9 @@
+﻿.uxtools-stretch
+{
+	flex-direction: column;
+}
+
+.uxtools-stretch > .unity-label
+{
+	margin-bottom: 2px;
+}

@@ -1,0 +1,10 @@
+﻿.uxtools-enum-buttons-field__input__button
+{
+	border-color: #222222;
+	background-color: #353535;
+}
+
+.uxtools-enum-buttons-field__input__button--active
+{
+	background-color: #555555;
+}

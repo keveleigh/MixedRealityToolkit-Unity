@@ -1,0 +1,8 @@
+{
+  "name": "com.microsoft.mrtk.editortools",
+  "version": "0.1.1-preview.1",
+  "displayName": "MRTK Editor Tools",
+  "description": "UIToolkit-based helpers for creating complex inspector views without the use of custom editor classes. Allows for the use of concise attributes within a MonoBehaviour or ScriptableObject for customizing inspectors.",
+  "author": "Microsoft",
+  "unity": "2020.3"
+}

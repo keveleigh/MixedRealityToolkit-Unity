@@ -1,0 +1,23 @@
+﻿.uxtools-incrementer-field
+{
+}
+
+.uxtools-incrementer-field__input
+{
+	flex-direction: row;
+	flex-grow: 1;
+}
+
+.uxtools-incrementer-field__input__decrement
+{
+}
+
+.uxtools-incrementer-field__input__increment
+{
+}
+
+.uxtools-incrementer-field__input__text
+{
+	flex-grow: 1;
+	margin: 0px;
+}
