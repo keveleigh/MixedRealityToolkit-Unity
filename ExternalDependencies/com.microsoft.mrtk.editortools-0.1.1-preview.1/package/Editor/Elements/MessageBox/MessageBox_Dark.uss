@@ -1,0 +1,5 @@
+﻿.uxtools-message-box
+{
+	background-color: #555555;
+	border-color: #222222;
+}

@@ -1,0 +1,24 @@
+.uxtools-horizontal-group
+{
+	flex-direction: column;
+}
+
+.uxtools-horizontal-group__label
+{
+}
+
+.uxtools-horizontal-group__container
+{
+	flex-direction: row;
+}
+
+.uxtools-horizontal-group__item
+{
+	flex-direction: column;
+	flex-shrink: 1;
+}
+
+.uxtools-horizontal-group__item > .unity-label
+{
+	margin-bottom: 2px;
+}

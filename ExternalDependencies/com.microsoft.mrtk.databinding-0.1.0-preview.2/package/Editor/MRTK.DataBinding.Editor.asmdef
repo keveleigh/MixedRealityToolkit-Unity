@@ -1,0 +1,20 @@
+{
+    "name": "Microsoft.MixedReality.Toolkit.DataBinding.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:6b8adde6f2166fb40b16d294b23d29f2",
+        "GUID:b41626160d32ebb43bbd2947bb852539",
+        "GUID:962a8c3e252b6c7439c52122a445a476"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,25 @@
+﻿.uxtools-inline
+{
+	flex-direction: row;
+	flex-grow: 1;
+}
+
+.uxtools-inline--show-container
+{
+	flex-direction: column;
+}
+
+.uxtools-inline__label
+{
+	margin-right: -3px;
+}
+
+.uxtools-inline__children
+{
+	flex-grow: 1;
+}
+
+.uxtools-inline--show-container .uxtools-inline__children
+{
+	margin-left: 16px;
+}

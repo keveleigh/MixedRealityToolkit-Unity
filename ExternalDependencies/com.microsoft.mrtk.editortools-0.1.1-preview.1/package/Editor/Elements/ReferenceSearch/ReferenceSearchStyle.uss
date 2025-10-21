@@ -1,0 +1,55 @@
+﻿.uxtools-reference-search
+{
+	padding: 10px;
+}
+
+.uxtools-reference-search__content
+{
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.uxtools-reference-search__type-picker
+{
+	flex-shrink: 1;
+}
+
+.uxtools-reference-search__search-button
+{
+	margin: 5px;
+	height: 16px;
+	width: 16px;
+}
+
+.uxtools-reference-search__list
+{
+	flex-grow: 1;
+	flex-shrink: 0;
+	flex-basis: 0;
+}
+
+.uxtools-reference-search__list__item
+{
+	flex-direction: row;
+	flex-grow: 1;
+}
+
+.uxtools-reference-search__list__item__icon
+{
+	min-height: 12px;
+	max-height: 12px;
+	min-width: 12px;
+	max-width: 12px;
+	margin: 1px 3px 0px 3px;
+	align-self: center;
+}
+
+.uxtools-reference-search__list__item__label
+{
+	align-self: center;
+}
+
+.uxtools-reference-search__list__item--current .uxtools-reference-search__list__item__label
+{
+	-unity-font-style: bold;
+}

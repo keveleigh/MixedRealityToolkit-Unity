@@ -1,0 +1,17 @@
+{
+    "name": "Microsoft.MixedReality.Toolkit.DataBinding",
+    "rootNamespace": "",
+    "references": [
+        "GUID:b41626160d32ebb43bbd2947bb852539",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
