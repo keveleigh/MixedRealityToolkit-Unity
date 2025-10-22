@@ -9,7 +9,7 @@ namespace Microsoft.MixedReality.Toolkit.EditorTools
 		public override VisualElement CreatePropertyGUI(SerializedProperty property)
 		{
 			var type = this.GetFieldType();
-			var next = this.GetNextDrawer();
+			var next = this.GetNextDrawer(property.propertyType == SerializedPropertyType.ManagedReference);
 			var drawer = new PropertyReferenceDrawer(property, next);
 			var field = new ReferenceField(type, drawer)
 			{

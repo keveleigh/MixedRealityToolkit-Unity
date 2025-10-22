@@ -25,7 +25,7 @@ namespace Microsoft.MixedReality.Toolkit.EditorTools
 				var referenceType = isReference ? fieldInfo.GetFieldType() : null;
 				var declaringType = fieldInfo.DeclaringType;
 				var listAttribute = attribute as ListAttribute;
-				var drawer = this.GetNextDrawer();
+				var drawer = this.GetNextDrawer(property.propertyType == SerializedPropertyType.ManagedReference);
 				var proxy = new PropertyListProxy(items, drawer);
 
 				var field = new ListField
