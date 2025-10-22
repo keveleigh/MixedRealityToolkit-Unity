@@ -9,204 +9,205 @@ using UnityEngine.UIElements;
 
 namespace Microsoft.MixedReality.Toolkit.EditorTools
 {
-	public static class VisualElementExtensions
-	{
-		#region Internal Lookups
+    public static class VisualElementExtensions
+    {
+        #region Internal Lookups
 
-		private const string _changedInternalsError = "Failed to setup VisualElement: Unity internals have changed";
+        private const string _changedInternalsError = "Failed to setup VisualElement: Unity internals have changed";
 
-		private const string _serializedPropertyBindEventName = "UnityEditor.UIElements.SerializedPropertyBindEvent, UnityEditor";
-		private static Type _serializedPropertyBindEventType;
-		private static string _bindPropertyName = "bindProperty";
-		private static PropertyInfo _bindPropertyProperty;
+        private const string _serializedPropertyBindEventName = "UnityEditor.UIElements.SerializedPropertyBindEvent, UnityEditor";
+        private static Type _serializedPropertyBindEventType;
+        private static string _bindPropertyName = "bindProperty";
+        private static PropertyInfo _bindPropertyProperty;
 
-		static VisualElementExtensions()
-		{
-			var serializedPropertyBindEventType = Type.GetType(_serializedPropertyBindEventName);
-			var bindPropertyProperty = serializedPropertyBindEventType?.GetProperty(_bindPropertyName, BindingFlags.Instance | BindingFlags.Public);
+        static VisualElementExtensions()
+        {
+            var serializedPropertyBindEventType = Type.GetType(_serializedPropertyBindEventName);
+            var bindPropertyProperty = serializedPropertyBindEventType?.GetProperty(_bindPropertyName, BindingFlags.Instance | BindingFlags.Public);
 
-			if (serializedPropertyBindEventType != null && bindPropertyProperty != null && bindPropertyProperty.PropertyType == typeof(SerializedProperty))
-			{
-				_serializedPropertyBindEventType = serializedPropertyBindEventType;
-				_bindPropertyProperty = bindPropertyProperty;
-			}
+            if (serializedPropertyBindEventType != null && bindPropertyProperty != null && bindPropertyProperty.PropertyType == typeof(SerializedProperty))
+            {
+                _serializedPropertyBindEventType = serializedPropertyBindEventType;
+                _bindPropertyProperty = bindPropertyProperty;
+            }
 
-			if (_serializedPropertyBindEventType == null || _bindPropertyProperty == null)
-				Debug.LogError(_changedInternalsError);
-		}
+            if (_serializedPropertyBindEventType == null || _bindPropertyProperty == null)
+                Debug.LogError(_changedInternalsError);
+        }
 
-		#endregion
+        #endregion
 
-		#region Events
+        #region Events
 
-		public static bool TryGetPropertyBindEvent(this VisualElement element, EventBase evt, out SerializedProperty property)
-		{
-			property = evt.GetType() == _serializedPropertyBindEventType
-				? _bindPropertyProperty?.GetValue(evt) as SerializedProperty
-				: null;
+        public static bool TryGetPropertyBindEvent(this VisualElement element, EventBase evt, out SerializedProperty property)
+        {
+            property = evt.GetType() == _serializedPropertyBindEventType
+                ? _bindPropertyProperty?.GetValue(evt) as SerializedProperty
+                : null;
 
-			return property != null;
-		}
+            return property != null;
+        }
 
-		public static void SendChangeEvent<T>(this VisualElement element, T previous, T current)
-		{
-			using (var changeEvent = ChangeEvent<T>.GetPooled(previous, current))
-			{
-				changeEvent.target = element;
-				element.SendEvent(changeEvent);
-			}
-		}
+        public static void SendChangeEvent<T>(this VisualElement element, T previous, T current)
+        {
+            using (var changeEvent = ChangeEvent<T>.GetPooled(previous, current))
+            {
+                changeEvent.target = element;
+                element.SendEvent(changeEvent);
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region Style
+        #region Style
 
-		private const string _missingStylesheetError = "Failed to load stylesheet: the asset '{0}' could not be found";
-		private const string _missingUxmlError = "Failed to load uxml: the asset '{0}' could not be found";
+        private const string _missingStylesheetError = "Failed to load stylesheet: the asset '{0}' could not be found";
+        private const string _missingUxmlError = "Failed to load uxml: the asset '{0}' could not be found";
 
-		public static void AddStyleSheet(this VisualElement element, string filename, [CallerFilePath] string callerFilename = "")
-		{
-			var path = Path.Combine(AssetHelper.GetAssetPath(callerFilename), Path.GetFileNameWithoutExtension(filename));
-			var stylesheet = AssetDatabase.LoadAssetAtPath<StyleSheet>($"{path}.uss");
+        public static void AddStyleSheet(this VisualElement element, string filename)
+        {
+            // TODO: Some additional validation that we're loading from the correct folder
+            var stylesheets = AssetDatabase.FindAssets(Path.GetFileNameWithoutExtension(filename) + " t:stylesheet");
+            if (stylesheets.Length > 0)
+            {
+                element.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>(AssetDatabase.GUIDToAssetPath(stylesheets[0])));
 
-			if (stylesheet != null)
-				element.styleSheets.Add(stylesheet);
-			else
-				Debug.LogErrorFormat(_missingStylesheetError, path);
+                if (EditorGUIUtility.isProSkin && stylesheets.Length > 1)
+                {
+                    element.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>(AssetDatabase.GUIDToAssetPath(stylesheets[1])));
+                }
+            }
+            else
+            {
+                Debug.LogErrorFormat(_missingStylesheetError, Path.GetFileNameWithoutExtension(filename));
+            }
+        }
 
-			if (EditorGUIUtility.isProSkin)
-			{
-				var darkStylesheet = AssetDatabase.LoadAssetAtPath<StyleSheet>($"{path}_Dark.uss");
-				if (darkStylesheet != null)
-					element.styleSheets.Add(darkStylesheet);
-			}
-		}
+        //public static void AddUxml(this VisualElement element, string filename, [CallerFilePath] string callerFilename = "")
+        //{
+        //    var path = AssetHelper.GetAssetPath(callerFilename) + filename;
+        //    var uxml = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(path);
 
-		public static void AddUxml(this VisualElement element, string filename, [CallerFilePath] string callerFilename = "")
-		{
-			var path = AssetHelper.GetAssetPath(callerFilename) + filename;
-			var uxml = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(path);
+        //    if (uxml != null)
+        //        uxml.CloneTree(element);
+        //    else
+        //        Debug.LogErrorFormat(_missingUxmlError, path);
+        //}
 
-			if (uxml != null)
-				uxml.CloneTree(element);
-			else
-				Debug.LogErrorFormat(_missingUxmlError, path);
-		}
+        public static VisualElement GetRootElement(this VisualElement element)
+        {
+            while (element.parent != null)
+                element = element.parent;
+            return element;
+        }
 
-		public static VisualElement GetRootElement(this VisualElement element)
-		{
-			while (element.parent != null)
-				element = element.parent;
-			return element;
-		}
+        public static void SetDisplayed(this VisualElement element, bool displayed)
+        {
+            element.style.display = displayed ? DisplayStyle.Flex : DisplayStyle.None;
+        }
 
-		public static void SetDisplayed(this VisualElement element, bool displayed)
-		{
-			element.style.display = displayed ? DisplayStyle.Flex : DisplayStyle.None;
-		}
+        public static void AlternateClass(this VisualElement element, string validClass, string invalidClass, bool isValid)
+        {
+            if (isValid)
+            {
+                if (!element.ClassListContains(validClass))
+                    element.AddToClassList(validClass);
 
-		public static void AlternateClass(this VisualElement element, string validClass, string invalidClass, bool isValid)
-		{
-			if (isValid)
-			{
-				if (!element.ClassListContains(validClass))
-					element.AddToClassList(validClass);
+                if (element.ClassListContains(invalidClass))
+                    element.RemoveFromClassList(invalidClass);
+            }
+            else
+            {
+                if (!element.ClassListContains(invalidClass))
+                    element.AddToClassList(invalidClass);
 
-				if (element.ClassListContains(invalidClass))
-					element.RemoveFromClassList(invalidClass);
-			}
-			else
-			{
-				if (!element.ClassListContains(invalidClass))
-					element.AddToClassList(invalidClass);
+                if (element.ClassListContains(validClass))
+                    element.RemoveFromClassList(validClass);
+            }
+        }
 
-				if (element.ClassListContains(validClass))
-					element.RemoveFromClassList(validClass);
-			}
-		}
+        #endregion
 
-		#endregion
+        #region Property Configuration
 
-		#region Property Configuration
+        private const string _labelName = "label";
 
-		private const string _labelName = "label";
+        public static bool SetFieldLabel(this VisualElement field, string label)
+        {
+            if (field is PropertyField propertyField)
+            {
+                propertyField.label = label;
 
-		public static bool SetFieldLabel(this VisualElement field, string label)
-		{
-			if (field is PropertyField propertyField)
-			{
-				propertyField.label = label;
+                // if label is being cleared it will be automatically set to the property name on binding so it then needs to be reset
+                // TODO: figure out a better way to do this
 
-				// if label is being cleared it will be automatically set to the property name on binding so it then needs to be reset
-				// TODO: figure out a better way to do this
+                if (string.IsNullOrEmpty(label))
+                {
+                    field.schedule.Execute(() =>
+                    {
+                        propertyField.label = label;
+                        var baseField = field.Q(className: BaseFieldExtensions.UssClassName);
+                        baseField?.SetFieldLabel(label);
+                    }).StartingIn(0);
+                }
+                else
+                {
+                    field.schedule.Execute(() =>
+                    {
+                        propertyField.label = label;
+                        var labelField = field.Q<Label>(className: PropertyField.labelUssClassName);
 
-				if (string.IsNullOrEmpty(label))
-				{
-					field.schedule.Execute(() =>
-					{
-						propertyField.label = label;
-						var baseField = field.Q(className: BaseFieldExtensions.UssClassName);
-						baseField?.SetFieldLabel(label);
-					}).StartingIn(0);
-				}
-				else
-				{
-					field.schedule.Execute(() =>
-					{
-						propertyField.label = label;
-						var labelField = field.Q<Label>(className: PropertyField.labelUssClassName);
+                        if (labelField != null)
+                            labelField.text = label;
+                    }).StartingIn(0);
+                }
 
-						if (labelField != null)
-							labelField.text = label;
-					}).StartingIn(0);
-				}
+                return true;
+            }
+            else if (field is FieldContainer fieldContainer)
+            {
+                fieldContainer.SetLabel(label);
+                return true;
+            }
+            else if (field is ImGuiDrawer imgui)
+            {
+                imgui.Label = label;
+                return true;
+            }
+            else if (field is Foldout foldout)
+            {
+                foldout.text = label;
 
-				return true;
-			}
-			else if (field is FieldContainer fieldContainer)
-			{
-				fieldContainer.SetLabel(label);
-				return true;
-			}
-			else if (field is ImGuiDrawer imgui)
-			{
-				imgui.Label = label;
-				return true;
-			}
-			else if (field is Foldout foldout)
-			{
-				foldout.text = label;
+                // clear the binding of the property to the foldout label
+                var foldoutToggle = foldout.Q<Toggle>(className: Foldout.toggleUssClassName);
+                var foldoutLabel = foldoutToggle.Q<Label>(className: Toggle.textUssClassName);
 
-				// clear the binding of the property to the foldout label
-				var foldoutToggle = foldout.Q<Toggle>(className: Foldout.toggleUssClassName);
-				var foldoutLabel = foldoutToggle.Q<Label>(className: Toggle.textUssClassName);
+                foldoutLabel.bindingPath = null;
 
-				foldoutLabel.bindingPath = null;
+                if (foldoutLabel.binding != null)
+                {
+                    foldoutLabel.binding.Release();
+                }
 
-				if (foldoutLabel.binding != null)
-				{
-					foldoutLabel.binding.Release();
-				}
+                return true;
+            }
+            else if (field.GetType().InheritsGeneric(typeof(BaseField<>)))
+            {
+                // label is public but this allows access without knowing the generic type of the BaseField
+                field.GetType().GetProperty(_labelName, BindingFlags.Instance | BindingFlags.Public).SetValue(field, label);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
-				return true;
-			}
-			else if (field.GetType().InheritsGeneric(typeof(BaseField<>)))
-			{
-				// label is public but this allows access without knowing the generic type of the BaseField
-				field.GetType().GetProperty(_labelName, BindingFlags.Instance | BindingFlags.Public).SetValue(field, label);
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
+        public static void ConfigureAsField(this VisualElement element, Label label, SerializedProperty property)
+        {
+            label.tooltip = property.GetTooltip();
+        }
 
-		public static void ConfigureAsField(this VisualElement element, Label label, SerializedProperty property)
-		{
-			label.tooltip = property.GetTooltip();
-		}
-
-		#endregion
-	}
+        #endregion
+    }
 }

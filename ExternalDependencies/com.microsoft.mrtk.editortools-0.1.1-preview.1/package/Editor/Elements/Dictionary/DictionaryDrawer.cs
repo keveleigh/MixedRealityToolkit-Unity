@@ -27,7 +27,7 @@ namespace Microsoft.MixedReality.Toolkit.EditorTools
 				var referenceType = isReference ? fieldInfo.GetFieldType() : null;
 				var declaringType = fieldInfo.DeclaringType;
 				var dictionaryAttribute = attribute as DictionaryAttribute;
-				var drawer = this.GetNextDrawer();
+				var drawer = this.GetNextDrawer(property.propertyType == SerializedPropertyType.ManagedReference);
 
 				VisualElement field = null;
 
