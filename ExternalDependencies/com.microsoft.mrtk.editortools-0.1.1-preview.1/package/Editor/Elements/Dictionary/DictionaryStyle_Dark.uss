@@ -1,0 +1,25 @@
+﻿.uxtools-dictionary-field__item--even
+{
+	background-color: #252525;
+}
+
+.uxtools-dictionary-field__item--odd
+{
+	background-color: #353535;
+}
+
+.uxtools-dictionary-field--add-key-valid > .uxtools-frame__header > .uxtools-dictionary-field__key-text > .unity-text-field__input
+{
+}
+
+.uxtools-dictionary-field--add-key-invalid > .uxtools-frame__header > .uxtools-dictionary-field__key-text > .unity-text-field__input
+{
+}
+
+.uxtools-dictionary-field--add-key-valid > .uxtools-frame__header > .uxtools-dictionary-field__key-text > .unity-enum-field__input
+{
+}
+
+.uxtools-dictionary-field--add-key-invalid > .uxtools-frame__header > .uxtools-dictionary-field__key-text > .unity-enum-field__input
+{
+}
