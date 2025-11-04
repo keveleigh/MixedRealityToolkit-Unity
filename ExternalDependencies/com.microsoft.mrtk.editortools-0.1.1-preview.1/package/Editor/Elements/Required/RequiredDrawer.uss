@@ -1,8 +1,0 @@
-﻿.uxtools-required
-{
-}
-
-.uxtools-required__message-box
-{
-	margin-bottom: 2px;
-}

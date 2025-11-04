@@ -1,8 +1,0 @@
-﻿.uxtools-popup-field
-{
-}
-
-.uxtools-popup-field__input
-{
-	margin-left: 0px;
-}
