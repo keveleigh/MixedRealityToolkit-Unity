@@ -10,7 +10,7 @@ namespace Microsoft.MixedReality.Toolkit.EditorTools
 	class ComboBoxDrawer : PropertyDrawer
 	{
 		private const string _invalidTypeError = "Invalid type for ComboBoxAttribute on field '{0}': ComboBox can only be applied to string fields";
-		private const string _invalidOptionsError = "Invalid options source for ComboBoxAttribute on field '{0}': a List<string> field, method, or property nameed '{1}' could not be found";
+		private const string _invalidOptionsError = "Invalid options source for ComboBoxAttribute on field '{0}': a List<string> field, method, or property named '{1}' could not be found";
 
 		public override VisualElement CreatePropertyGUI(SerializedProperty property)
 		{
