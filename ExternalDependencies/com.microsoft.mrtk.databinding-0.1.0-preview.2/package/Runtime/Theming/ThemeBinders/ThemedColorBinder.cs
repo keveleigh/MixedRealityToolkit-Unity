@@ -2,13 +2,13 @@ using Microsoft.MixedReality.Toolkit.EditorTools;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Microsoft.MixedReality.Toolkit.Theming
+namespace MixedReality.Toolkit.Theming
 {
     public class ThemedColorBinder : BaseThemeBinder<Color>
     {
-        [Conditional(nameof(Editor_IsRecordValid), ShowIfBool.IsTrue)]
+        [DrawIf(nameof(Editor_IsRecordValid))]
         public Graphic ColorSwapTarget = null;
-        [Conditional(nameof(Editor_IsRecordValid), ShowIfBool.IsTrue)]
+        [DrawIf(nameof(Editor_IsRecordValid))]
         public bool AlsoSetAlpha = false;
 
         protected override void PropagateEffect(ThemeItemValue themeValue)

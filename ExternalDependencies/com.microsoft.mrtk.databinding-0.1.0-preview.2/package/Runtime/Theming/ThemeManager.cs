@@ -2,7 +2,7 @@ using Microsoft.MixedReality.Toolkit.EditorTools;
 using System;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Theming
+namespace MixedReality.Toolkit.Theming
 {
     public enum ThemeType
     {

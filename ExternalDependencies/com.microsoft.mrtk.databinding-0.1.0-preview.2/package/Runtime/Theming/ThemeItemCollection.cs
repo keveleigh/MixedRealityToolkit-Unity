@@ -1,12 +1,9 @@
 using Microsoft.MixedReality.Toolkit.EditorTools;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using Microsoft.MixedReality.Toolkit.DataBinding;
 
-namespace Microsoft.MixedReality.Toolkit.Theming
+namespace MixedReality.Toolkit.Theming
 {
     [CreateAssetMenu(fileName ="Theme Item Collection", menuName = "UXTools/Theming/Theme Item Collection", order = 0)]
     public class ThemeItemCollection : ScriptableObject
@@ -28,15 +25,8 @@ namespace Microsoft.MixedReality.Toolkit.Theming
         public void Initialize()
         {
             // set the theme type on each item so they can properly resolve their data item name
-            if (nameToIdLookup== null)
-            {
-                nameToIdLookup = new Dictionary<string, int>(themeItems.Count);
-            }
-
-            if (idBasedLookup == null)
-            {
-                idBasedLookup = new Dictionary<int, ThemeItem>(themeItems.Count);
-            }
+            nameToIdLookup ??= new Dictionary<string, int>(themeItems.Count);
+            idBasedLookup ??= new Dictionary<int, ThemeItem>(themeItems.Count);
 
             foreach (ThemeItem item in themeItems)
             {

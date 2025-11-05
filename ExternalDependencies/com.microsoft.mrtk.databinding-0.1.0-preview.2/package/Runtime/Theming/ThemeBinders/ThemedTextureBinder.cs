@@ -2,13 +2,13 @@ using Microsoft.MixedReality.Toolkit.EditorTools;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Microsoft.MixedReality.Toolkit.Theming
+namespace MixedReality.Toolkit.Theming
 {
     public class ThemedTextureBinder : BaseThemeBinder<Texture>
     {
-        [Conditional(nameof(Editor_IsRecordValid), ShowIfBool.IsTrue)]
+        [DrawIf(nameof(Editor_IsRecordValid))]
         public Image ImageSwapTarget = null;
-        [Conditional(nameof(Editor_IsRecordValid), ShowIfBool.IsTrue)]
+        [DrawIf(nameof(Editor_IsRecordValid))]
         public RawImage RawImageSwapTarget = null;
 
         protected override void PropagateEffect(ThemeItemValue themeValue)

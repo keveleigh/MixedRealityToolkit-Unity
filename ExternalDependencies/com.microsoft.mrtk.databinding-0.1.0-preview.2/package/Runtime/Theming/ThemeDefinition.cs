@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Theming
+namespace MixedReality.Toolkit.Theming
 {
     [CreateAssetMenu(fileName = "Theme Definition", menuName = "UXTools/Theming/Theme Definition", order = 0)]
     public class ThemeDefinition : ScriptableObject

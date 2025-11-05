@@ -7,7 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using Microsoft.MixedReality.Toolkit.DataBinding;
 
-namespace Microsoft.MixedReality.Toolkit.Theming
+namespace MixedReality.Toolkit.Theming
 {
     /// <summary>
     /// Describes the types of data a ThemeItem can represent
@@ -22,6 +22,8 @@ namespace Microsoft.MixedReality.Toolkit.Theming
         Int,
         Float,
         Texture,
+        Icon,
+        Font,
     }
 
     /// <summary>

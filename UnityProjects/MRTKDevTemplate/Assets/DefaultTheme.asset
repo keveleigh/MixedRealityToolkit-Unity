@@ -25,3 +25,6 @@ MonoBehaviour:
     - Id: 1194890048
       ItemName: Panel Color
       Type: 1
+    - Id: 258328831
+      ItemName: Text Font
+      Type: 9

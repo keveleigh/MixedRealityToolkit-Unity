@@ -1,8 +1,8 @@
-namespace Microsoft.MixedReality.Toolkit.Theming
+namespace MixedReality.Toolkit.Theming
 {
     [UnityEditor.CustomEditor(typeof(ThemeDefinition))]
     [UnityEditor.CanEditMultipleObjects]
-    public class CustomThemeDefinitionEditor : EditorTools.MRTKEditorBase
+    public class CustomThemeDefinitionEditor : Microsoft.MixedReality.Toolkit.EditorTools.MRTKEditorBase
     {
     }
 }

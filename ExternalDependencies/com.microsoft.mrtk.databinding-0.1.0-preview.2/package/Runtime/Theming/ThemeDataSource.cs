@@ -1,9 +1,8 @@
-using System.Collections;
+using Microsoft.MixedReality.Toolkit.DataBinding;
 using System.Collections.Generic;
 using UnityEngine;
-using Microsoft.MixedReality.Toolkit.DataBinding;
 
-namespace Microsoft.MixedReality.Toolkit.Theming
+namespace MixedReality.Toolkit.Theming
 {
     public class ThemeDataSource : BaseDataSource
     {
@@ -11,7 +10,7 @@ namespace Microsoft.MixedReality.Toolkit.Theming
 
         private List<int> availableIds = null;
         private List<ThemeRecord> registeredRecords = null;
-        private List<ThemeItemCollection> activeDefinitons = null;
+        private List<ThemeItemCollection> activeDefinitions = null;
 
         private Dictionary<string, int> itemNameToIdLookup = null;
         private Dictionary<int, ThemeItem> registeredItemLookup = null;
@@ -20,7 +19,7 @@ namespace Microsoft.MixedReality.Toolkit.Theming
         {
             availableIds = new List<int>(200);
             registeredRecords = new List<ThemeRecord>(50);
-            activeDefinitons = new List<ThemeItemCollection>(30);
+            activeDefinitions = new List<ThemeItemCollection>(30);
             itemNameToIdLookup = new Dictionary<string, int>(100);
             registeredItemLookup = new Dictionary<int, ThemeItem>(200);
         }
@@ -66,6 +65,8 @@ namespace Microsoft.MixedReality.Toolkit.Theming
                     registeredItemLookup.Remove(item.Id);
                 }
             }
+
+            items.ThemeValuesChanged -= OnThemeValuesChanged;
         }
 
         public void RefreshAllItems()
@@ -73,7 +74,6 @@ namespace Microsoft.MixedReality.Toolkit.Theming
             foreach (int id in availableIds)
             {
                 OnItemUpdated(registeredItemLookup[id].Name);
-                
             }
         }
 

@@ -1,12 +1,12 @@
-using Microsoft.MixedReality.Toolkit.EditorTools;
+using MixedReality.Toolkit;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Microsoft.MixedReality.Toolkit.Theming
+namespace MixedReality.Toolkit.Theming
 {
     public class ThemedMaterialBinder : BaseThemeBinder<Material>
     {
-        [Conditional(nameof(Editor_IsRecordValid), ShowIfBool.IsTrue)]
+        [DrawIf(nameof(Editor_IsRecordValid))]
         public Graphic MaterialSwapTarget = null;
 
         protected override void PropagateEffect(ThemeItemValue themeValue)

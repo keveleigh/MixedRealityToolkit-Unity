@@ -1,7 +1,7 @@
 using Microsoft.MixedReality.Toolkit.EditorTools;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Theming
+namespace MixedReality.Toolkit.Theming
 {
     /// <summary>
     /// Kinds of visual changes we want to effect:

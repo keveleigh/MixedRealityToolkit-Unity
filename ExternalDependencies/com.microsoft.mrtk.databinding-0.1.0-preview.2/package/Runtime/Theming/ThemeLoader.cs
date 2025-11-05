@@ -2,7 +2,7 @@ using Microsoft.MixedReality.Toolkit.EditorTools;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Theming
+namespace MixedReality.Toolkit.Theming
 {
     public class ThemeLoader : MonoBehaviour
     {

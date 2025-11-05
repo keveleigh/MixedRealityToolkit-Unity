@@ -627,7 +627,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2096456570607239178
-      type: {class: ThemedMaterialBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+      type: {class: ThemedMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
       data:
         dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
         itemName: Menu Plate Material
@@ -1185,7 +1185,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2096456570607239178
-      type: {class: ThemedMaterialBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+      type: {class: ThemedMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
       data:
         dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
         itemName: Menu Plate Material
@@ -1960,7 +1960,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2096456570607239178
-      type: {class: ThemedMaterialBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+      type: {class: ThemedMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
       data:
         dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
         itemName: Menu Plate Material
@@ -2474,7 +2474,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2096456570607239178
-      type: {class: ThemedMaterialBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+      type: {class: ThemedMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
       data:
         dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
         itemName: Menu Plate Material
@@ -3861,7 +3861,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2096456570607239178
-      type: {class: ThemedMaterialBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+      type: {class: ThemedMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
       data:
         dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
         itemName: Menu Plate Material
@@ -5109,7 +5109,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2096456570607239178
-      type: {class: ThemedMaterialBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+      type: {class: ThemedMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
       data:
         dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
         itemName: Menu Plate Material
@@ -6441,7 +6441,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2096456570607239178
-      type: {class: ThemedMaterialBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+      type: {class: ThemedMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
       data:
         dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
         itemName: Menu Plate Material
@@ -9960,7 +9960,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2096456570607239178
-      type: {class: ThemedMaterialBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+      type: {class: ThemedMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
       data:
         dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
         itemName: Menu Plate Material
@@ -11057,7 +11057,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2096456570607239178
-      type: {class: ThemedMaterialBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+      type: {class: ThemedMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
       data:
         dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
         itemName: Menu Plate Material
@@ -14979,7 +14979,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2096456570607239178
-      type: {class: ThemedMaterialBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+      type: {class: ThemedMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
       data:
         dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
         itemName: Menu Plate Material
@@ -15986,7 +15986,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2096456570607239178
-      type: {class: ThemedMaterialBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+      type: {class: ThemedMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
       data:
         dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
         itemName: Menu Plate Material
@@ -16855,7 +16855,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2096456570607239178
-      type: {class: ThemedMaterialBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+      type: {class: ThemedMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
       data:
         dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
         itemName: Menu Plate Material
@@ -19797,7 +19797,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2096456570607239178
-      type: {class: ThemedMaterialBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+      type: {class: ThemedMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
       data:
         dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
         itemName: Menu Plate Material
@@ -20132,7 +20132,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2096456570607239178
-      type: {class: ThemedMaterialBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+      type: {class: ThemedMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
       data:
         dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
         itemName: Menu Plate Material
@@ -20563,7 +20563,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 1017220187265171464
-      type: {class: ThemedMaterialBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+      type: {class: ThemedMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
       data:
         dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
         itemName: Menu Plate Material
@@ -21668,7 +21668,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2096456570607239178
-      type: {class: ThemedMaterialBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+      type: {class: ThemedMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
       data:
         dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
         itemName: Menu Plate Material
@@ -22222,7 +22222,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2096456570607239178
-      type: {class: ThemedMaterialBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+      type: {class: ThemedMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
       data:
         dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
         itemName: Menu Plate Material
@@ -25475,7 +25475,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2096456570607239178
-      type: {class: ThemedMaterialBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+      type: {class: ThemedMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
       data:
         dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
         itemName: Menu Plate Material
@@ -28691,7 +28691,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2096456570607239178
-      type: {class: ThemedMaterialBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+      type: {class: ThemedMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
       data:
         dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
         itemName: Menu Plate Material
@@ -30922,7 +30922,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2096456570607239178
-      type: {class: ThemedMaterialBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+      type: {class: ThemedMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
       data:
         dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
         itemName: Menu Plate Material
@@ -31662,7 +31662,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2096456570607239178
-      type: {class: ThemedMaterialBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+      type: {class: ThemedMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
       data:
         dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
         itemName: Menu Plate Material
@@ -32888,7 +32888,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 2096456570607239178
-      type: {class: ThemedMaterialBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+      type: {class: ThemedMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
       data:
         dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
         itemName: Menu Plate Material
@@ -33787,7 +33787,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 1017220187265171466
-      type: {class: ThemedMaterialBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+      type: {class: ThemedMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
       data:
         dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
         itemName: Menu Plate Material

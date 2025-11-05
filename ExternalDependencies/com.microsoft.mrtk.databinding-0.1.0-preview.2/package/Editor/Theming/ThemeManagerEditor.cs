@@ -1,6 +1,6 @@
 using Microsoft.MixedReality.Toolkit.EditorTools;
 
-namespace Microsoft.MixedReality.Toolkit.Theming
+namespace MixedReality.Toolkit.Theming
 {
     [UnityEditor.CustomEditor(typeof(ThemeManager))]
     [UnityEditor.CanEditMultipleObjects]

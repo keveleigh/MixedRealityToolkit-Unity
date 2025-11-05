@@ -1270,7 +1270,7 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 1017220187265171468
-      type: {class: ThemedColorBinder, ns: Microsoft.MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+      type: {class: ThemedColorBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
       data:
         dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
         itemName: Panel Color

@@ -1,11 +1,10 @@
 using Microsoft.MixedReality.Toolkit.EditorTools;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace Microsoft.MixedReality.Toolkit.Theming
+namespace MixedReality.Toolkit.Theming
 {
     [Serializable]
     public class ThemeItemValue
@@ -14,43 +13,50 @@ namespace Microsoft.MixedReality.Toolkit.Theming
         [SerializeField]
         private ThemeDataType dataItemType = ThemeDataType.Material;
 
-        [Conditional(nameof(dataItemType), (int)ThemeDataType.Material, ShowIfEnum.IsEqual)]
+        [DrawIf(nameof(dataItemType), (int)ThemeDataType.Material)]
         [NoLabel]
         public Material MaterialValue = null;
 
-        [Conditional(nameof(dataItemType), (int)ThemeDataType.Color, ShowIfEnum.IsEqual)]
+        [DrawIf(nameof(dataItemType), (int)ThemeDataType.Color)]
         [NoLabel]
         public Color ColorValue = Color.white;
 
-        [Conditional(nameof(dataItemType), (int)ThemeDataType.Gradient, ShowIfEnum.IsEqual)]
+        [DrawIf(nameof(dataItemType), (int)ThemeDataType.Gradient)]
         [NoLabel]
         public Gradient GradientValue = null;
 
-        [Conditional(nameof(dataItemType), (int)ThemeDataType.TMPGradient, ShowIfEnum.IsEqual)]
+        [DrawIf(nameof(dataItemType), (int)ThemeDataType.TMPGradient)]
         [NoLabel]
         public TMP_ColorGradient TmpGradientValue = null;
 
-        [Conditional(nameof(dataItemType), (int)ThemeDataType.Bool, ShowIfEnum.IsEqual)]
+        [DrawIf(nameof(dataItemType), (int)ThemeDataType.Bool)]
         [NoLabel]
         public bool BoolValue = false;
 
-        [Conditional(nameof(dataItemType), (int)ThemeDataType.Int, ShowIfEnum.IsEqual)]
+        [DrawIf(nameof(dataItemType), (int)ThemeDataType.Int)]
         [NoLabel]
         public int IntValue = 0;
 
-        [Conditional(nameof(dataItemType), (int)ThemeDataType.Float, ShowIfEnum.IsEqual)]
+        [DrawIf(nameof(dataItemType), (int)ThemeDataType.Float)]
         [NoLabel]
         public float FloatValue = 0;
 
-        [Conditional(nameof(dataItemType), (int)ThemeDataType.Texture, ShowIfEnum.IsEqual)]
+        [DrawIf(nameof(dataItemType), (int)ThemeDataType.Texture)]
         [NoLabel]
         public Texture TextureValue = null;
+
+        //[DrawIf(nameof(dataItemType), (int)ThemeDataType.Icon)]
+        //[NoLabel]
+        //public FontIconSet FontIconSet = null;
+
+        [DrawIf(nameof(dataItemType), (int)ThemeDataType.Font)]
+        [NoLabel]
+        public Font Font = null;
 
         public void Editor_SetThemeDataType(ThemeDataType themeDataType)
         {
             dataItemType = themeDataType;
         }
-
     }
 
     /// <summary>
@@ -69,7 +75,7 @@ namespace Microsoft.MixedReality.Toolkit.Theming
         [SerializeField]
         private ThemeRecord themeRecord = null;
 
-        [Conditional(nameof(Editor_IsRecordValid), ShowIfBool.IsTrue)]
+        [DrawIf(nameof(Editor_IsRecordValid))]
         [InspectTrigger(nameof(Editor_OnInspectName))]
         [ChangeTrigger(nameof(Editor_OnNameChanged))]
         [Popup(nameof(namesPopupList))]

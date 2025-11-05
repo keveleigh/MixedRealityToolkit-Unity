@@ -1,5 +1,6 @@
 using Microsoft.MixedReality.Toolkit.EditorTools;
-using Microsoft.MixedReality.Toolkit.Theming;
+using MixedReality.Toolkit;
+using MixedReality.Toolkit.Theming;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ namespace Microsoft.MixedReality.Toolkit.DataBinding
         [SerializeField]
         protected BaseDataSourceRecord dataSourceRecord = null;
 
-        [Conditional(nameof(Editor_IsRecordValid), ShowIfBool.IsTrue)]
+        [DrawIf(nameof(Editor_IsRecordValid))]
         [InspectTrigger(nameof(Editor_OnInspectName))]
         [Popup(nameof(ValueNamesForEditor))]
         [ChangeTrigger(nameof(Editor_OnTargetValueNameUpdate))]
@@ -141,7 +142,7 @@ namespace Microsoft.MixedReality.Toolkit.DataBinding
                     }
                     else
                     {
-                        if (dataSourceRecord is ThemeRecord record && record.TryGetItemForId(targetValueId, out string itemName, out ThemeDataType dataType))
+                        if (dataSourceRecord is ThemeRecord record && record.TryGetItemForId(targetValueId, out string itemName, out _))
                         {
                             this.itemName = itemName;
                         }
