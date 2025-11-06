@@ -13,35 +13,35 @@ namespace MixedReality.Toolkit.Theming
         [SerializeField]
         private ThemeDataType dataItemType = ThemeDataType.Material;
 
-        [DrawIf(nameof(dataItemType), (int)ThemeDataType.Material)]
+        [Conditional(nameof(dataItemType), (int)ThemeDataType.Material, ShowIfEnum.IsEqual)]
         [NoLabel]
         public Material MaterialValue = null;
 
-        [DrawIf(nameof(dataItemType), (int)ThemeDataType.Color)]
+        [Conditional(nameof(dataItemType), (int)ThemeDataType.Color, ShowIfEnum.IsEqual)]
         [NoLabel]
         public Color ColorValue = Color.white;
 
-        [DrawIf(nameof(dataItemType), (int)ThemeDataType.Gradient)]
+        [Conditional(nameof(dataItemType), (int)ThemeDataType.Gradient, ShowIfEnum.IsEqual)]
         [NoLabel]
         public Gradient GradientValue = null;
 
-        [DrawIf(nameof(dataItemType), (int)ThemeDataType.TMPGradient)]
+        [Conditional(nameof(dataItemType), (int)ThemeDataType.TMPGradient, ShowIfEnum.IsEqual)]
         [NoLabel]
         public TMP_ColorGradient TmpGradientValue = null;
 
-        [DrawIf(nameof(dataItemType), (int)ThemeDataType.Bool)]
+        [Conditional(nameof(dataItemType), (int)ThemeDataType.Bool, ShowIfEnum.IsEqual)]
         [NoLabel]
         public bool BoolValue = false;
 
-        [DrawIf(nameof(dataItemType), (int)ThemeDataType.Int)]
+        [Conditional(nameof(dataItemType), (int)ThemeDataType.Int, ShowIfEnum.IsEqual)]
         [NoLabel]
         public int IntValue = 0;
 
-        [DrawIf(nameof(dataItemType), (int)ThemeDataType.Float)]
+        [Conditional(nameof(dataItemType), (int)ThemeDataType.Float, ShowIfEnum.IsEqual)]
         [NoLabel]
         public float FloatValue = 0;
 
-        [DrawIf(nameof(dataItemType), (int)ThemeDataType.Texture)]
+        [Conditional(nameof(dataItemType), (int)ThemeDataType.Texture, ShowIfEnum.IsEqual)]
         [NoLabel]
         public Texture TextureValue = null;
 
@@ -49,9 +49,9 @@ namespace MixedReality.Toolkit.Theming
         //[NoLabel]
         //public FontIconSet FontIconSet = null;
 
-        [DrawIf(nameof(dataItemType), (int)ThemeDataType.Font)]
-        [NoLabel]
-        public Font Font = null;
+        // [DrawIf(nameof(dataItemType), (int)ThemeDataType.Font)]
+        // [NoLabel]
+        // public Font Font = null;
 
         public void Editor_SetThemeDataType(ThemeDataType themeDataType)
         {
@@ -75,7 +75,7 @@ namespace MixedReality.Toolkit.Theming
         [SerializeField]
         private ThemeRecord themeRecord = null;
 
-        [DrawIf(nameof(Editor_IsRecordValid))]
+        [Conditional(nameof(Editor_IsRecordValid), ShowIfBool.IsTrue)]
         [InspectTrigger(nameof(Editor_OnInspectName))]
         [ChangeTrigger(nameof(Editor_OnNameChanged))]
         [Popup(nameof(namesPopupList))]

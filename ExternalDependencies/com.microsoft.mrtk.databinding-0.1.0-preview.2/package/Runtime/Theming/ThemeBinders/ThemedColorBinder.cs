@@ -6,9 +6,9 @@ namespace MixedReality.Toolkit.Theming
 {
     public class ThemedColorBinder : BaseThemeBinder<Color>
     {
-        [DrawIf(nameof(Editor_IsRecordValid))]
+        [Conditional(nameof(Editor_IsRecordValid), ShowIfBool.IsTrue)]
         public Graphic ColorSwapTarget = null;
-        [DrawIf(nameof(Editor_IsRecordValid))]
+        [Conditional(nameof(Editor_IsRecordValid), ShowIfBool.IsTrue)]
         public bool AlsoSetAlpha = false;
 
         protected override void PropagateEffect(ThemeItemValue themeValue)

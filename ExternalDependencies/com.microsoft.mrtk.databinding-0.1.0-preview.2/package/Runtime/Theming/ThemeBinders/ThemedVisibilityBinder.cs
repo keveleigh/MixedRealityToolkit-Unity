@@ -1,11 +1,11 @@
-using MixedReality.Toolkit;
+using Microsoft.MixedReality.Toolkit.EditorTools;
 using UnityEngine;
 
 namespace MixedReality.Toolkit.Theming
 {
     public class ThemedVisibilityBinder : BaseThemeBinder<bool>
     {
-        [DrawIf(nameof(Editor_IsRecordValid))]
+        [Conditional(nameof(Editor_IsRecordValid), ShowIfBool.IsTrue)]
         public GameObject TargetObject;
 
         protected override void PropagateEffect(ThemeItemValue themeValue)

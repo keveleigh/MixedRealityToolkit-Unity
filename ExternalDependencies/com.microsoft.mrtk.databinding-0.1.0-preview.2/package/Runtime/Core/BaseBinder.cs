@@ -16,7 +16,7 @@ namespace Microsoft.MixedReality.Toolkit.DataBinding
         [SerializeField]
         protected BaseDataSourceRecord dataSourceRecord = null;
 
-        [DrawIf(nameof(Editor_IsRecordValid))]
+        [Conditional(nameof(Editor_IsRecordValid), ShowIfBool.IsTrue)]
         [InspectTrigger(nameof(Editor_OnInspectName))]
         [Popup(nameof(ValueNamesForEditor))]
         [ChangeTrigger(nameof(Editor_OnTargetValueNameUpdate))]

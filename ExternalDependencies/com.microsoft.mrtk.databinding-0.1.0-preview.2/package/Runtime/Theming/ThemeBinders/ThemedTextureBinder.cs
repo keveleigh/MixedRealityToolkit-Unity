@@ -6,9 +6,9 @@ namespace MixedReality.Toolkit.Theming
 {
     public class ThemedTextureBinder : BaseThemeBinder<Texture>
     {
-        [DrawIf(nameof(Editor_IsRecordValid))]
+        [Conditional(nameof(Editor_IsRecordValid), ShowIfBool.IsTrue)]
         public Image ImageSwapTarget = null;
-        [DrawIf(nameof(Editor_IsRecordValid))]
+        [Conditional(nameof(Editor_IsRecordValid), ShowIfBool.IsTrue)]
         public RawImage RawImageSwapTarget = null;
 
         protected override void PropagateEffect(ThemeItemValue themeValue)

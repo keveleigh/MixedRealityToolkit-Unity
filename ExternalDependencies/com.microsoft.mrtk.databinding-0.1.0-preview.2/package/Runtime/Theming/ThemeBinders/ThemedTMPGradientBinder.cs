@@ -1,11 +1,11 @@
-using MixedReality.Toolkit;
+using Microsoft.MixedReality.Toolkit.EditorTools;
 using TMPro;
 
 namespace MixedReality.Toolkit.Theming
 {
     public class ThemedTMPGradientBinder : BaseThemeBinder<TMP_ColorGradient>
     {
-        [DrawIf(nameof(Editor_IsRecordValid))]
+        [Conditional(nameof(Editor_IsRecordValid), ShowIfBool.IsTrue)]
         public TMP_Text Text;
 
         protected override void PropagateEffect(ThemeItemValue themeValue)
