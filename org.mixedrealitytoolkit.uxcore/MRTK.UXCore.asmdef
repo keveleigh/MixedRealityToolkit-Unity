@@ -45,6 +45,11 @@
             "name": "com.unity.localization",
             "expression": "",
             "define": "UNITY_LOCALIZATION_PRESENT"
+        },
+        {
+            "name": "org.mixedrealitytoolkit.data",
+            "expression": "",
+            "define": "MRTK_UX_DATABINDING_THEMING_ENABLED"
         }
     ],
     "noEngineReferences": false
