@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace MixedReality.Toolkit.Themes
 {
-    public abstract class BaseThemeBinder<T, K> : IBinder where T : BaseThemeItemData<K>
+    public abstract class BaseThemeBinder<T> : IBinder where T : BaseThemeItemData
     {
         [field: SerializeField]
         public ThemeDefinition ThemeDefinition { get; set; }
