@@ -1,4 +1,3 @@
-
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
@@ -13,22 +12,16 @@ namespace MixedReality.Toolkit.Editor
     [CanEditMultipleObjects]
     class FontIconSelectorInspector : UnityEditor.Editor
     {
-
-        private const string defaultShaderName = "TextMeshPro/Distance Field SSD";
         private float fontTileSize = 32;
 
-        private static Material fontRenderMaterial;
-
-        private const string noFontIconsMessage = "No IconFontSet profile selected. No icons available.";
-        private const string emptyFontIconSetMessage = "The selected IconFontSet profile has no icons defined. Please edit the IconFontSet.";
+        private const string NoFontIconsMessage = "No IconFontSet profile selected. No icons available.";
+        private const string EmptyFontIconSetMessage = "The selected IconFontSet profile has no icons defined. Please edit the IconFontSet.";
 
         private SerializedProperty fontIconsProp = null;
         private SerializedProperty currentIconNameProp = null;
         private SerializedProperty tmProProp = null;
 
-        private GUIStyle currentButtonStyle;
-
-        private bool initializedStyle = false;
+        private GUIStyle currentButtonStyle = null;
 
         /// <summary>
         /// A Unity event function that is called when the script component has been enabled.
@@ -46,11 +39,7 @@ namespace MixedReality.Toolkit.Editor
         /// </summary>
         public override void OnInspectorGUI()
         {
-            if (!initializedStyle)
-            {
-                currentButtonStyle = new GUIStyle(GUI.skin.button);
-                initializedStyle = true;
-            }
+            currentButtonStyle ??= new GUIStyle(GUI.skin.button);
 
             FontIconSelector fontIconSelector = (FontIconSelector)target;
             FontIconSet fontIconSet = fontIconSelector.FontIcons;
@@ -66,11 +55,11 @@ namespace MixedReality.Toolkit.Editor
 
             if (fontIconsProp.objectReferenceValue == null)
             {
-                EditorGUILayout.HelpBox(noFontIconsMessage, MessageType.Warning);
+                EditorGUILayout.HelpBox(NoFontIconsMessage, MessageType.Warning);
             }
             else if (!fontIconSet || fontIconSet.GlyphIconsByName.Count == 0)
             {
-                EditorGUILayout.HelpBox(emptyFontIconSetMessage, MessageType.Warning);
+                EditorGUILayout.HelpBox(EmptyFontIconSetMessage, MessageType.Warning);
             }
             else
             {
@@ -113,10 +102,8 @@ namespace MixedReality.Toolkit.Editor
                     EditorGUILayout.BeginHorizontal();
                 }
                 if (GUILayout.Button(" ",
-                    GUILayout.MinHeight(tileSize),
-                    GUILayout.MaxHeight(tileSize),
-                    GUILayout.MinWidth(tileSize),
-                    GUILayout.MaxWidth(tileSize)))
+                    GUILayout.Height(tileSize),
+                    GUILayout.Width(tileSize)))
                 {
                     Undo.RecordObjects(new UnityEngine.Object[]{fontIconSelector, fontIconSelector.TextMeshProComponent}, "Changed icon");
                     fontIconSelector.CurrentIconName = iconName;
@@ -135,11 +122,8 @@ namespace MixedReality.Toolkit.Editor
                 column++;
             }
 
-            if (column > 0)
-            {
-                EditorGUILayout.EndHorizontal();
-            }
-            
+            EditorGUILayout.EndHorizontal();
+
             if (Event.current.type == EventType.Repaint)
             {
                 float editorWindowWidth = GUILayoutUtility.GetLastRect().width;

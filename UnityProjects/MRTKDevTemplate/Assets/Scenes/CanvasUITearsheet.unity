@@ -9996,6 +9996,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8376646494505211229, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
   m_PrefabInstance: {fileID: 545482698}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &547938626 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5095746839500215027, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+  m_PrefabInstance: {fileID: 576536706}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &553395884
 GameObject:
   m_ObjectHideFlags: 0
@@ -10226,6 +10237,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1854885402}
     m_Modifications:
+    - target: {fileID: 201938300658660728, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 410843422125320171, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -10248,9 +10263,25 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2302024426645924609, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5095746839500215027, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: m_text
-      value: "\uE840"
+      value: "\uE854"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5095746839500215027, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 00f7f3a4ba2fa9243bbfb439756787e0, type: 2}
+    - target: {fileID: 5095746839500215027, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -2049848100760321927, guid: 00f7f3a4ba2fa9243bbfb439756787e0, type: 2}
+    - target: {fileID: 5095746839500215027, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5319578128471115350, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: m_AnchorMax.y
@@ -10302,7 +10333,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7245587814888172855, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: currentIconName
-      value: Icon 4
+      value: Icon 7
       objectReference: {fileID: 0}
     - target: {fileID: 8376646494505211202, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: m_Name
@@ -10464,7 +10495,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3186977325409946080, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+    - {fileID: 4996904458102606288, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+    - {fileID: 7628949791798193976, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+    - {fileID: 2868592900606694985, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -10477,6 +10512,28 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8376646494505211229, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
   m_PrefabInstance: {fileID: 576536706}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &576536708 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1922220768106560367, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+  m_PrefabInstance: {fileID: 576536706}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &576536709 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7245587814888172855, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
+  m_PrefabInstance: {fileID: 576536706}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 258623d14a250c648b5b9f7b96354ba7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &576536726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10490,45 +10547,59 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   binders:
-  - rid: 7636826371584163892
-  - rid: 7636826371584163863
+  - rid: 7636826416185344010
   - rid: 7636826371584163879
+  - rid: 7636826416185344027
+  - rid: 7636826419419938816
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7636826371584163863
-      type: {class: FontThemeBinder, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
-      data:
-        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
-        <ThemedItemData>k__BackingField:
-          rid: 7636826371584163901
     - rid: 7636826371584163879
       type: {class: ColorThemeBinder, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
       data:
         <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
         <ThemedItemData>k__BackingField:
-          rid: -2
-        <ColorTarget>k__BackingField: {fileID: 0}
-    - rid: 7636826371584163892
+          rid: 7636826416185344030
+        <Target>k__BackingField: {fileID: 576536708}
+    - rid: 7636826416185344010
+      type: {class: TMP_FontAssetThemeBinder, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
+      data:
+        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
+        <ThemedItemData>k__BackingField:
+          rid: 7636826419419938825
+        <Target>k__BackingField: {fileID: 576536708}
+    - rid: 7636826416185344027
       type: {class: ColorThemeBinder, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
       data:
         <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
         <ThemedItemData>k__BackingField:
-          rid: 7636826371584163900
-        <ColorTarget>k__BackingField: {fileID: 0}
-    - rid: 7636826371584163900
+          rid: 7636826416185344030
+        <Target>k__BackingField: {fileID: 547938626}
+    - rid: 7636826416185344030
       type: {class: ColorThemeItemData, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
       data:
         <ItemName>k__BackingField: Text Color
-        color: {r: 1, g: 0.9845704, b: 0, a: 0}
+        color: {r: 1, g: 0.9979696, b: 0, a: 1}
         property: 
-    - rid: 7636826371584163901
-      type: {class: FontThemeItemData, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
+    - rid: 7636826419419938816
+      type: {class: FontIconSetBinder, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
       data:
-        <ItemName>k__BackingField: Text Font
-        font: {fileID: 12800000, guid: 4f349bf60c51e14488589aa466225387, type: 3}
+        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
+        <ThemedItemData>k__BackingField:
+          rid: 7636826419419938827
+        iconSelector: {fileID: 576536709}
+        textMeshProComponent: {fileID: 547938626}
+    - rid: 7636826419419938825
+      type: {class: TMP_FontAssetThemeItemData, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
+      data:
+        <ItemName>k__BackingField: NotoSans
+        <Font>k__BackingField: {fileID: 11400000, guid: 120178e5d084a8747908c63dbb084a12, type: 2}
+    - rid: 7636826419419938827
+      type: {class: FontIconSetItemData, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
+      data:
+        <ItemName>k__BackingField: Material Icons
+        <Font>k__BackingField: {fileID: 11400000, guid: b304421edc6909c4f9b38aa983770403, type: 2}
+        <FontIconSet>k__BackingField: {fileID: 11400000, guid: a0b2a6314142c734ca4f4dbbee0bfd1d, type: 2}
 --- !u!1001 &577083553
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29454,22 +29525,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1854885401}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae636f225d21c9a4b8c7089de3fe6f1d, type: 3}
+  m_Script: {fileID: 11500000, guid: 699100ca886480c4a94ced56b1ae0e94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   binders:
-    _items:
-    - rid: 2096456570607239178
+  - rid: 7636826416185344019
   references:
     version: 2
     RefIds:
-    - rid: 2096456570607239178
-      type: {class: ThemedMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: Microsoft.MixedReality.Toolkit.DataBinding}
+    - rid: 7636826416185344019
+      type: {class: MaterialThemeBinder, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
       data:
-        dataSourceRecord: {fileID: 11400000, guid: 0a194e5338265b74d9a51f8dbae65837, type: 2}
-        itemName: Menu Plate Material
-        targetValueId: 1934966859
+        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
+        <ThemedItemData>k__BackingField:
+          rid: 7636826416185344020
         MaterialSwapTarget: {fileID: 1854885406}
+    - rid: 7636826416185344020
+      type: {class: MaterialThemeItemData, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
+      data:
+        <ItemName>k__BackingField: Backplate Material
+        <Material>k__BackingField: {fileID: 2100000, guid: 741fb94e6797fe64f81749e7b02d7624, type: 2}
 --- !u!1001 &1856862788
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ namespace MixedReality.Toolkit.Themes
 
         void IBinder.Subscribe()
         {
-            throw new System.NotImplementedException();
+            Apply();
         }
 
         void IBinder.Unsubscribe()

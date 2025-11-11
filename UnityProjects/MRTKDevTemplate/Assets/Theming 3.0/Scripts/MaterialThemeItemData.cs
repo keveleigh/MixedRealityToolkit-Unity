@@ -4,7 +4,7 @@ namespace MixedReality.Toolkit.Themes
 {
     public class MaterialThemeItemData : BaseThemeItemData
     {
-        [SerializeField]
-        public Material material;
+        [field: SerializeField]
+        public Material Material { get; set; }
     }
 }

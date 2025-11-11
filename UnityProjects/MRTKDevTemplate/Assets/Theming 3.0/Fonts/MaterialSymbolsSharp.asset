@@ -1,0 +1,180 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9287a99b4362a284289e6baf5cd74d12, type: 3}
+  m_Name: MaterialSymbolsSharp
+  m_EditorClassIdentifier: 
+  glyphIconsByName:
+    entries:
+    - key: Icon 113
+      value: 58409
+    - key: Icon 112
+      value: 59548
+    - key: Icon 111
+      value: 60029
+    - key: Icon 110
+      value: 60289
+    - key: Icon 108
+      value: 58716
+    - key: Add Favorite
+      value: 63620
+    - key: Favorite
+      value: 59517
+    - key: Settings
+      value: 59576
+    - key: Send
+      value: 57699
+    - key: Search
+      value: 59574
+    - key: Save
+      value: 57697
+    - key: Question Mark
+      value: 60299
+    - key: Block
+      value: 57675
+    - key: Print
+      value: 59565
+    - key: Play Circle
+      value: 57796
+    - key: Play
+      value: 57399
+    - key: Devices
+      value: 57777
+    - key: Phone
+      value: 59322
+    - key: Person
+      value: 59389
+    - key: Pin
+      value: 59050
+    - key: Unpin
+      value: 59129
+    - key: Brightness
+      value: 58648
+    - key: Stop Circle
+      value: 61297
+    - key: Mail
+      value: 57688
+    - key: Record Circle
+      value: 59447
+    - key: Home
+      value: 59530
+    - key: Copy
+      value: 57677
+    - key: Paste
+      value: 57679
+    - key: Add
+      value: 57669
+    - key: People
+      value: 59375
+    - key: Calendar
+      value: 60364
+    - key: Camera
+      value: 58386
+    - key: Mic Off
+      value: 57387
+    - key: Power Button
+      value: 59564
+    - key: Lightbulb
+      value: 57584
+    - key: Link
+      value: 57687
+    - key: Bluetooth
+      value: 57767
+    - key: Visibility Off
+      value: 59637
+    - key: Movie
+      value: 57388
+    - key: Menu
+      value: 58834
+    - key: More Vertical
+      value: 58836
+    - key: Thumb Down
+      value: 62840
+    - key: Mic
+      value: 57385
+    - key: Videocam
+      value: 57419
+    - key: Location Off
+      value: 57543
+    - key: Location On
+      value: 57544
+    - key: Undo
+      value: 57702
+    - key: Attach
+      value: 57894
+    - key: Apps
+      value: 58819
+    - key: Tag
+      value: 61367
+    - key: Thumb Up
+      value: 59612
+    - key: Arrow Left
+      value: 58820
+    - key: Arrow Right
+      value: 58824
+    - key: Chevron Left
+      value: 58827
+    - key: Chevron Right
+      value: 58828
+    - key: Arrow Down
+      value: 58843
+    - key: Delete
+      value: 59506
+    - key: Repeat
+      value: 57408
+    - key: Cast
+      value: 58119
+    - key: More Horizontal
+      value: 58835
+    - key: Arrow Up
+      value: 58840
+    - key: Erase
+      value: 59088
+    - key: History
+      value: 59529
+    - key: List
+      value: 59542
+    - key: Call End
+      value: 57521
+    - key: Folder
+      value: 58055
+    - key: Edit
+      value: 58313
+    - key: Check
+      value: 58826
+    - key: Notifications
+      value: 59380
+    - key: Notifications Off
+      value: 59382
+    - key: Call
+      value: 57520
+    - key: Icon 76
+      value: 57422
+    - key: Icon 79
+      value: 59376
+    - key: Icon 84
+      value: 62368
+    - key: Mute
+      value: 59152
+    - key: Refresh
+      value: 58837
+    - key: Lock
+      value: 59543
+    - key: Unlock
+      value: 59544
+    - key: Visibility On
+      value: 59636
+    - key: Bookmark
+      value: 59494
+    - key: Alarm Off
+      value: 59479
+  iconFontAsset: {fileID: 11400000, guid: b304421edc6909c4f9b38aa983770403, type: 2}
+  optionalEditorMaterial: {fileID: 0}

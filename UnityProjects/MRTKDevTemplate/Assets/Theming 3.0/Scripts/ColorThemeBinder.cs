@@ -5,18 +5,12 @@ namespace MixedReality.Toolkit.Themes
 {
     public class ColorThemeBinder : BaseThemeBinder<ColorThemeItemData>
     {
-        //    [field: SerializeField]
-        //    private PropertyPath PropertyPath { get; set; }
-
-        //    [field: SerializeField]
-        //    private string PropertyPathStr { get; set; }
-
         [field: SerializeField]
-        private Graphic ColorTarget { get; set; }
+        private Graphic Target { get; set; }
 
         protected override void Apply()
         {
-            ColorTarget.color = ThemedItemData.color;
+            Target.color = ThemedItemData.color;
         }
     }
 }

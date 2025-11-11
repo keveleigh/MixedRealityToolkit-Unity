@@ -14,11 +14,17 @@ public class FontIconSetMapEditor : Editor
 
     private int numColumns = 4;
     private bool editToggled = false;
+    private List<bool> foldoutStates = new();
 
     public void OnEnable()
     {
         setDefinitionProperty = serializedObject.FindProperty("setDefinition");
         fontIconSetsProperty = serializedObject.FindProperty("fontIconSets");
+        // Ensure we have enough values to track all assigned icon sets
+        for (int i = foldoutStates.Count; i < fontIconSetsProperty.arraySize; i++)
+        {
+            foldoutStates.Add(false);
+        }
     }
 
     public override void OnInspectorGUI()
@@ -32,80 +38,91 @@ public class FontIconSetMapEditor : Editor
         const int TileSize = 90;
 
         List<string> validNames = new List<string>();
-        HashSet<string> usedNames = new HashSet<string>();
         Dictionary<string, List<FontIconSet>> iconMatches = new Dictionary<string, List<FontIconSet>>();
 
         for (int i = 0; i < fontIconSetsProperty.arraySize; i++)
         {
             FontIconSet iconSet = fontIconSetsProperty.GetArrayElementAtIndex(i).objectReferenceValue as FontIconSet;
+            if (iconSet == null)
+            {
+                continue;
+            }
 
-            Dictionary<string, uint> glyphs = new(iconSet.GlyphIconsByName);
-            usedNames.UnionWith(iconSet.GlyphIconsByName.Keys);
+            List<KeyValuePair<string, uint>> glyphs = iconSet.GlyphIconsByName.ToList();
 
             int column = 0;
 
             if (editToggled)
             {
-                EditorGUILayout.BeginHorizontal();
+                glyphs.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
 
-                foreach (KeyValuePair<string, uint> kv in glyphs)
+                if (foldoutStates.Count <= i)
                 {
-                    if (column >= numColumns)
-                    {
-                        column = 0;
-                        EditorGUILayout.EndHorizontal();
-                        EditorGUILayout.BeginHorizontal();
-                    }
-
-                    EditorGUILayout.BeginVertical(GUILayout.Width(TileSize));
-
-                    if (GUILayout.Button(string.Empty,
-                        GUILayout.Height(TileSize),
-                        GUILayout.Width(TileSize)))
-                    {
-                        //AddIcon(fontIconSet, fontAsset.characterTable[i].unicode);
-                        //EditorUtility.SetDirty(target);
-                    }
-
-                    if (setDefinition != null && setDefinition.IconNames != null)
-                    {
-                        validNames.Clear();
-                        foreach (string name in setDefinition.IconNames)
-                        {
-                            if (!glyphs.Keys.Contains(name))
-                            {
-                                validNames.Add(name);
-                            }
-                        }
-                        validNames.Add(kv.Key);
-                        string[] validNamesArray = validNames.ToArray();
-
-                        using (var check = new EditorGUI.ChangeCheckScope())
-                        {
-                            int selected = System.Array.IndexOf(validNamesArray, kv.Key);
-                            selected = EditorGUILayout.Popup(string.Empty, selected, validNamesArray, GUILayout.MaxWidth(TileSize));
-                            if (check.changed)
-                            {
-                                iconSet.GlyphIconsByName.Remove(kv.Key);
-                                iconSet.GlyphIconsByName.Add(validNamesArray[selected], kv.Value);
-                                serializedObject.Update();
-                            }
-                        }
-                    }
-
-                    EditorGUILayout.EndVertical();
-
-                    Rect textureRect = GUILayoutUtility.GetLastRect();
-                    textureRect.width = TileSize;
-                    textureRect.height = TileSize;
-                    FontIconSetInspector.EditorDrawTMPGlyph(textureRect, kv.Value, iconSet.IconFontAsset);
+                    foldoutStates.Add(false);
                 }
 
-                EditorGUILayout.EndHorizontal();
-                column++;
+                if (foldoutStates[i] = EditorGUILayout.Foldout(foldoutStates[i], iconSet.name, true))
+                {
+                    EditorGUILayout.BeginHorizontal();
+                    foreach (KeyValuePair<string, uint> kv in glyphs)
+                    {
+                        if (column >= numColumns)
+                        {
+                            column = 0;
+                            EditorGUILayout.EndHorizontal();
+                            EditorGUILayout.BeginHorizontal();
+                        }
+
+                        EditorGUILayout.BeginVertical(GUILayout.Width(TileSize));
+
+                        Rect textureRect = GUILayoutUtility.GetRect(TileSize, TileSize, GUI.skin.box);
+                        EditorGUI.DrawRect(textureRect, new Color(0f, 0f, 0f, 0.1f));
+                        FontIconSetInspector.EditorDrawTMPGlyph(textureRect, kv.Value, iconSet.IconFontAsset);
+
+                        if (setDefinition != null && setDefinition.IconNames != null)
+                        {
+                            validNames.Clear();
+                            validNames.Add(kv.Key);
+                            foreach (string name in setDefinition.IconNames)
+                            {
+                                if (!iconSet.GlyphIconsByName.Keys.Contains(name))
+                                {
+                                    validNames.Add(name);
+                                }
+                            }
+                            string[] validNamesArray = validNames.ToArray();
+
+                            using (var check = new EditorGUI.ChangeCheckScope())
+                            {
+                                int selected = validNames.IndexOf(kv.Key);
+                                // If the currently selected name isn't in our icon set map names, highlight the popup
+                                Color oldColor = GUI.backgroundColor;
+                                if (System.Array.IndexOf(setDefinition.IconNames, kv.Key) < 0)
+                                {
+                                    GUI.backgroundColor = Color.yellow;
+                                }
+                                selected = EditorGUILayout.Popup(string.Empty, selected, validNamesArray, GUILayout.MaxWidth(TileSize));
+                                if (check.changed)
+                                {
+                                    _ = iconSet.GlyphIconsByName.Remove(kv.Key);
+                                    iconSet.GlyphIconsByName.Add(validNamesArray[selected], kv.Value);
+                                    EditorUtility.SetDirty(iconSet);
+                                }
+                                GUI.backgroundColor = oldColor;
+                            }
+                        }
+
+                        EditorGUILayout.EndVertical();
+
+                        column++;
+                    }
+
+                    EditorGUILayout.EndHorizontal();
+                }
             }
             else
             {
+                glyphs.Sort((pair1, pair2) => pair1.Key.CompareTo(pair2.Key));
                 foreach (KeyValuePair<string, uint> kv in glyphs)
                 {
                     if (iconMatches.TryGetValue(kv.Key, out List<FontIconSet> icons))
@@ -117,64 +134,37 @@ public class FontIconSetMapEditor : Editor
                         iconMatches.Add(kv.Key, new List<FontIconSet> { iconSet });
                     }
                 }
+            }
+        }
 
-                foreach (KeyValuePair<string, List<FontIconSet>> kv in iconMatches)
+        if (!editToggled)
+        {
+            foreach (KeyValuePair<string, List<FontIconSet>> kv in iconMatches)
+            {
+                if (setDefinition != null && setDefinition.IconNames != null)
                 {
-                    if (setDefinition != null && setDefinition.IconNames != null)
+                    EditorGUILayout.BeginVertical();
+
+                    EditorGUILayout.LabelField(kv.Key, EditorStyles.boldLabel);
+
+                    EditorGUILayout.BeginHorizontal();
+
+                    for (int i = 0; i < fontIconSetsProperty.arraySize; i++)
                     {
-                        validNames.Clear();
-                        foreach (string name in setDefinition.IconNames)
+                        FontIconSet iconSet = fontIconSetsProperty.GetArrayElementAtIndex(i).objectReferenceValue as FontIconSet;
+                        Rect iconRect = GUILayoutUtility.GetRect(TileSize, TileSize, GUI.skin.box);
+                        EditorGUI.DrawRect(iconRect, new Color(0f, 0f, 0f, 0.1f));
+
+                        if (kv.Value.Contains(iconSet))
                         {
-                            if (!glyphs.Keys.Contains(name))
-                            {
-                                validNames.Add(name);
-                            }
+                            FontIconSetInspector.EditorDrawTMPGlyph(iconRect, iconSet.GlyphIconsByName[kv.Key], iconSet.IconFontAsset);
                         }
-                        validNames.Add(kv.Key);
-                        string[] validNamesArray = validNames.ToArray();
-
-                        EditorGUILayout.BeginVertical();
-
-                        using (var check = new EditorGUI.ChangeCheckScope())
-                        {
-                            int selected = System.Array.IndexOf(validNamesArray, kv.Key);
-                            selected = EditorGUILayout.Popup(string.Empty, selected, validNamesArray, GUILayout.MaxWidth(TileSize));
-                            if (check.changed)
-                            {
-                                foreach (FontIconSet set in kv.Value)
-                                {
-                                    uint value = set.GlyphIconsByName[kv.Key];
-                                    _ = set.GlyphIconsByName.Remove(kv.Key);
-                                    set.GlyphIconsByName.Add(validNamesArray[selected], value);
-                                }
-                                serializedObject.Update();
-                            }
-                        }
-
-                        EditorGUILayout.BeginHorizontal();
-
-                        foreach (FontIconSet set in kv.Value)
-                        {
-                            if (GUILayout.Button(string.Empty,
-                            GUILayout.Height(TileSize),
-                            GUILayout.Width(TileSize)))
-                            {
-                                //AddIcon(fontIconSet, fontAsset.characterTable[i].unicode);
-                                //EditorUtility.SetDirty(target);
-                            }
-
-                            Rect textureRect = GUILayoutUtility.GetLastRect();
-                            textureRect.width = TileSize;
-                            textureRect.height = TileSize;
-                            FontIconSetInspector.EditorDrawTMPGlyph(textureRect, set.GlyphIconsByName[kv.Key], set.IconFontAsset);
-                        }
-
-                        EditorGUILayout.EndHorizontal();
-
-                        EditorGUILayout.EndVertical();
                     }
-                }
 
+                    EditorGUILayout.EndHorizontal();
+
+                    EditorGUILayout.EndVertical();
+                }
             }
         }
 

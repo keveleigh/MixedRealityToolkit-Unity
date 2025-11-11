@@ -82,13 +82,10 @@ namespace MixedReality.Toolkit.UX
 
         private void SetIcon(string newIconName)
         {
-            if (fontIcons != null && textMeshProComponent != null)
+            if (fontIcons != null && textMeshProComponent != null && fontIcons.TryGetGlyphIcon(newIconName, out uint unicodeValue))
             {
-                if (fontIcons.TryGetGlyphIcon(newIconName, out uint unicodeValue))
-                {
-                    currentIconName = newIconName;
-                    textMeshProComponent.text = FontIconSet.ConvertUnicodeToHexString(unicodeValue);
-                }
+                currentIconName = newIconName;
+                textMeshProComponent.text = FontIconSet.ConvertUnicodeToHexString(unicodeValue);
             }
         }
     }

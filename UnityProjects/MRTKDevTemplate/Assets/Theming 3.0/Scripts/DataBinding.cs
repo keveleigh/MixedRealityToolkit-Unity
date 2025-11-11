@@ -1,4 +1,19 @@
-public class DataBinding
+using UnityEngine;
+
+namespace MixedReality.Toolkit.Themes
 {
-    Unity.Properties.PropertyPath PropertyPath { get; set; }
+    public class DataBinding : MonoBehaviour
+    {
+        [SerializeReference, InterfaceSelector]
+        [Tooltip("The list of bound theme entries.")]
+        private IBinder[] binders;
+
+        private void Awake()
+        {
+            foreach (IBinder binder in binders)
+            {
+                binder.Subscribe();
+            }
+        }
+    }
 }

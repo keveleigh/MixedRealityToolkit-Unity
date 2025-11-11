@@ -3,6 +3,7 @@
     "rootNamespace": "MixedReality.Toolkit.Themes",
     "references": [
         "GUID:56255bd5d851a6243b63cb370cfc40b1",
+        "GUID:9a9367d437335a947a847011f5575869",
         "GUID:6055be8ebefd69e48b49212b09b47b2f"
     ],
     "includePlatforms": [],
