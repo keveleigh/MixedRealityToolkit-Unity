@@ -1,3 +1,6 @@
+// Copyright (c) Mixed Reality Toolkit Contributors
+// Licensed under the BSD 3-Clause
+
 using MixedReality.Toolkit.UX;
 using UnityEngine;
 
@@ -7,7 +10,7 @@ namespace MixedReality.Toolkit.Themes
     public class FontIconSetMap : ScriptableObject
     {
         [SerializeField]
-        private IconSetDefinition setDefinition;
+        private FontIconSetDefinition setDefinition;
 
         [SerializeField]
         private FontIconSet[] fontIconSets;

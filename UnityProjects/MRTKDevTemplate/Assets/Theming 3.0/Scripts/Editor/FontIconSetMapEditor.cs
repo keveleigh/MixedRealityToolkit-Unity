@@ -34,7 +34,7 @@ public class FontIconSetMapEditor : Editor
         editToggled = EditorGUILayout.Toggle("Edit Names", editToggled);
         EditorGUILayout.LabelField(string.Empty, GUI.skin.horizontalSlider);
 
-        IconSetDefinition setDefinition = setDefinitionProperty.objectReferenceValue as IconSetDefinition;
+        FontIconSetDefinition setDefinition = setDefinitionProperty.objectReferenceValue as FontIconSetDefinition;
         const int TileSize = 90;
 
         List<string> validNames = new List<string>();
@@ -97,7 +97,7 @@ public class FontIconSetMapEditor : Editor
                                 int selected = validNames.IndexOf(kv.Key);
                                 // If the currently selected name isn't in our icon set map names, highlight the popup
                                 Color oldColor = GUI.backgroundColor;
-                                if (System.Array.IndexOf(setDefinition.IconNames, kv.Key) < 0)
+                                if (!validNames.Contains(kv.Key))
                                 {
                                     GUI.backgroundColor = Color.yellow;
                                 }
