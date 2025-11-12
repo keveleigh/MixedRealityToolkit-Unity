@@ -296,7 +296,7 @@ namespace MixedReality.Toolkit.Editor
 
         private bool AddIcon(FontIconSet fontIconSet, uint unicodeValue)
         {
-            string name = "Icon " + (iconEntries.Count + 1);
+            string name = $"Icon {unicodeValue}";
             if (fontIconSet.AddIcon(name, unicodeValue))
             {
                 iconEntries.Add(unicodeValue, name);
@@ -308,7 +308,7 @@ namespace MixedReality.Toolkit.Editor
 
         private bool RemoveIcon(FontIconSet fontIconSet, string iconName)
         {
-            if (fontIconSet.RemoveIcon(iconName) && fontIconSet.TryGetGlyphIcon(iconName, out uint unicodeValue))
+            if (fontIconSet.TryGetGlyphIcon(iconName, out uint unicodeValue) && fontIconSet.RemoveIcon(iconName))
             {
                 iconEntries.Remove(unicodeValue);
                 EditorUtility.SetDirty(fontIconSet);
