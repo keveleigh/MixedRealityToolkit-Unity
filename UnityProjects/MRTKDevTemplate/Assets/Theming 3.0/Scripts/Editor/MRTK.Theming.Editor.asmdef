@@ -1,6 +1,6 @@
 {
     "name": "MixedReality.Toolkit.Theming.Editor",
-    "rootNamespace": "",
+    "rootNamespace": "MixedReality.Toolkit.Themes.Editor",
     "references": [
         "GUID:56255bd5d851a6243b63cb370cfc40b1",
         "GUID:2238d58cada9b6746a548c6bff32c381",

@@ -28,18 +28,10 @@ MonoBehaviour:
       value: 62822
     - key: Icon 108
       value: 62815
-    - key: Icon 102
-      value: 62700
-    - key: Icon 99
-      value: 62649
     - key: Icon 98
       value: 62632
-    - key: Icon 97
-      value: 62628
     - key: Icon 96
       value: 62624
-    - key: Icon 95
-      value: 62601
     - key: Icon 92
       value: 62586
     - key: Icon 91
@@ -48,8 +40,6 @@ MonoBehaviour:
       value: 62555
     - key: Icon 88
       value: 62476
-    - key: Icon 87
-      value: 62450
     - key: Icon 86
       value: 62433
     - key: Icon 84
@@ -60,12 +50,6 @@ MonoBehaviour:
       value: 62329
     - key: Icon 81
       value: 62326
-    - key: Icon 80
-      value: 62318
-    - key: Icon 79
-      value: 62314
-    - key: Icon 78
-      value: 62303
     - key: Icon 77
       value: 62298
     - key: Icon 75
@@ -74,8 +58,6 @@ MonoBehaviour:
       value: 62274
     - key: Icon 73
       value: 62269
-    - key: Icon 72
-      value: 62267
     - key: Icon 71
       value: 62240
     - key: Icon 70
@@ -146,8 +128,6 @@ MonoBehaviour:
       value: 59440
     - key: Icon 1
       value: 59407
-    - key: Icon 140
-      value: 63594
     - key: Icon 142
       value: 63742
     - key: Add Favorite
@@ -298,6 +278,24 @@ MonoBehaviour:
       value: 61721
     - key: Notifications
       value: 61717
+    - key: Keyboard
+      value: 62649
+    - key: Info
+      value: 62628
+    - key: Warning
+      value: 63594
+    - key: Error
+      value: 62450
+    - key: Photo
+      value: 62601
+    - key: Dialpad
+      value: 62303
+    - key: Close
+      value: 62314
+    - key: Cancel
+      value: 62318
+    - key: Cut
+      value: 62267
   iconFontAsset: {fileID: 11400000, guid: 533bdd8d5c92b52448ee2ecf7bd828a4, type: 2}
   optionalEditorMaterial: {fileID: 0}
   fontIconSetDefinition: {fileID: 11400000, guid: e63daff880b56ed439a2e852b6e6993a, type: 2}

@@ -38,6 +38,7 @@ namespace MixedReality.Toolkit.Editor
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             EditorGUI.BeginProperty(position, label, property);
+            InterfaceSelectorAttribute interfaceSelectorAttribute = attribute as InterfaceSelectorAttribute;
 
             // Get a nice readable name for the property's instance type
             string typeName = property.managedReferenceFullTypename;
@@ -53,7 +54,7 @@ namespace MixedReality.Toolkit.Editor
             }
 
             // Add a dropdown menu to select an interface, and generate an instance of it
-            float labelWidth = labelStyle.CalcSize(label).x + EditorGUIUtility.singleLineHeight;
+            float labelWidth = interfaceSelectorAttribute.DrawFoldout ? labelStyle.CalcSize(label).x + EditorGUIUtility.singleLineHeight : 0;
             Rect dropdownRect = new Rect(position.x + labelWidth, position.y, position.width - labelWidth, EditorGUIUtility.singleLineHeight);
 
             Type fieldType = fieldInfo.FieldType;
@@ -99,7 +100,7 @@ namespace MixedReality.Toolkit.Editor
                 }
 
                 // Add an item for clearing to null
-                if (((InterfaceSelectorAttribute)attribute).AllowNull)
+                if (interfaceSelectorAttribute.AllowNull)
                 {
                     menu.AddItem(new GUIContent("(null)"), false, () =>
                     {
@@ -111,8 +112,11 @@ namespace MixedReality.Toolkit.Editor
                 menu.ShowAsContext();
             }
 
-            // The default inspector for the property
-            EditorGUI.PropertyField(position, property, label, true);
+            if (interfaceSelectorAttribute.DrawFoldout)
+            {
+                // The default inspector for the property
+                EditorGUI.PropertyField(position, property, label, true);
+            }
 
             EditorGUI.EndProperty();
         }

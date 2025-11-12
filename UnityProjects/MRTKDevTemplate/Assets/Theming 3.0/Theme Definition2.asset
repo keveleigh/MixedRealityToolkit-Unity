@@ -22,6 +22,19 @@ MonoBehaviour:
   - rid: 7636826416185344008
   - rid: 7636826419419938819
   - rid: 7636826419419938824
+  <ThemeDefinitionItems>k__BackingField:
+  - <ItemName>k__BackingField: Backplate Material
+    <ThemeItemData>k__BackingField:
+      reference: MixedReality.Toolkit.Themes.MaterialThemeItemData, MixedReality.Toolkit.Theming
+  - <ItemName>k__BackingField: Text Color
+    <ThemeItemData>k__BackingField:
+      reference: MixedReality.Toolkit.Themes.ColorThemeItemData, MixedReality.Toolkit.Theming
+  - <ItemName>k__BackingField: Text Font
+    <ThemeItemData>k__BackingField:
+      reference: MixedReality.Toolkit.Themes.TMP_FontAssetThemeItemData, MixedReality.Toolkit.Theming
+  - <ItemName>k__BackingField: Icon Set
+    <ThemeItemData>k__BackingField:
+      reference: MixedReality.Toolkit.Themes.FontIconSetItemData, MixedReality.Toolkit.Theming
   references:
     version: 2
     RefIds:

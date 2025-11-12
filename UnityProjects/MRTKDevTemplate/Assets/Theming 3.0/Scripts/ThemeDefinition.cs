@@ -1,5 +1,6 @@
 using MixedReality.Toolkit;
 using MixedReality.Toolkit.Themes;
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -18,6 +19,20 @@ public class ThemeDefinition : ScriptableObject, IBindable
     [Tooltip("The pose source representing the poke pose")]
     public BaseThemeItemData[] ThemeItems { get; set; }
 
+    [field: SerializeField]
+    [Tooltip("The pose source representing the poke pose")]
+    public ThemeDefinitionItem[] ThemeDefinitionItems { get; set; }
+
     IBinding IBindable.binding { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
     string IBindable.bindingPath { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
+    [Serializable]
+    public class ThemeDefinitionItem
+    {
+        [field: SerializeField]
+        public string ItemName { get; set; }
+
+        [field: SerializeField, Extends(typeof(BaseThemeItemData), TypeGrouping.ByNamespaceFlat)]
+        public SystemType ThemeItemData { get; set; }
+    }
 }

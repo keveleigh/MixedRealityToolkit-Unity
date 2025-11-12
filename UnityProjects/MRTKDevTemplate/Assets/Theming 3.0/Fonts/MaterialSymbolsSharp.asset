@@ -132,8 +132,6 @@ MonoBehaviour:
       value: 57408
     - key: Cast
       value: 58119
-    - key: More Horizontal
-      value: 58835
     - key: Arrow Up
       value: 58840
     - key: Erase
@@ -176,5 +174,30 @@ MonoBehaviour:
       value: 59494
     - key: Alarm Off
       value: 59479
+    - key: Icon 59534
+      value: 59534
+    - key: Icon 59538
+      value: 59538
+    - key: Error
+      value: 57344
+    - key: Warning
+      value: 57346
+    - key: Dialpad
+      value: 57532
+    - key: Cut
+      value: 57678
+    - key: Keyboard
+      value: 58130
+    - key: More Horizontal
+      value: 58835
+    - key: Cancel
+      value: 58825
+    - key: Close
+      value: 58829
+    - key: Save As
+      value: 60256
+    - key: Photo
+      value: 58384
   iconFontAsset: {fileID: 11400000, guid: b304421edc6909c4f9b38aa983770403, type: 2}
   optionalEditorMaterial: {fileID: 0}
+  fontIconSetDefinition: {fileID: 11400000, guid: e63daff880b56ed439a2e852b6e6993a, type: 2}
