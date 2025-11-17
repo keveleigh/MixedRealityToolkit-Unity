@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MixedReality.Toolkit.Themes
@@ -8,8 +10,20 @@ namespace MixedReality.Toolkit.Themes
         [SerializeField]
         private ThemeDefinition themeDefinition;
 
-        [field: SerializeReference, InterfaceSelector]
+        public ThemeDefinition ThemeDefinition => themeDefinition;
+
+        [SerializeReference]
         [Tooltip("The pose source representing the poke pose")]
-        public BaseThemeItemData[] ThemeItems { get; set; }
+        public List<ThemeItem> ThemeItems;
+
+        [Serializable]
+        public class ThemeItem
+        {
+            [field: SerializeField]
+            public string ItemName { get; set; }
+
+            [field: SerializeReference]
+            public object ThemeItemData { get; set; }
+        }
     }
 }

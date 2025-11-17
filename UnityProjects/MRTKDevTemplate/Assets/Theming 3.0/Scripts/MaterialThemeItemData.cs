@@ -2,9 +2,7 @@ using UnityEngine;
 
 namespace MixedReality.Toolkit.Themes
 {
-    public class MaterialThemeItemData : BaseThemeItemData
+    public class MaterialThemeItemData : BaseThemeItemData<Material>
     {
-        [field: SerializeField]
-        public Material Material { get; set; }
     }
 }

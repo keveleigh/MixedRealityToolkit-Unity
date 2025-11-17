@@ -3,14 +3,14 @@ using UnityEngine.UI;
 
 namespace MixedReality.Toolkit.Themes
 {
-    public class MaterialThemeBinder : BaseThemeBinder<MaterialThemeItemData>
+    public class MaterialThemeBinder : BaseThemeBinder<Material>
     {
         [field: SerializeField]
         public Graphic MaterialSwapTarget = null;
 
-        protected override void Apply()
+        protected override void Apply(BaseThemeItemData<Material> themeItemData)
         {
-            MaterialSwapTarget.material = ThemedItemData.Material;
+            MaterialSwapTarget.material = themeItemData.Value;
         }
     }
 }

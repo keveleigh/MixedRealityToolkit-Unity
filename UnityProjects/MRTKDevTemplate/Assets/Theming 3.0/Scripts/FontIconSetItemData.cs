@@ -1,11 +1,6 @@
-using MixedReality.Toolkit.UX;
-using UnityEngine;
-
 namespace MixedReality.Toolkit.Themes
 {
-    public class FontIconSetItemData : TMP_FontAssetThemeItemData
+    public class FontIconSetItemData : BaseThemeItemData<FontIconSetBinder.FontIconSetData>
     {
-        [field: SerializeField]
-        public FontIconSet FontIconSet { get; set; }
     }
 }

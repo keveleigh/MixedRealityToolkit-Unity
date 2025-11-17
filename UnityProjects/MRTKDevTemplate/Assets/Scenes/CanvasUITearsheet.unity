@@ -7878,7 +7878,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7245587814888172855, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: currentIconName
-      value: Icon 4
+      value: Brightness
       objectReference: {fileID: 0}
     - target: {fileID: 8376646494505211202, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: m_Name
@@ -10269,7 +10269,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5095746839500215027, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: m_text
-      value: "\uE854"
+      value: "\uE840"
       objectReference: {fileID: 0}
     - target: {fileID: 5095746839500215027, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: m_fontAsset
@@ -10333,7 +10333,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7245587814888172855, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: currentIconName
-      value: Icon 7
+      value: Brightness
       objectReference: {fileID: 0}
     - target: {fileID: 8376646494505211202, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
       propertyPath: m_Name
@@ -10546,8 +10546,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 699100ca886480c4a94ced56b1ae0e94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  themeDataSource: {fileID: 11400000, guid: 57993c46ea42acf4ca3067542443bc45, type: 2}
   binders:
-  - rid: 7636826416185344010
+  - rid: 7636826572149227705
   - rid: 7636826371584163879
   - rid: 7636826416185344027
   - rid: 7636826419419938816
@@ -10558,48 +10559,27 @@ MonoBehaviour:
       type: {class: ColorThemeBinder, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
       data:
         <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
-        <ThemedItemData>k__BackingField:
-          rid: 7636826527944933377
-        <Target>k__BackingField: {fileID: 576536708}
-    - rid: 7636826416185344010
-      type: {class: TMP_FontAssetThemeBinder, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
-      data:
-        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
-        <ThemedItemData>k__BackingField:
-          rid: 7636826527944933376
+        <ThemeDefinitionItemName>k__BackingField: Text Color
         <Target>k__BackingField: {fileID: 576536708}
     - rid: 7636826416185344027
       type: {class: ColorThemeBinder, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
       data:
         <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
-        <ThemedItemData>k__BackingField:
-          rid: 7636826527944933377
+        <ThemeDefinitionItemName>k__BackingField: Text Color
         <Target>k__BackingField: {fileID: 547938626}
     - rid: 7636826419419938816
       type: {class: FontIconSetBinder, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
       data:
         <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
-        <ThemedItemData>k__BackingField:
-          rid: 7636826527944933378
+        <ThemeDefinitionItemName>k__BackingField: Icon Set
         iconSelector: {fileID: 576536709}
         textMeshProComponent: {fileID: 547938626}
-    - rid: 7636826527944933376
-      type: {class: TMP_FontAssetThemeItemData, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
+    - rid: 7636826572149227705
+      type: {class: TMP_FontAssetThemeBinder, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
       data:
-        <ItemName>k__BackingField: NotoSans
-        <Font>k__BackingField: {fileID: 11400000, guid: 120178e5d084a8747908c63dbb084a12, type: 2}
-    - rid: 7636826527944933377
-      type: {class: ColorThemeItemData, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
-      data:
-        <ItemName>k__BackingField: Text Color
-        color: {r: 1, g: 0.9979696, b: 0, a: 0}
-        property: 
-    - rid: 7636826527944933378
-      type: {class: FontIconSetItemData, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
-      data:
-        <ItemName>k__BackingField: Material Icons
-        <Font>k__BackingField: {fileID: 11400000, guid: b304421edc6909c4f9b38aa983770403, type: 2}
-        <FontIconSet>k__BackingField: {fileID: 11400000, guid: a0b2a6314142c734ca4f4dbbee0bfd1d, type: 2}
+        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
+        <ThemeDefinitionItemName>k__BackingField: Text Font
+        <Target>k__BackingField: {fileID: 576536708}
 --- !u!1001 &577083553
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29528,6 +29508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 699100ca886480c4a94ced56b1ae0e94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  themeDataSource: {fileID: 0}
   binders:
   - rid: 7636826416185344019
   references:
@@ -29537,14 +29518,8 @@ MonoBehaviour:
       type: {class: MaterialThemeBinder, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
       data:
         <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
-        <ThemedItemData>k__BackingField:
-          rid: 7636826416185344020
+        <ThemeDefinitionItemName>k__BackingField: 
         MaterialSwapTarget: {fileID: 1854885406}
-    - rid: 7636826416185344020
-      type: {class: MaterialThemeItemData, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
-      data:
-        <ItemName>k__BackingField: Backplate Material
-        <Material>k__BackingField: {fileID: 2100000, guid: 741fb94e6797fe64f81749e7b02d7624, type: 2}
 --- !u!1001 &1856862788
 PrefabInstance:
   m_ObjectHideFlags: 0

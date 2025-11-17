@@ -1,11 +1,8 @@
 using TMPro;
-using UnityEngine;
 
 namespace MixedReality.Toolkit.Themes
 {
-    public class TMP_FontAssetThemeItemData : BaseThemeItemData
+    public class TMP_FontAssetThemeItemData : BaseThemeItemData<TMP_FontAsset>
     {
-        [field: SerializeField]
-        public TMP_FontAsset Font { get; set; }
     }
 }

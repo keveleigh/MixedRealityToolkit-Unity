@@ -3,14 +3,14 @@ using UnityEngine.UI;
 
 namespace MixedReality.Toolkit.Themes
 {
-    public class ColorThemeBinder : BaseThemeBinder<ColorThemeItemData>
+    public class ColorThemeBinder : BaseThemeBinder<Color>
     {
         [field: SerializeField]
         private Graphic Target { get; set; }
 
-        protected override void Apply()
+        protected override void Apply(BaseThemeItemData<Color> themeItemData)
         {
-            Target.color = ThemedItemData.color;
+            Target.color = themeItemData.Value;
         }
     }
 }

@@ -29,8 +29,13 @@ namespace MixedReality.Toolkit
         /// <inheritdoc/>
         public override bool IsConstraintSatisfied(Type type)
         {
+            if (type.IsGenericType && type.Assembly.FullName.Contains("MixedReality"))
+            {
+                UnityEngine.Debug.Log("TESTING");
+            }
             return base.IsConstraintSatisfied(type) &&
-                   BaseType.IsAssignableFrom(type) &&
+                   (BaseType.IsAssignableFrom(type) ||
+                   (AllowGenericTypeDefinition && type.BaseType != null && type.BaseType.IsGenericType && BaseType.Equals(type.BaseType.GetGenericTypeDefinition()))) &&
                    type != BaseType;
         }
     }

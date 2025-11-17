@@ -12,16 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b6e110c23f5e404dbbfdc87cb47ff23, type: 3}
   m_Name: Theme Definition2
   m_EditorClassIdentifier: 
-  <ThemeItemDefinitions>k__BackingField:
-  - reference: MixedReality.Toolkit.Themes.ColorThemeItemData, MixedReality.Toolkit.Theming
-  <Binders>k__BackingField: []
-  <ThemeItems>k__BackingField:
-  - rid: 7636826416185344002
-  - rid: 7636826416185344003
-  - rid: 7636826416185344004
-  - rid: 7636826416185344008
-  - rid: 7636826419419938819
-  - rid: 7636826419419938824
+  <Binders>k__BackingField:
+  - rid: 7636826572149227636
   <ThemeDefinitionItems>k__BackingField:
   - <ItemName>k__BackingField: Backplate Material
     <ThemeItemData>k__BackingField:
@@ -38,35 +30,12 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 7636826416185344002
-      type: {class: MaterialThemeItemData, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
+    - rid: 7636826572149227636
+      type: {class: FontThemeBinder, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
       data:
-        <ItemName>k__BackingField: Backplate Material
-        <Material>k__BackingField: {fileID: 2100000, guid: 741fb94e6797fe64f81749e7b02d7624, type: 2}
-    - rid: 7636826416185344003
-      type: {class: ColorThemeItemData, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
-      data:
-        <ItemName>k__BackingField: Text Color
-        color: {r: 1, g: 0.9979696, b: 0, a: 0}
-        property: 
-    - rid: 7636826416185344004
-      type: {class: FontThemeItemData, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
-      data:
-        <ItemName>k__BackingField: Text Font
-        font: {fileID: 12800000, guid: 4f349bf60c51e14488589aa466225387, type: 3}
-    - rid: 7636826416185344008
-      type: {class: TMP_FontAssetThemeItemData, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
-      data:
-        <ItemName>k__BackingField: NotoSans
-        <Font>k__BackingField: {fileID: 11400000, guid: 120178e5d084a8747908c63dbb084a12, type: 2}
-    - rid: 7636826419419938819
-      type: {class: FontIconSetItemData, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
-      data:
-        <ItemName>k__BackingField: Material Icons
-        <Font>k__BackingField: {fileID: 11400000, guid: b304421edc6909c4f9b38aa983770403, type: 2}
-        <FontIconSet>k__BackingField: {fileID: 11400000, guid: a0b2a6314142c734ca4f4dbbee0bfd1d, type: 2}
-    - rid: 7636826419419938824
-      type: {class: TMP_FontAssetThemeItemData, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
-      data:
-        <ItemName>k__BackingField: Material
-        <Font>k__BackingField: {fileID: 11400000, guid: b304421edc6909c4f9b38aa983770403, type: 2}
+        <ThemeDefinition>k__BackingField: {fileID: 0}
+        <ThemeDefinitionItem>k__BackingField:
+          <ItemName>k__BackingField: 
+          <ThemeItemData>k__BackingField:
+            reference: 
+        <ColorTarget>k__BackingField: {fileID: 0}

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEditor;
 
 namespace MixedReality.Toolkit.Themes.Editor
@@ -8,14 +7,15 @@ namespace MixedReality.Toolkit.Themes.Editor
     public class ThemeEditor : UnityEditor.Editor
     {
         private SerializedProperty themeDefinitionProp = null;
+        private SerializedProperty themeItemsProp = null;
 
-        private List<string> availableNames = new List<string>();
-        private string[] availableNamesArray = Array.Empty<string>();
+        private Theme theme;
 
         protected void OnEnable()
         {
-            Theme theme = (Theme)target;
+            theme = target as Theme;
             themeDefinitionProp = serializedObject.FindProperty("themeDefinition");
+            themeItemsProp = serializedObject.FindProperty("ThemeItems");
         }
 
         /// <summary>
@@ -23,19 +23,21 @@ namespace MixedReality.Toolkit.Themes.Editor
         /// </summary>
         public override void OnInspectorGUI()
         {
-            serializedObject.Update();
-
             EditorGUILayout.PropertyField(themeDefinitionProp);
 
-            if (themeDefinitionProp.objectReferenceValue is ThemeDefinition themeDefinition)
+            if (themeDefinitionProp.objectReferenceValue is ThemeDefinition themeDefinition && themeDefinition.ThemeDefinitionItems.Length != theme.ThemeItems.Count)
             {
+                theme.ThemeItems.Clear();
                 foreach (ThemeDefinition.ThemeDefinitionItem themeDefinitionItem in themeDefinition.ThemeDefinitionItems)
                 {
-                    availableNames.Add(themeDefinitionItem.ItemName);
+                    theme.ThemeItems.Add(new() { ItemName = themeDefinitionItem.ItemName, ThemeItemData = Activator.CreateInstance(themeDefinitionItem.ThemeItemData) });
                 }
-
-                int selected = EditorGUILayout.Popup(string.Empty, 0, availableNamesArray);
+                EditorUtility.SetDirty(theme);
             }
+
+            EditorGUILayout.PropertyField(themeItemsProp);
+
+            serializedObject.ApplyModifiedProperties();
         }
     }
 }

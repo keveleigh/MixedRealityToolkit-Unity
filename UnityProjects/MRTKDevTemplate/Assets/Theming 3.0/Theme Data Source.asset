@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f1a7927806b6cc45a1ef33fc3f04465, type: 3}
   m_Name: Theme Data Source
   m_EditorClassIdentifier: 
-  themeDefinition: {fileID: 0}
-  activeTheme: {fileID: 0}
+  <ActiveTheme>k__BackingField: {fileID: 11400000, guid: 640eed57d363aa842bc2719240ca6d4c, type: 2}
+  <OnThemeChanged>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []

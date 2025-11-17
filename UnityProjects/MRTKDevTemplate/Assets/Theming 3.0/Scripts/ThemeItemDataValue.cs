@@ -1,10 +1,8 @@
-using System;
 using UnityEngine;
 
 namespace MixedReality.Toolkit.Themes
 {
-    [Serializable]
-    public abstract class BaseThemeItemData<T>
+    public class ThemeItemDataValue<T>
     {
         [field: SerializeField]
         public T Value { get; set; }

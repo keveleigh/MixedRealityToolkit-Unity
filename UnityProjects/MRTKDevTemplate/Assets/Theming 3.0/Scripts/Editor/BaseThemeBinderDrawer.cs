@@ -1,5 +1,4 @@
 using MixedReality.Toolkit.Themes;
-using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -17,24 +16,26 @@ public class BaseThemeBinderDrawer : PropertyDrawer
 
         if (property.managedReferenceValue != null)
         {
-            (List<string> names, int selected, Action<int> setValue) result = ParseThemeItems((dynamic)property.managedReferenceValue);
-
-            if (result.names != null)
+            IBinder binder = property.managedReferenceValue as IBinder;
+            List<string> names = ParseThemeItems((dynamic)property.managedReferenceValue);
+            if (names != null)
             {
+                int selected = names.IndexOf(binder.ThemeDefinitionItemName);
+
                 using (new EditorGUI.IndentLevelScope())
                 using (var check = new EditorGUI.ChangeCheckScope())
                 {
-                    result.selected = EditorGUILayout.Popup("Theme Options", result.selected, result.names.ToArray(), GUILayout.ExpandWidth(true));
+                    selected = EditorGUILayout.Popup("Bound Theme Item", selected, names.ToArray(), GUILayout.ExpandWidth(true));
                     if (check.changed)
                     {
-                        result.setValue?.Invoke(result.selected);
+                        binder.ThemeDefinitionItemName = names[selected];
                         property.serializedObject.Update();
                     }
                 }
             }
             else
             {
-                result.setValue?.Invoke(result.selected);
+                binder.ThemeDefinitionItemName = null;
                 property.serializedObject.Update();
             }
         }
@@ -44,25 +45,23 @@ public class BaseThemeBinderDrawer : PropertyDrawer
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label) => EditorGUI.GetPropertyHeight(property);
 
-    private (List<string>, int, Action<int>) ParseThemeItems<T>(BaseThemeBinder<T> binder) where T : BaseThemeItemData
+    private List<string> ParseThemeItems<T>(BaseThemeBinder<T> binder)
     {
-        if (binder.ThemeDefinition == null || binder.ThemeDefinition.ThemeItems == null)
+        if (binder.ThemeDefinition == null || binder.ThemeDefinition.ThemeDefinitionItems == null)
         {
-            return (null, -1, (_) => binder.ThemedItemData = default);
+            return null;
         }
 
         List<string> matchingItemNames = new();
-        List<T> matchingItems = new();
 
-        foreach (BaseThemeItemData item in binder.ThemeDefinition.ThemeItems)
+        foreach (ThemeDefinition.ThemeDefinitionItem item in binder.ThemeDefinition.ThemeDefinitionItems)
         {
-            if (item is T itemT && !string.IsNullOrWhiteSpace(item.ItemName))
+            if (item.ThemeItemData.Type.BaseType.GenericTypeArguments[0].IsAssignableFrom(typeof(T)) && !string.IsNullOrWhiteSpace(item.ItemName))
             {
-                matchingItems.Add(itemT);
                 matchingItemNames.Add(item.ItemName);
             }
         }
 
-        return (matchingItemNames, matchingItems.IndexOf(binder.ThemedItemData), (i) => binder.ThemedItemData = matchingItems[i]);
+        return matchingItemNames;
     }
 }

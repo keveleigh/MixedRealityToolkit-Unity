@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace MixedReality.Toolkit.Themes
 {
-    public class TMP_FontAssetThemeBinder : BaseThemeBinder<TMP_FontAssetThemeItemData>
+    public class TMP_FontAssetThemeBinder : BaseThemeBinder<TMP_FontAsset>
     {
         [field: SerializeField]
         private TMP_Text Target { get; set; }
 
-        protected override void Apply()
+        protected override void Apply(BaseThemeItemData<TMP_FontAsset> themeItemData)
         {
-            Target.font = ThemedItemData.Font;
+            Target.font = themeItemData.Value;
         }
     }
 }
