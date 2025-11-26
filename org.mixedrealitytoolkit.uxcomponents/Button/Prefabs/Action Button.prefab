@@ -32,7 +32,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7216918420766221479}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -185,7 +184,6 @@ RectTransform:
   - {fileID: 6412008622008300943}
   - {fileID: 1520311476867378557}
   m_Father: {fileID: 6922469056340231698}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -245,7 +243,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4185972052008607586}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -369,7 +366,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6922469056340231698}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -525,7 +521,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7216918420766221479}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -614,7 +609,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7216918420766221479}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -743,6 +737,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3705378105823492738, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
@@ -828,10 +823,6 @@ PrefabInstance:
     - target: {fileID: 3705378105823492765, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3705378105823492765, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3705378105823492765, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1126,6 +1117,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8467006667157818416}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 9026472854072389794, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4897024374970528438}
+    - targetCorrespondingSourceObject: {fileID: 2828958436599032274, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7216918420766221479}
+    - targetCorrespondingSourceObject: {fileID: 2828958436599032274, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5319578128471115350}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3705378105823492738, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2151039165883711834}
+    - targetCorrespondingSourceObject: {fileID: 2828958436599032273, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3015392985318836008}
   m_SourcePrefab: {fileID: 100100000, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
 --- !u!114 &3229655124915905850 stripped
 MonoBehaviour:
@@ -1134,6 +1143,17 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4185972052008607584 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9026472854072389792, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
+  m_PrefabInstance: {fileID: 5139722473249402816}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
@@ -1179,6 +1199,83 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2828958436599032274, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
   m_PrefabInstance: {fileID: 5139722473249402816}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8376646494505211202 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3705378105823492738, guid: b85e005d231192249b7077b40a4d4e45, type: 3}
+  m_PrefabInstance: {fileID: 5139722473249402816}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2151039165883711834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8376646494505211202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 699100ca886480c4a94ced56b1ae0e94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  themeDataSource: {fileID: 11400000, guid: 57993c46ea42acf4ca3067542443bc45, type: 2}
+  binders:
+  - rid: 7636826640568287494
+  - rid: 7636826572149227707
+  - rid: 7636826572149227709
+  - rid: 7636826640568287467
+  - rid: 7636826640568287479
+  - rid: 7636826640568287481
+  - rid: 7636826640568287482
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 7636826572149227707
+      type: {class: TMP_FontAssetThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 1922220768106560367}
+        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
+        <ThemeDefinitionItemName>k__BackingField: Text Font
+    - rid: 7636826572149227709
+      type: {class: ColorThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 1922220768106560367}
+        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
+        <ThemeDefinitionItemName>k__BackingField: Text Color
+    - rid: 7636826640568287467
+      type: {class: ColorThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 4185972052008607584}
+        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
+        <ThemeDefinitionItemName>k__BackingField: Panel Backplate Color
+    - rid: 7636826640568287479
+      type: {class: ColorThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 8493469810320727241}
+        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
+        <ThemeDefinitionItemName>k__BackingField: Text Color
+    - rid: 7636826640568287481
+      type: {class: ColorThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 5095746839500215027}
+        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
+        <ThemeDefinitionItemName>k__BackingField: Text Color
+    - rid: 7636826640568287482
+      type: {class: ColorThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 2228947736508096533}
+        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
+        <ThemeDefinitionItemName>k__BackingField: Text Color
+    - rid: 7636826640568287494
+      type: {class: FontIconSetBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField:
+          rid: -2
+        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
+        <ThemeDefinitionItemName>k__BackingField: Icon Set
+        test:
+          <IconSelector>k__BackingField: {fileID: 0}
+          <TextMeshProComponent>k__BackingField: {fileID: 0}
 --- !u!224 &8376646494505211229 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3705378105823492765, guid: b85e005d231192249b7077b40a4d4e45, type: 3}

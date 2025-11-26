@@ -34,7 +34,6 @@ RectTransform:
   m_Children:
   - {fileID: 1203832545719423472}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -172,6 +171,7 @@ GameObject:
   - component: {fileID: 1989956866083351710}
   - component: {fileID: 269199439855791924}
   - component: {fileID: 6136921357999623811}
+  - component: {fileID: 5834772403435721670}
   m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
@@ -192,7 +192,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3514389556853228399}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -249,3 +248,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fda4953718e0264291c42cb2a637fb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5834772403435721670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7189414470030404245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 699100ca886480c4a94ced56b1ae0e94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  themeDataSource: {fileID: 11400000, guid: 57993c46ea42acf4ca3067542443bc45, type: 2}
+  binders:
+  - rid: 7636826640568287483
+  references:
+    version: 2
+    RefIds:
+    - rid: 7636826640568287483
+      type: {class: ColorThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 269199439855791924}
+        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
+        <ThemeDefinitionItemName>k__BackingField: Text Color
