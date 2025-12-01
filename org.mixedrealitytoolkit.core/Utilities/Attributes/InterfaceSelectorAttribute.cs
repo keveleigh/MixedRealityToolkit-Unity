@@ -24,6 +24,13 @@ namespace MixedReality.Toolkit
         public bool AllowNull { get; private set; }
 
         /// <summary>
+        /// Should the inspector add an option to set this field to
+        /// null, or is null a bad idea for this field? This does _not_ mean
+        /// it's impossible for this field to be null if 'false'.
+        /// </summary>
+        public bool DrawFoldout { get; private set; }
+
+        /// <summary>
         /// This attaches a Unity Inspector drawer that will enable
         /// selection and instantiation of concrete classes that are assignable
         /// to this field. This pairs best with an interface and the
@@ -35,9 +42,10 @@ namespace MixedReality.Toolkit
         /// this field to null, or is null a bad idea for this field? This does
         /// _not_ mean it's impossible for this field to be null if 'false'.
         /// </param>
-        public InterfaceSelectorAttribute(bool allowNull = false)
+        public InterfaceSelectorAttribute(bool allowNull = false, bool drawFoldout = true)
         {
             AllowNull = allowNull;
+            DrawFoldout = drawFoldout;
         }
     }
 }
