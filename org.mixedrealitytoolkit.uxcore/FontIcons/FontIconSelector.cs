@@ -1,7 +1,6 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -81,15 +80,30 @@ namespace MixedReality.Toolkit.UX
         /// </summary>
         public TMP_FontAsset IconFontAsset => iconFontAsset;
 
+        /// <summary>
+        /// Updates the current <see cref="FontIconSet"/> and optionally refreshes the icon.
+        /// </summary>
+        /// <remarks>
+        /// If you plan on manually setting <see cref="CurrentIconName"/> after calling this method, it's recommended not to refresh the icon here.
+        /// </remarks>
+        /// <param name="fontIconSet">The new font icon set to use for this selector.</param>
+        /// <param name="refreshIcon">Whether to update the icon using the currently-set name using the new font icon set.</param>
+        public void SetFontIconSet(FontIconSet fontIconSet, bool refreshIcon = false)
+        {
+            fontIcons = fontIconSet;
+
+            if (refreshIcon)
+            {
+                SetIcon(currentIconName);
+            }
+        }
+
         private void SetIcon(string newIconName)
         {
-            if (fontIcons != null && textMeshProComponent != null)
+            if (fontIcons != null && textMeshProComponent != null && fontIcons.TryGetGlyphIcon(newIconName, out uint unicodeValue))
             {
-                if (fontIcons.TryGetGlyphIcon(newIconName, out uint unicodeValue))
-                {
-                    currentIconName = newIconName;
-                    textMeshProComponent.text = FontIconSet.ConvertUnicodeToHexString(unicodeValue);
-                }
+                currentIconName = newIconName;
+                textMeshProComponent.text = FontIconSet.ConvertUnicodeToHexString(unicodeValue);
             }
         }
     }
