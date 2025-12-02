@@ -13,11 +13,10 @@ namespace MixedReality.Toolkit.Theming.Editor
         private SerializedProperty themeDefinitionProp = null;
         private SerializedProperty themeItemsProp = null;
 
-        private Theme theme;
+        private static bool itemsFoldout = false;
 
         protected void OnEnable()
         {
-            theme = target as Theme;
             themeDefinitionProp = serializedObject.FindProperty("themeDefinition");
             themeItemsProp = serializedObject.FindProperty("ThemeItems");
         }
@@ -29,23 +28,37 @@ namespace MixedReality.Toolkit.Theming.Editor
         {
             EditorGUILayout.PropertyField(themeDefinitionProp);
 
-            // TODO: Rewrite to use serialized props?
-            if (themeDefinitionProp.objectReferenceValue is ThemeDefinition themeDefinition && themeDefinition.ThemeDefinitionItems.Length != theme.ThemeItems.Count)
-            {
-                for (int i = 0; i < themeDefinition.ThemeDefinitionItems.Length; i++)
-                {
-                    ThemeDefinition.ThemeDefinitionItem themeDefinitionItem = themeDefinition.ThemeDefinitionItems[i];
-                    Theme.ThemeItem themeItem = theme.ThemeItems.Count > i ? theme.ThemeItems[i] : null;
-                    if (themeItem != null && themeItem.ItemName == themeDefinitionItem.ItemName)
-                    {
-                        continue;
-                    }
-                    theme.ThemeItems.Insert(i, new() { ItemName = themeDefinitionItem.ItemName, ThemeItemData = Activator.CreateInstance(themeDefinitionItem.ThemeItemData) });
-                }
-                EditorUtility.SetDirty(theme);
-            }
+            SerializedProperty themeDefinitionArrayProp = themeDefinitionProp.objectReferenceValue != null
+                ? new SerializedObject(themeDefinitionProp.objectReferenceValue).FindProperty(InspectorUIUtility.GetBackingField(nameof(ThemeDefinition.ThemeDefinitionItems)))
+                : null;
 
-            EditorGUILayout.PropertyField(themeItemsProp);
+            if (themeDefinitionArrayProp != null)
+            {
+                itemsFoldout = EditorGUILayout.Foldout(itemsFoldout, "Theme Values", true);
+                if (itemsFoldout)
+                {
+                    using (new EditorGUI.IndentLevelScope())
+                        for (int i = 0; i < themeDefinitionArrayProp.arraySize; i++)
+                        {
+                            SerializedProperty themeDefinitionItem = themeDefinitionArrayProp.GetArrayElementAtIndex(i);
+                            string themeDefinitionItemName = themeDefinitionItem.FindPropertyRelative(InspectorUIUtility.GetBackingField(nameof(ThemeDefinition.ThemeDefinitionItem.Name))).stringValue;
+
+                            SerializedProperty themeItem = themeItemsProp.arraySize > i ? themeItemsProp.GetArrayElementAtIndex(i) : null;
+                            if (themeItem == null
+                                || themeItem.FindPropertyRelative(InspectorUIUtility.GetBackingField(nameof(Theme.ThemeItem.Name))).stringValue != themeDefinitionItemName)
+                            {
+                                string valueDataType = themeDefinitionItem.FindPropertyRelative(InspectorUIUtility.GetBackingField(nameof(ThemeDefinition.ThemeDefinitionItem.DataType))).FindPropertyRelative("reference").stringValue;
+
+                                themeItemsProp.InsertArrayElementAtIndex(i);
+                                themeItem = themeItemsProp.GetArrayElementAtIndex(i);
+                                themeItem.managedReferenceValue = new Theme.ThemeItem(themeDefinitionItemName, Activator.CreateInstance(Type.GetType(valueDataType)));
+                            }
+
+                            EditorGUILayout.PropertyField(themeItem, true);
+                        }
+                    themeItemsProp.arraySize = themeDefinitionArrayProp.arraySize;
+                }
+            }
 
             serializedObject.ApplyModifiedProperties();
         }

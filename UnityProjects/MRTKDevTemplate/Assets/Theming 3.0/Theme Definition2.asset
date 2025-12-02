@@ -12,33 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b6e110c23f5e404dbbfdc87cb47ff23, type: 3}
   m_Name: Theme Definition2
   m_EditorClassIdentifier: 
-  <Binders>k__BackingField:
-  - rid: 7636826572149227636
   <ThemeDefinitionItems>k__BackingField:
-  - <ItemName>k__BackingField: Backplate Material
-    <ThemeItemData>k__BackingField:
-      reference: MixedReality.Toolkit.Themes.MaterialThemeItemData, MixedReality.Toolkit.Theming
-  - <ItemName>k__BackingField: Text Color
-    <ThemeItemData>k__BackingField:
-      reference: MixedReality.Toolkit.Themes.ColorThemeItemData, MixedReality.Toolkit.Theming
-  - <ItemName>k__BackingField: Text Font
-    <ThemeItemData>k__BackingField:
-      reference: MixedReality.Toolkit.Themes.TMP_FontAssetThemeItemData, MixedReality.Toolkit.Theming
-  - <ItemName>k__BackingField: Icon Set
-    <ThemeItemData>k__BackingField:
-      reference: MixedReality.Toolkit.Themes.FontIconSetItemData, MixedReality.Toolkit.Theming
-  - <ItemName>k__BackingField: Panel Backplate Color
-    <ThemeItemData>k__BackingField:
-      reference: MixedReality.Toolkit.Themes.ColorThemeItemData, MixedReality.Toolkit.Theming
-  - <ItemName>k__BackingField: Toggle Background Scale
-    <ThemeItemData>k__BackingField:
-      reference: MixedReality.Toolkit.Themes.Vector3ItemData, MixedReality.Toolkit.Theming
-  references:
-    version: 2
-    RefIds:
-    - rid: 7636826572149227636
-      type: {class: FontThemeBinder, ns: MixedReality.Toolkit.Themes, asm: MixedReality.Toolkit.Theming}
-      data:
-        <Target>k__BackingField: {fileID: 0}
-        <ThemeDefinition>k__BackingField: {fileID: 0}
-        <ThemeDefinitionItemName>k__BackingField: 
+  - <Name>k__BackingField: Backplate Material
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.MaterialThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Text Color
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.ColorThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Text Font
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.TMP_FontAssetThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Icon Set
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.FontIconSetItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Panel Backplate Color
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.ColorThemeItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: Toggle Background Scale
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.Vector3ItemData, MixedReality.Toolkit.Theming

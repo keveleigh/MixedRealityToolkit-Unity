@@ -30,7 +30,7 @@ namespace MixedReality.Toolkit.Theming
         {
             foreach (var themeItem in ThemeItems)
             {
-                if (themeItem.ItemName == itemName && themeItem.ThemeItemData is T themeItemData)
+                if (themeItem.Name == itemName && themeItem.Data is T themeItemData)
                 {
                     itemValue = themeItemData;
                     return true;
@@ -44,11 +44,17 @@ namespace MixedReality.Toolkit.Theming
         [Serializable]
         public class ThemeItem
         {
-            [field: SerializeField]
-            public string ItemName { get; set; }
+            [field: SerializeField, HideInInspector]
+            public string Name { get; private set; }
 
             [field: SerializeReference]
-            public object ThemeItemData { get; set; }
+            public object Data { get; private set; }
+
+            public ThemeItem(string name, object data)
+            {
+                Name = name;
+                Data = data;
+            }
         }
     }
 }
