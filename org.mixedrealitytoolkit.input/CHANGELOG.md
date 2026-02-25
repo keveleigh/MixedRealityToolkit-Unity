@@ -4,6 +4,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+### Added
+
+* Added a test for multiple/single selection of `StatefulInteractable` and its various modes. [PR #1069](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1069)
+
 ### Fixed
 
 * Fixed `EyeCalibrationChecker` build issue on UWP when the Mixed Reality OpenXR Plugin wasn't installed. [PR #1106](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1106)
