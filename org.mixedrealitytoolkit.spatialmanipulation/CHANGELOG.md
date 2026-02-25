@@ -2,6 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Changed
+
+* Updated tests to follow existing MRTK test patterns. [PR #1073](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1073)
+
 ## [3.4.0] - 2025-11-12
 
 ### Added

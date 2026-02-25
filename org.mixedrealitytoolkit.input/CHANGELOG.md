@@ -4,6 +4,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+### Changed
+
+* Updated tests to follow existing MRTK test patterns. [PR #1073](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1073)
+
 ### Fixed
 
 * Fixed `EyeCalibrationChecker` build issue on UWP when the Mixed Reality OpenXR Plugin wasn't installed. [PR #1106](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1106)
