@@ -5,5 +5,6 @@ using TMPro;
 
 namespace MixedReality.Toolkit.Theming
 {
+    [System.Serializable]
     public class TMP_FontAssetThemeItemData : BaseThemeItemData<TMP_FontAsset> { }
 }

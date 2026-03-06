@@ -8,14 +8,12 @@ using UnityEngine;
 
 namespace MixedReality.Toolkit.Theming
 {
+    [Serializable]
     public class FontIconSetBinder : BaseThemeBinder<FontIconSetBinder.FontIconSetData, FontIconSetBinder.FontIconSetBinding>
     {
-        [SerializeField]
-        private FontIconSetBinding test;
-
         protected override void Apply(BaseThemeItemData<FontIconSetData> themeItemData)
         {
-            if (Target!= null && Target.TextMeshProComponent != null && Target.IconSelector != null && themeItemData.Value.FontIconSet.GlyphIconsByName.ContainsKey(Target.IconSelector.CurrentIconName))
+            if (Target != null && Target.TextMeshProComponent != null && Target.IconSelector != null && themeItemData.Value.FontIconSet.GlyphIconsByName.ContainsKey(Target.IconSelector.CurrentIconName))
             {
                 // Clear the text to prevent missing character warnings when changing the font
                 Target.TextMeshProComponent.text = string.Empty;

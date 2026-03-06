@@ -5,5 +5,6 @@ using UnityEngine;
 
 namespace MixedReality.Toolkit.Theming
 {
+    [System.Serializable]
     public class Vector3ItemData : BaseThemeItemData<Vector3> { }
 }

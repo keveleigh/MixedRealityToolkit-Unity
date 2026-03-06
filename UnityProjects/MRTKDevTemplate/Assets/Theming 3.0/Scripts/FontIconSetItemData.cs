@@ -3,5 +3,6 @@
 
 namespace MixedReality.Toolkit.Theming
 {
+    [System.Serializable]
     public class FontIconSetItemData : BaseThemeItemData<FontIconSetBinder.FontIconSetData> { }
 }

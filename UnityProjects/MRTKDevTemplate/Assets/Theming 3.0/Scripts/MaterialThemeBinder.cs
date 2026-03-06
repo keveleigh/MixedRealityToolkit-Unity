@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 namespace MixedReality.Toolkit.Theming
 {
+    [System.Serializable]
     public class MaterialThemeBinder : BaseThemeBinder<Material, Graphic>
     {
         protected override void Apply(BaseThemeItemData<Material> themeItemData)

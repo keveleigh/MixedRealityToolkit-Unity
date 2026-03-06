@@ -5,6 +5,7 @@ using TMPro;
 
 namespace MixedReality.Toolkit.Theming
 {
+    [System.Serializable]
     public class TMP_FontAssetThemeBinder : BaseThemeBinder<TMP_FontAsset, TMP_Text>
     {
         protected override void Apply(BaseThemeItemData<TMP_FontAsset> themeItemData)

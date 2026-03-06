@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace MixedReality.Toolkit.Theming
 {
+    [System.Serializable]
     public class ScaleBinder : BaseThemeBinder<Vector3, Transform>
     {
         protected override void Apply(BaseThemeItemData<Vector3> themeItemData)
