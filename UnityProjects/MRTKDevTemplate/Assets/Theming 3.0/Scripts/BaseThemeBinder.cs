@@ -8,7 +8,7 @@ namespace MixedReality.Toolkit.Theming
 {
     public abstract class BaseThemeBinder<T, K> : IBinder
     {
-        [field: SerializeReference]
+        [field: SerializeField]
         protected K Target { get; private set; }
 
         [field: SerializeField]
