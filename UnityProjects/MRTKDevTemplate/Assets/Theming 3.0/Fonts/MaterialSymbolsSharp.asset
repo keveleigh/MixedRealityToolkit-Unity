@@ -14,10 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   glyphIconsByName:
     entries:
-    - key: Icon 113
-      value: 58409
-    - key: Icon 112
-      value: 59548
     - key: Icon 111
       value: 60029
     - key: Icon 110
@@ -156,10 +152,6 @@ MonoBehaviour:
       value: 57520
     - key: Icon 76
       value: 57422
-    - key: Icon 79
-      value: 59376
-    - key: Icon 84
-      value: 62368
     - key: Mute
       value: 59152
     - key: Refresh
@@ -174,8 +166,6 @@ MonoBehaviour:
       value: 59494
     - key: Alarm Off
       value: 59479
-    - key: Icon 59534
-      value: 59534
     - key: Icon 59538
       value: 59538
     - key: Error
@@ -198,6 +188,62 @@ MonoBehaviour:
       value: 60256
     - key: Photo
       value: 58384
+    - key: Chevron Down
+      value: 58131
+    - key: Chevron Up
+      value: 58134
+    - key: Icon 59550
+      value: 59550
+    - key: Book
+      value: 59929
+    - key: Move
+      value: 59551
+    - key: Add Location
+      value: 61242
+    - key: Hierarchy
+      value: 59770
+    - key: Sticky Note
+      value: 61948
+    - key: Settings Sliders
+      value: 58409
+    - key: Add Note
+      value: 59548
+    - key: Add Group
+      value: 59376
+    - key: Pan
+      value: 59685
+    - key: Grid View
+      value: 59824
+    - key: Cached
+      value: 59498
+    - key: Show Chart
+      value: 59105
+    - key: Music Info
+      value: 58373
+    - key: Add Circle
+      value: 57672
+    - key: Info
+      value: 59534
+    - key: Remove Location
+      value: 61304
+    - key: Clipboard
+      value: 59485
+    - key: Headphones
+      value: 61471
+    - key: Language
+      value: 59540
+    - key: Globe
+      value: 58956
+    - key: Heart Outline
+      value: 59518
+    - key: Pen Tip
+      value: 62307
+    - key: Flag Outline
+      value: 62479
+    - key: Pushpin
+      value: 61709
+    - key: Exclamation Point
+      value: 58949
   iconFontAsset: {fileID: 11400000, guid: b304421edc6909c4f9b38aa983770403, type: 2}
   optionalEditorMaterial: {fileID: 0}
   fontIconSetDefinition: {fileID: 11400000, guid: e63daff880b56ed439a2e852b6e6993a, type: 2}
