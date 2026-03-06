@@ -20,6 +20,7 @@ MonoBehaviour:
   - rid: 1095074043325317290
   - rid: 1095074043325317292
   - rid: 1095074043325317294
+  - rid: 7617100032621674706
   references:
     version: 2
     RefIds:
@@ -85,3 +86,13 @@ MonoBehaviour:
       type: {class: Vector3ItemData, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Value>k__BackingField: {x: 0.5, y: 0.5, z: 1}
+    - rid: 7617100032621674706
+      type: {class: Theme/ThemeItem, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Name>k__BackingField: MRTK Logo
+        <Data>k__BackingField:
+          rid: 7617100032621674707
+    - rid: 7617100032621674707
+      type: {class: SpriteThemeItemData, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Value>k__BackingField: {fileID: 21300000, guid: fa0038d8d2df1dd4c99f346c8ec9e746, type: 3}

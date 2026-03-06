@@ -31,3 +31,6 @@ MonoBehaviour:
   - <Name>k__BackingField: Toggle Background Scale
     <DataType>k__BackingField:
       reference: MixedReality.Toolkit.Theming.Vector3ItemData, MixedReality.Toolkit.Theming
+  - <Name>k__BackingField: MRTK Logo
+    <DataType>k__BackingField:
+      reference: MixedReality.Toolkit.Theming.SpriteThemeItemData, MixedReality.Toolkit.Theming
