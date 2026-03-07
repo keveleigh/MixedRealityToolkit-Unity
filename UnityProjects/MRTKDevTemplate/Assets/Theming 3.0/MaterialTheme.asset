@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9530d537087fef24eb7a177accd13c7d, type: 3}
-  m_Name: Theme
+  m_Name: MaterialTheme
   m_EditorClassIdentifier: 
   themeDefinition: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
-  ThemeItems:
+  themeItems:
   - rid: 1095074043325317284
   - rid: 1095074043325317286
   - rid: 1095074043325317288

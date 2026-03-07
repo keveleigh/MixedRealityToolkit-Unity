@@ -17,7 +17,7 @@ namespace MixedReality.Toolkit.Theming
 
         [SerializeReference]
         [Tooltip("The pose source representing the poke pose")]
-        public List<ThemeItem> ThemeItems;
+        private List<ThemeItem> themeItems;
 
         /// <summary>
         /// 
@@ -28,7 +28,7 @@ namespace MixedReality.Toolkit.Theming
         /// <returns></returns>
         public bool TryGetItemData<T>(string itemName, out T itemValue)
         {
-            foreach (var themeItem in ThemeItems)
+            foreach (var themeItem in themeItems)
             {
                 if (themeItem.Name == itemName && themeItem.Data is T themeItemData)
                 {

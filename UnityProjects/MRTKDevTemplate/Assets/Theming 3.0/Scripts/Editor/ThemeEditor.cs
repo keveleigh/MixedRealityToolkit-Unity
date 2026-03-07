@@ -18,7 +18,7 @@ namespace MixedReality.Toolkit.Theming.Editor
         protected void OnEnable()
         {
             themeDefinitionProp = serializedObject.FindProperty("themeDefinition");
-            themeItemsProp = serializedObject.FindProperty("ThemeItems");
+            themeItemsProp = serializedObject.FindProperty("themeItems");
         }
 
         /// <summary>
@@ -38,6 +38,7 @@ namespace MixedReality.Toolkit.Theming.Editor
                 if (itemsFoldout)
                 {
                     using (new EditorGUI.IndentLevelScope())
+                    {
                         for (int i = 0; i < themeDefinitionArrayProp.arraySize; i++)
                         {
                             SerializedProperty themeDefinitionItem = themeDefinitionArrayProp.GetArrayElementAtIndex(i);
@@ -56,6 +57,7 @@ namespace MixedReality.Toolkit.Theming.Editor
 
                             EditorGUILayout.PropertyField(themeItem, true);
                         }
+                    }
                     themeItemsProp.arraySize = themeDefinitionArrayProp.arraySize;
                 }
             }
