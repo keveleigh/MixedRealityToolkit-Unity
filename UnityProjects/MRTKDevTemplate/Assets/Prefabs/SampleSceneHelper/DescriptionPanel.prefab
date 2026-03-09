@@ -762,6 +762,7 @@ MonoBehaviour:
   - rid: 7617100123102511109
   - rid: 7617100123102511110
   - rid: 7617100123102511111
+  - rid: 7617100123102511113
   references:
     version: 2
     RefIds:
@@ -805,6 +806,11 @@ MonoBehaviour:
       data:
         <Target>k__BackingField: {fileID: 5822078602719066722}
         <ThemeDefinitionItemName>k__BackingField: Text Color
+    - rid: 7617100123102511113
+      type: {class: SpriteRendererThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 1051251617942771901}
+        <ThemeDefinitionItemName>k__BackingField: MRTK Logo
 --- !u!1 &7368034384095272423
 GameObject:
   m_ObjectHideFlags: 0
@@ -849,7 +855,7 @@ GameObject:
   - component: {fileID: 3732017194820540582}
   - component: {fileID: 1051251617942771901}
   m_Layer: 0
-  m_Name: MRTK_Logo_White
+  m_Name: MRTK_Logo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

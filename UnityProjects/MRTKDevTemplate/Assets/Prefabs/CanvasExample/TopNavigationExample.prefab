@@ -506,17 +506,12 @@ MonoBehaviour:
   themeDataSource: {fileID: 11400000, guid: 57993c46ea42acf4ca3067542443bc45, type: 2}
   binders:
   - rid: 7636826640568287471
-  - rid: 7617100032621674705
+  - rid: 7617100123102511115
   - rid: 7617100121658621991
   - rid: 7617100121658621992
   references:
     version: 2
     RefIds:
-    - rid: 7617100032621674705
-      type: {class: SpriteThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
-      data:
-        <Target>k__BackingField: {fileID: 7377956084833273159}
-        <ThemeDefinitionItemName>k__BackingField: MRTK Logo
     - rid: 7617100121658621991
       type: {class: ColorThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
@@ -527,6 +522,11 @@ MonoBehaviour:
       data:
         <Target>k__BackingField: {fileID: 6126417514449433620}
         <ThemeDefinitionItemName>k__BackingField: Text Font
+    - rid: 7617100123102511115
+      type: {class: SpriteImageThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 7377956084833273159}
+        <ThemeDefinitionItemName>k__BackingField: MRTK Logo
     - rid: 7636826640568287471
       type: {class: MaterialThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:

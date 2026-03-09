@@ -2,12 +2,11 @@
 // Licensed under the BSD 3-Clause
 
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace MixedReality.Toolkit.Theming
 {
     [System.Serializable]
-    public class SpriteThemeBinder : BaseThemeBinder<Sprite, Image>
+    public class SpriteRendererThemeBinder : BaseThemeBinder<Sprite, SpriteRenderer>
     {
         protected override void Apply(BaseThemeItemData<Sprite> themeItemData)
         {
