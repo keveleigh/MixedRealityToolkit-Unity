@@ -22,7 +22,7 @@ namespace MixedReality.Toolkit.Theming.Editor
             SerializedProperty parentProperty = property.serializedObject.FindProperty(parentPropertyPath);
             SerializedProperty themeDataSourceProperty = parentProperty.serializedObject.FindProperty("themeDataSource");
 
-            if (property.managedReferenceValue != null && themeDataSourceProperty != null)
+            if (property.managedReferenceValue != null && themeDataSourceProperty != null && themeDataSourceProperty.objectReferenceValue != null)
             {
                 SerializedProperty themeDefinitionItemName = property.FindPropertyRelative(InspectorUIUtility.GetBackingField("ThemeDefinitionItemName"));
                 SerializedProperty themeDefinitionProperty = new SerializedObject(themeDataSourceProperty.objectReferenceValue).FindProperty("themeDefinition");

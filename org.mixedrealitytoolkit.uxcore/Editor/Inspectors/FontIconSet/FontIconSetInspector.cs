@@ -343,7 +343,7 @@ namespace MixedReality.Toolkit.Editor
         /// </summary>
         public static void EditorDrawTMPGlyph(Rect position, uint unicode, TMP_FontAsset fontAsset, bool selected = false, Material fontRenderMaterial = null)
         {
-            if (fontAsset.characterLookupTable.TryGetValue(unicode, out TMP_Character character))
+            if (fontAsset != null && fontAsset.characterLookupTable.TryGetValue(unicode, out TMP_Character character))
             {
                 EditorDrawTMPGlyph(position, fontAsset, character, selected, fontRenderMaterial);
             }
@@ -352,7 +352,7 @@ namespace MixedReality.Toolkit.Editor
         /// <summary>
         /// Draws a Text Mesh Pro glyph in the supplied <see cref="Rect"/>.
         /// </summary>
-        public static void EditorDrawTMPGlyph(Rect glyphRect, TMP_FontAsset fontAsset, TMP_Character character, bool selected = false, Material fontRenderMaterial = null)
+        private static void EditorDrawTMPGlyph(Rect glyphRect, TMP_FontAsset fontAsset, TMP_Character character, bool selected = false, Material fontRenderMaterial = null)
         {
             if (Event.current.type == EventType.Repaint)
             {

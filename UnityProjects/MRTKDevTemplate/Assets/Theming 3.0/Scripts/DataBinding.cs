@@ -19,7 +19,7 @@ namespace MixedReality.Toolkit.Theming
         {
             foreach (IBinder binder in binders)
             {
-                binder.Subscribe(themeDataSource);
+                binder?.Subscribe(themeDataSource);
             }
         }
 
@@ -27,7 +27,7 @@ namespace MixedReality.Toolkit.Theming
         {
             foreach (IBinder binder in binders)
             {
-                binder.Unsubscribe(themeDataSource);
+                binder?.Unsubscribe(themeDataSource);
             }
         }
     }
