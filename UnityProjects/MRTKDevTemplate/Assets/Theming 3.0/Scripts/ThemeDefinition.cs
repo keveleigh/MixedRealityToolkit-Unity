@@ -6,11 +6,11 @@ using UnityEngine;
 
 namespace MixedReality.Toolkit.Theming
 {
-    [CreateAssetMenu(fileName = "Theme Definition", menuName = "MRTK/Theming/Theme Definition", order = 0)]
-    public class ThemeDefinition : ScriptableObject
+    [Serializable]
+    public class ThemeDefinition
     {
         [field: SerializeField]
-        [Tooltip("The pose source representing the poke pose")]
+        [Tooltip("The items defining the theme that can be bound to this source.")]
         public ThemeDefinitionItem[] ThemeDefinitionItems { get; private set; }
 
         [Serializable]

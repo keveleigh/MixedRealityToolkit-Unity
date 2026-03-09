@@ -11,9 +11,6 @@ namespace MixedReality.Toolkit.Theming
         [field: SerializeField]
         protected K Target { get; private set; }
 
-        [field: SerializeField]
-        public ThemeDefinition ThemeDefinition { get; private set; }
-
         [field: SerializeField, HideInInspector]
         public string ThemeDefinitionItemName { get; private set; }
 

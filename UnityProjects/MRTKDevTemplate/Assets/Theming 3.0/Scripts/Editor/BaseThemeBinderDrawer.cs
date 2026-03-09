@@ -18,10 +18,16 @@ namespace MixedReality.Toolkit.Theming.Editor
 
             EditorGUI.PropertyField(position, property, label, true);
 
-            if (property.managedReferenceValue != null)
+            string parentPropertyPath = property.propertyPath.Substring(0, property.propertyPath.LastIndexOf(property.propertyPath.Contains(".Array.data[") ? ".Array.data[" : "."));
+            SerializedProperty parentProperty = property.serializedObject.FindProperty(parentPropertyPath);
+            SerializedProperty themeDataSourceProperty = parentProperty.serializedObject.FindProperty("themeDataSource");
+
+            if (property.managedReferenceValue != null && themeDataSourceProperty != null)
             {
                 SerializedProperty themeDefinitionItemName = property.FindPropertyRelative(InspectorUIUtility.GetBackingField("ThemeDefinitionItemName"));
-                List<string> names = ParseThemeItems((dynamic)property.managedReferenceValue);
+                SerializedProperty themeDefinitionProperty = new SerializedObject(themeDataSourceProperty.objectReferenceValue).FindProperty("themeDefinition");
+
+                List<string> names = ParseThemeItems(themeDefinitionProperty.boxedValue as ThemeDefinition, (dynamic)property.managedReferenceValue);
                 if (names != null)
                 {
                     int selected = names.IndexOf(themeDefinitionItemName.stringValue);
@@ -49,16 +55,16 @@ namespace MixedReality.Toolkit.Theming.Editor
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label) => EditorGUI.GetPropertyHeight(property);
 
-        private List<string> ParseThemeItems<T, K>(BaseThemeBinder<T, K> binder)
+        private List<string> ParseThemeItems<T, K>(ThemeDefinition themeDefinition, BaseThemeBinder<T, K> _)
         {
-            if (binder.ThemeDefinition == null || binder.ThemeDefinition.ThemeDefinitionItems == null)
+            if (themeDefinition == null || themeDefinition.ThemeDefinitionItems == null)
             {
                 return null;
             }
 
             List<string> matchingItemNames = new();
 
-            foreach (ThemeDefinition.ThemeDefinitionItem item in binder.ThemeDefinition.ThemeDefinitionItems)
+            foreach (ThemeDefinition.ThemeDefinitionItem item in themeDefinition.ThemeDefinitionItems)
             {
                 if (item.DataType.Type.BaseType.GenericTypeArguments[0].IsAssignableFrom(typeof(T)) && !string.IsNullOrWhiteSpace(item.Name))
                 {

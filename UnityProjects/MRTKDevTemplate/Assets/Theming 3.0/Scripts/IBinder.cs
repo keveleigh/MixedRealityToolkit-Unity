@@ -8,7 +8,6 @@ namespace MixedReality.Toolkit.Theming
         void Subscribe(ThemeDataSource themeDataSource);
         void Unsubscribe(ThemeDataSource themeDataSource);
 
-        ThemeDefinition ThemeDefinition { get; }
         string ThemeDefinitionItemName { get; }
     }
 }

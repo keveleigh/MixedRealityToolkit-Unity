@@ -12,87 +12,87 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9530d537087fef24eb7a177accd13c7d, type: 3}
   m_Name: MaterialTheme
   m_EditorClassIdentifier: 
-  themeDefinition: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
+  <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: 57993c46ea42acf4ca3067542443bc45, type: 2}
   themeItems:
-  - rid: 1095074043325317284
-  - rid: 1095074043325317286
-  - rid: 1095074043325317288
-  - rid: 1095074043325317290
-  - rid: 1095074043325317292
-  - rid: 1095074043325317294
-  - rid: 7617100032621674706
+  - rid: 7617100119291986008
+  - rid: 7617100119291986010
+  - rid: 7617100119291986012
+  - rid: 7617100119291986014
+  - rid: 7617100119291986016
+  - rid: 7617100119291986018
+  - rid: 7617100119291986020
   references:
     version: 2
     RefIds:
-    - rid: 1095074043325317284
+    - rid: 7617100119291986008
       type: {class: Theme/ThemeItem, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Name>k__BackingField: Backplate Material
         <Data>k__BackingField:
-          rid: 1095074043325317285
-    - rid: 1095074043325317285
+          rid: 7617100119291986009
+    - rid: 7617100119291986009
       type: {class: MaterialThemeItemData, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Value>k__BackingField: {fileID: 2100000, guid: 741fb94e6797fe64f81749e7b02d7624, type: 2}
-    - rid: 1095074043325317286
+    - rid: 7617100119291986010
       type: {class: Theme/ThemeItem, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Name>k__BackingField: Text Color
         <Data>k__BackingField:
-          rid: 1095074043325317287
-    - rid: 1095074043325317287
+          rid: 7617100119291986011
+    - rid: 7617100119291986011
       type: {class: ColorThemeItemData, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Value>k__BackingField: {r: 0, g: 0, b: 0, a: 1}
-    - rid: 1095074043325317288
+    - rid: 7617100119291986012
       type: {class: Theme/ThemeItem, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Name>k__BackingField: Text Font
         <Data>k__BackingField:
-          rid: 1095074043325317289
-    - rid: 1095074043325317289
+          rid: 7617100119291986013
+    - rid: 7617100119291986013
       type: {class: TMP_FontAssetThemeItemData, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Value>k__BackingField: {fileID: 11400000, guid: 120178e5d084a8747908c63dbb084a12, type: 2}
-    - rid: 1095074043325317290
+    - rid: 7617100119291986014
       type: {class: Theme/ThemeItem, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Name>k__BackingField: Icon Set
         <Data>k__BackingField:
-          rid: 1095074043325317291
-    - rid: 1095074043325317291
+          rid: 7617100119291986015
+    - rid: 7617100119291986015
       type: {class: FontIconSetItemData, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Value>k__BackingField:
           <Font>k__BackingField: {fileID: 11400000, guid: b304421edc6909c4f9b38aa983770403, type: 2}
           <FontIconSet>k__BackingField: {fileID: 11400000, guid: a0b2a6314142c734ca4f4dbbee0bfd1d, type: 2}
-    - rid: 1095074043325317292
+    - rid: 7617100119291986016
       type: {class: Theme/ThemeItem, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Name>k__BackingField: Panel Backplate Color
         <Data>k__BackingField:
-          rid: 1095074043325317293
-    - rid: 1095074043325317293
+          rid: 7617100119291986017
+    - rid: 7617100119291986017
       type: {class: ColorThemeItemData, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Value>k__BackingField: {r: 0, g: 0, b: 0, a: 0.23529412}
-    - rid: 1095074043325317294
+    - rid: 7617100119291986018
       type: {class: Theme/ThemeItem, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Name>k__BackingField: Toggle Background Scale
         <Data>k__BackingField:
-          rid: 1095074043325317295
-    - rid: 1095074043325317295
+          rid: 7617100119291986019
+    - rid: 7617100119291986019
       type: {class: Vector3ItemData, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Value>k__BackingField: {x: 0.5, y: 0.5, z: 1}
-    - rid: 7617100032621674706
+    - rid: 7617100119291986020
       type: {class: Theme/ThemeItem, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Name>k__BackingField: MRTK Logo
         <Data>k__BackingField:
-          rid: 7617100032621674707
-    - rid: 7617100032621674707
+          rid: 7617100119291986021
+    - rid: 7617100119291986021
       type: {class: SpriteThemeItemData, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Value>k__BackingField: {fileID: 21300000, guid: fa0038d8d2df1dd4c99f346c8ec9e746, type: 3}

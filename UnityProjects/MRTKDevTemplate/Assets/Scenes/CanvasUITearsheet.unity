@@ -646,7 +646,6 @@ MonoBehaviour:
       type: {class: MaterialThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Target>k__BackingField: {fileID: 14468909}
-        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
         <ThemeDefinitionItemName>k__BackingField: Backplate Material
 --- !u!1 &26735475 stripped
 GameObject:
@@ -1234,7 +1233,6 @@ MonoBehaviour:
       type: {class: MaterialThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Target>k__BackingField: {fileID: 47797543}
-        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
         <ThemeDefinitionItemName>k__BackingField: Backplate Material
 --- !u!1001 &47838181
 PrefabInstance:
@@ -2556,7 +2554,6 @@ MonoBehaviour:
       type: {class: MaterialThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Target>k__BackingField: {fileID: 101034064}
-        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
         <ThemeDefinitionItemName>k__BackingField: Backplate Material
 --- !u!1001 &101484291
 PrefabInstance:
@@ -5313,7 +5310,6 @@ MonoBehaviour:
       type: {class: MaterialThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Target>k__BackingField: {fileID: 201720336}
-        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
         <ThemeDefinitionItemName>k__BackingField: Backplate Material
 --- !u!224 &258012437 stripped
 RectTransform:
@@ -6694,7 +6690,6 @@ MonoBehaviour:
       type: {class: MaterialThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Target>k__BackingField: {fileID: 335940730}
-        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
         <ThemeDefinitionItemName>k__BackingField: Backplate Material
 --- !u!1001 &357876115
 PrefabInstance:
@@ -10718,13 +10713,11 @@ MonoBehaviour:
       type: {class: ColorThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Target>k__BackingField: {fileID: 576536708}
-        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
         <ThemeDefinitionItemName>k__BackingField: Text Color
     - rid: 7636826416185344027
       type: {class: ColorThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Target>k__BackingField: {fileID: 547938626}
-        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
         <ThemeDefinitionItemName>k__BackingField: Text Color
     - rid: 7636826419419938816
       type: {class: FontIconSetBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
@@ -10732,13 +10725,11 @@ MonoBehaviour:
         <Target>k__BackingField:
           <IconSelector>k__BackingField: {fileID: 0}
           <TextMeshProComponent>k__BackingField: {fileID: 0}
-        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
         <ThemeDefinitionItemName>k__BackingField: Icon Set
     - rid: 7636826572149227705
       type: {class: TMP_FontAssetThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Target>k__BackingField: {fileID: 576536708}
-        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
         <ThemeDefinitionItemName>k__BackingField: Text Font
 --- !u!1001 &577083553
 PrefabInstance:
@@ -16690,7 +16681,6 @@ MonoBehaviour:
       type: {class: MaterialThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Target>k__BackingField: {fileID: 1073055408}
-        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
         <ThemeDefinitionItemName>k__BackingField: Backplate Material
 --- !u!1 &1092179571
 GameObject:
@@ -21415,7 +21405,6 @@ MonoBehaviour:
       type: {class: MaterialThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Target>k__BackingField: {fileID: 1329564639}
-        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
         <ThemeDefinitionItemName>k__BackingField: Backplate Material
 --- !u!1001 &1349327196
 PrefabInstance:
@@ -22573,7 +22562,6 @@ MonoBehaviour:
       type: {class: MaterialThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Target>k__BackingField: {fileID: 1424732240}
-        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
         <ThemeDefinitionItemName>k__BackingField: Backplate Material
 --- !u!1001 &1427191247
 PrefabInstance:
@@ -29900,7 +29888,6 @@ MonoBehaviour:
       type: {class: MaterialThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Target>k__BackingField: {fileID: 1854885406}
-        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
         <ThemeDefinitionItemName>k__BackingField: 
 --- !u!1001 &1856862788
 PrefabInstance:
@@ -32269,13 +32256,11 @@ MonoBehaviour:
       type: {class: MaterialThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Target>k__BackingField: {fileID: 1944714600}
-        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
         <ThemeDefinitionItemName>k__BackingField: Backplate Material
     - rid: 1095074043325317297
       type: {class: ColorThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Target>k__BackingField: {fileID: 1622854746}
-        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
         <ThemeDefinitionItemName>k__BackingField: Text Color
 --- !u!1001 &1945241970
 PrefabInstance:
@@ -33056,7 +33041,6 @@ MonoBehaviour:
       type: {class: MaterialThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Target>k__BackingField: {fileID: 1983684640}
-        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
         <ThemeDefinitionItemName>k__BackingField: Backplate Material
 --- !u!1001 &1990262477
 PrefabInstance:
@@ -35203,7 +35187,6 @@ MonoBehaviour:
       type: {class: MaterialThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
       data:
         <Target>k__BackingField: {fileID: 6515328879105725118}
-        <ThemeDefinition>k__BackingField: {fileID: 11400000, guid: fd046e6cfbc13fb41baa6e80430fe087, type: 2}
         <ThemeDefinitionItemName>k__BackingField: Backplate Material
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

@@ -17,7 +17,7 @@ namespace MixedReality.Toolkit.Theming.Editor
 
         protected void OnEnable()
         {
-            themeDefinitionProp = serializedObject.FindProperty("themeDefinition");
+            themeDefinitionProp = serializedObject.FindProperty(InspectorUIUtility.GetBackingField(nameof(ThemeDefinition)));
             themeItemsProp = serializedObject.FindProperty("themeItems");
         }
 
@@ -29,7 +29,9 @@ namespace MixedReality.Toolkit.Theming.Editor
             EditorGUILayout.PropertyField(themeDefinitionProp);
 
             SerializedProperty themeDefinitionArrayProp = themeDefinitionProp.objectReferenceValue != null
-                ? new SerializedObject(themeDefinitionProp.objectReferenceValue).FindProperty(InspectorUIUtility.GetBackingField(nameof(ThemeDefinition.ThemeDefinitionItems)))
+                ? new SerializedObject(themeDefinitionProp.objectReferenceValue)
+                    .FindProperty("themeDefinition")
+                    .FindPropertyRelative(InspectorUIUtility.GetBackingField(nameof(ThemeDefinition.ThemeDefinitionItems)))
                 : null;
 
             if (themeDefinitionArrayProp != null)

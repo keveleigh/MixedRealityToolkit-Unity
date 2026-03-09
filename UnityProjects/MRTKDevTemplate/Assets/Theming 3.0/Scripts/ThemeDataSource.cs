@@ -16,6 +16,9 @@ namespace MixedReality.Toolkit.Theming
         [SerializeField]
         private UnityEvent<ChangeEvent<Theme>> onThemeChanged = new();
 
+        [SerializeField]
+        private ThemeDefinition themeDefinition;
+
         #region IBindable
 
         IBinding IBindable.binding { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
@@ -30,9 +33,9 @@ namespace MixedReality.Toolkit.Theming
             get => activeTheme;
             set
             {
-                if (value.ThemeDefinition != activeTheme.ThemeDefinition)
+                if (value.ThemeDefinition != this)
                 {
-                    Debug.LogError($"New theme's definition ({value.ThemeDefinition.name}) does not match this data source's active definition ({activeTheme.ThemeDefinition.name})");
+                    Debug.LogError($"New theme's definition ({value.ThemeDefinition.name}) does not match this data source's active definition ({name})");
                 }
 
                 using (ChangeEvent<Theme> changeEvent = ChangeEvent<Theme>.GetPooled(activeTheme, value))

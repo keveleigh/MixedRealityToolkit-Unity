@@ -16,3 +16,26 @@ MonoBehaviour:
   onThemeChanged:
     m_PersistentCalls:
       m_Calls: []
+  themeDefinition:
+    <ThemeDefinitionItems>k__BackingField:
+    - <Name>k__BackingField: Backplate Material
+      <DataType>k__BackingField:
+        reference: MixedReality.Toolkit.Theming.MaterialThemeItemData, MixedReality.Toolkit.Theming
+    - <Name>k__BackingField: Text Color
+      <DataType>k__BackingField:
+        reference: MixedReality.Toolkit.Theming.ColorThemeItemData, MixedReality.Toolkit.Theming
+    - <Name>k__BackingField: Text Font
+      <DataType>k__BackingField:
+        reference: MixedReality.Toolkit.Theming.TMP_FontAssetThemeItemData, MixedReality.Toolkit.Theming
+    - <Name>k__BackingField: Icon Set
+      <DataType>k__BackingField:
+        reference: MixedReality.Toolkit.Theming.FontIconSetItemData, MixedReality.Toolkit.Theming
+    - <Name>k__BackingField: Panel Backplate Color
+      <DataType>k__BackingField:
+        reference: MixedReality.Toolkit.Theming.ColorThemeItemData, MixedReality.Toolkit.Theming
+    - <Name>k__BackingField: Toggle Background Scale
+      <DataType>k__BackingField:
+        reference: MixedReality.Toolkit.Theming.Vector3ItemData, MixedReality.Toolkit.Theming
+    - <Name>k__BackingField: MRTK Logo
+      <DataType>k__BackingField:
+        reference: MixedReality.Toolkit.Theming.SpriteThemeItemData, MixedReality.Toolkit.Theming

@@ -10,13 +10,11 @@ namespace MixedReality.Toolkit.Theming
     [CreateAssetMenu(fileName = "Theme", menuName = "MRTK/Theming/Theme", order = 0)]
     public class Theme : ScriptableObject
     {
-        [SerializeField]
-        private ThemeDefinition themeDefinition;
-
-        public ThemeDefinition ThemeDefinition => themeDefinition;
+        [field: SerializeField]
+        public ThemeDataSource ThemeDefinition { get; private set; }
 
         [SerializeReference]
-        [Tooltip("The pose source representing the poke pose")]
+        [Tooltip("The items defining this theme's data mapped to the definition's items.")]
         private List<ThemeItem> themeItems;
 
         /// <summary>
