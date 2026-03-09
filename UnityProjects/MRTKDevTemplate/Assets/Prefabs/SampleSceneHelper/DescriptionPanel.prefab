@@ -31,7 +31,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3220012215463627515}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -166,7 +165,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 772928284761863525}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -301,7 +299,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 772928284761863525}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -374,7 +371,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3220012215463627515}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -511,7 +507,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3220012215463627515}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -650,7 +645,6 @@ RectTransform:
   - {fileID: 8167802247755607139}
   - {fileID: 5965547906816129183}
   m_Father: {fileID: 5158546944129612579}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -668,6 +662,7 @@ GameObject:
   - component: {fileID: 3220012215463627515}
   - component: {fileID: 8084989196684289760}
   - component: {fileID: 5404797170367061738}
+  - component: {fileID: 863618738849702724}
   m_Layer: 5
   m_Name: DescriptionPanel
   m_TagString: Untagged
@@ -693,7 +688,6 @@ RectTransform:
   - {fileID: 3732017194820540582}
   - {fileID: 5158546944129612579}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -717,7 +711,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -744,6 +740,71 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
+--- !u!114 &863618738849702724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6540126486176102408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 699100ca886480c4a94ced56b1ae0e94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  themeDataSource: {fileID: 11400000, guid: 57993c46ea42acf4ca3067542443bc45, type: 2}
+  binders:
+  - rid: 7617100123102511104
+  - rid: 7617100123102511105
+  - rid: 7617100123102511106
+  - rid: 7617100123102511107
+  - rid: 7617100123102511108
+  - rid: 7617100123102511109
+  - rid: 7617100123102511110
+  - rid: 7617100123102511111
+  references:
+    version: 2
+    RefIds:
+    - rid: 7617100123102511104
+      type: {class: ColorThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 6809291684801504143}
+        <ThemeDefinitionItemName>k__BackingField: Text Color
+    - rid: 7617100123102511105
+      type: {class: TMP_FontAssetThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 6809291684801504143}
+        <ThemeDefinitionItemName>k__BackingField: Text Font
+    - rid: 7617100123102511106
+      type: {class: ColorThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 4568172237328552037}
+        <ThemeDefinitionItemName>k__BackingField: Text Color
+    - rid: 7617100123102511107
+      type: {class: TMP_FontAssetThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 4568172237328552037}
+        <ThemeDefinitionItemName>k__BackingField: Text Font
+    - rid: 7617100123102511108
+      type: {class: ColorThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 2446705927233332293}
+        <ThemeDefinitionItemName>k__BackingField: Text Color
+    - rid: 7617100123102511109
+      type: {class: TMP_FontAssetThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 2446705927233332293}
+        <ThemeDefinitionItemName>k__BackingField: Text Font
+    - rid: 7617100123102511110
+      type: {class: ColorThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 4376175471552893095}
+        <ThemeDefinitionItemName>k__BackingField: Text Color
+    - rid: 7617100123102511111
+      type: {class: ColorThemeBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
+      data:
+        <Target>k__BackingField: {fileID: 5822078602719066722}
+        <ThemeDefinitionItemName>k__BackingField: Text Color
 --- !u!1 &7368034384095272423
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,6 +828,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7368034384095272423}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -775,7 +837,6 @@ Transform:
   - {fileID: 772928284761863525}
   - {fileID: 5493534032387613222}
   m_Father: {fileID: 3220012215463627515}
-  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7872745334355361574
 GameObject:
@@ -801,13 +862,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7872745334355361574}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -48.700005, y: 55.2, z: -3.700018}
   m_LocalScale: {x: 2.8187, y: 2.8187, z: 2.8187}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3220012215463627515}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1051251617942771901
 SpriteRenderer:
@@ -886,13 +947,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8323939510892415185}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 177.44179, y: 155.49632, z: 12.879309}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5158546944129612579}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1262417381534939274
 MeshFilter:
