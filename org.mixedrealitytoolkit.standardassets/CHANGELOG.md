@@ -2,6 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Changed
+
+* Reserialized prefabs and other files to remove stale serialized fields. [PR #1117](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1117)
+
 ## [3.2.1] - 2025-11-12
 
 ### Fixed
