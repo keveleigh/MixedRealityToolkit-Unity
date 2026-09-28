@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Added
 
 * Added edit mode tests for `AssemblyExtensions`, `SystemType`, and `SerializableDictionary`. [PR #1122](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1122)
+* Added documentation generation and CS1591 validation tooling. [PR #1148](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1148)
 
 ### Fixed
 
