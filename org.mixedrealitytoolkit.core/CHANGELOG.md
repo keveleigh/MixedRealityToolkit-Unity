@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * Fixed "The type `MixedReality.Toolkit.Core MixedReality.Toolkit.Experimental.BubbleChildHoverEvents/TrickleChildHoverEvents/BubbleChildSelectEvents/TrickleChildSelectEvents` is being serialized by `[SerializeReference]`, but is missing the `[Serializable]` attribute." on Unity 6.3. [PR #1107](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1107)
 * Fixed object identity API usages and obsolete sorting warnings for Unity 6.4 and newer in `FindObjectUtility`. [PR #1136](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1136)
+* Fixed missing XML documentation comments in `SerializableDictionary`. [PR #1148](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1148)
 
 ## Deprecated
 
