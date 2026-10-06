@@ -1,16 +1,7 @@
 {
     "name": "MixedReality.Toolkit.UXComponents",
     "rootNamespace": "MixedReality.Toolkit.UX",
-    "references": [
-        "MixedReality.Toolkit.Accessibility",
-        "MixedReality.Toolkit.Core",
-        "MixedReality.Toolkit.Data",
-        "MixedReality.Toolkit.SpatialManipulation",
-        "Unity.InputSystem",
-        "Unity.TextMeshPro",
-        "Unity.XR.Interaction.Toolkit",
-        "Microsoft.MixedReality.GraphicsTools"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
