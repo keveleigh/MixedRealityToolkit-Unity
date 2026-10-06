@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 2351505566771328561}
   - component: {fileID: 404949538145338360}
   - component: {fileID: 2036977346182542242}
-  - component: {fileID: 9155035745778857788}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -266,29 +265,6 @@ Skybox:
   m_GameObject: {fileID: 2351505566771328562}
   m_Enabled: 1
   m_CustomSkybox: {fileID: 0}
---- !u!114 &9155035745778857788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2351505566771328562}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 699100ca886480c4a94ced56b1ae0e94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  themeDataSource: {fileID: 11400000, guid: 57993c46ea42acf4ca3067542443bc45, type: 2}
-  binders:
-  - rid: 8397413447246282960
-  references:
-    version: 2
-    RefIds:
-    - rid: 8397413447246282960
-      type: {class: SkyboxMaterialBinder, ns: MixedReality.Toolkit.Theming, asm: MixedReality.Toolkit.Theming}
-      data:
-        <Target>k__BackingField: {fileID: 2036977346182542242}
-        <ThemeDefinitionItemName>k__BackingField: Skybox
 --- !u!1 &2351505566903569413
 GameObject:
   m_ObjectHideFlags: 0

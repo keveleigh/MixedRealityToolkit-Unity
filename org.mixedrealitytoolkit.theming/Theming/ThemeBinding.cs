@@ -1,17 +1,20 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
-#if MRTK_THEMING_PRESENT
-using MixedReality.Toolkit.Theming;
-#endif
-
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
-namespace MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.Theming
 {
+    /// <summary>
+    /// Subscribes a set of <see cref="IBinder"/> instances to a <see cref="ThemeDataSource"/>,
+    /// applying theme values to components as the active theme changes.
+    /// </summary>
+    [MovedFrom(true, "MixedReality.Toolkit.UX", "MixedReality.Toolkit.UXCore.Theming")]
+    [AddComponentMenu("MRTK/Theming/Theme Binding")]
     public class ThemeBinding : MonoBehaviour
     {
-#if MRTK_THEMING_PRESENT
         [SerializeField]
         [Tooltip("The theme data source manager.")]
         private ThemeDataSource themeDataSource;
@@ -20,7 +23,7 @@ namespace MixedReality.Toolkit.UX
         [Tooltip("The list of bound theme entries.")]
         private IBinder[] binders = System.Array.Empty<IBinder>();
 
-        private readonly System.Collections.Generic.List<IBinder> subscribedBinders = new System.Collections.Generic.List<IBinder>();
+        private readonly List<IBinder> subscribedBinders = new List<IBinder>();
         private ThemeDataSource subscribedDataSource;
 
         protected void OnEnable()
@@ -66,6 +69,5 @@ namespace MixedReality.Toolkit.UX
                 subscribedDataSource = null;
             }
         }
-#endif
     }
 }

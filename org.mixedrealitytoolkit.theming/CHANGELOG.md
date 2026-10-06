@@ -9,6 +9,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Added serializable theme item data types for booleans. [PR #1130](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1130)
 * Added built-in binders for skybox materials and behaviour enabled states. [PR #1130](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1130)
 
+### Changed
+
+* Moved `ThemeBinding` into this package from `org.mixedrealitytoolkit.uxcore` and into the `MixedReality.Toolkit.Theming` namespace. Its script GUID is unchanged, and `[MovedFrom]` handles serialized references to the old type name. It's no longer compiled conditionally on `MRTK_THEMING_PRESENT`.
+
 ## [1.0.0-pre.1] - 2026-05-20
 
 ### Added

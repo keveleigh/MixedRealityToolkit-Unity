@@ -24,6 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Reserialized MRTK XR Rig prefab to remove stale serialized fields. [PR #1110](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1110)
 * Updated tests to follow existing MRTK test patterns. [PR #1073](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1073)
 * Updated the namespace for `EyeCalibrationCheckerTests` to match this package's namespaces. [PR #1129](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1129)
+* Removed the skybox `ThemeBinding` from "MRTK XR Rig.prefab", removing the rig's undeclared dependency on `org.mixedrealitytoolkit.theming` and `org.mixedrealitytoolkit.uxcore`. The Main Camera keeps its `Skybox` component, so it can still be bound from a scene.
 * Moved `CanvasProxyInteractor` into this package and the `MixedReality.Toolkit.Input` namespace from `org.mixedrealitytoolkit.uxcore`, removing the rig and interaction manager prefabs' undeclared dependency on that package. Its script GUID is unchanged, and `[MovedFrom]` plus a `SystemType` migration handle serialized references to the old type name.
 * Moved `MRTK_DefaultRay.mat`, `DashedRay.shader`, and `DefaultPointerDottedLine.png` into this package from `org.mixedrealitytoolkit.standardassets`, removing the controller prefabs' undeclared dependency on that package. Asset GUIDs are unchanged.
 

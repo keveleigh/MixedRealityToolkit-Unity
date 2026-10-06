@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Removed
 
+* Removed the `MixedReality.Toolkit.UXCore.Theming` assembly. Its only type, `ThemeBinding`, moved to the `org.mixedrealitytoolkit.theming` package and the `MixedReality.Toolkit.Theming` namespace, with its script GUID unchanged.
 * Moved `CanvasProxyInteractor` to the `org.mixedrealitytoolkit.input` package and the `MixedReality.Toolkit.Input` namespace. Its script GUID is unchanged, and `UGUIInputAdapter` continues to find it through `IProxyInteractor`.
 
 ## [4.0.0-pre.4] - 2026-06-10

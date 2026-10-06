@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 * Reserialized prefabs and materials to remove additional stale serialized fields. [PR #1126](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1126)
 * Removed unused assembly references from `MixedReality.Toolkit.UXComponents`.
+* Added `org.mixedrealitytoolkit.theming` as a package dependency. The prefabs' `ThemeBinding` components already referenced `MRTK_Theming_DataSource.asset`, and `ThemeBinding` now lives in the theming package.
 
 ## [4.0.0-pre.3] - 2026-05-20
 

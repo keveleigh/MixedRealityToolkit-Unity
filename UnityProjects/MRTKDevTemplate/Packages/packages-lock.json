@@ -462,6 +462,7 @@
         "org.mixedrealitytoolkit.uxcore": "4.0.0",
         "org.mixedrealitytoolkit.spatialmanipulation": "4.0.0",
         "org.mixedrealitytoolkit.standardassets": "3.2.1",
+        "org.mixedrealitytoolkit.theming": "1.0.0",
         "com.unity.xr.interaction.toolkit": "3.0.4"
       }
     },
