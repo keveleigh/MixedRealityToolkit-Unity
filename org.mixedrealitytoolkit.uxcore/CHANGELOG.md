@@ -2,6 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Removed
+
+* Moved `CanvasProxyInteractor` to the `org.mixedrealitytoolkit.input` package and the `MixedReality.Toolkit.Input` namespace. Its script GUID is unchanged, and `UGUIInputAdapter` continues to find it through `IProxyInteractor`.
+
 ## [4.0.0-pre.4] - 2026-06-10
 
 ### Added

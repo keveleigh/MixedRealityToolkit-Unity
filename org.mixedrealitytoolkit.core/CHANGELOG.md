@@ -14,6 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Updated `PackageValidator` to only be valid if `UNITY_EDITOR` is true. [PR #1125](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1125)
 * `AssemblyExtensions.GetLoadableTypes` now throws `ArgumentNullException` when called on a null assembly instead of `NullReferenceException`. [PR #1122](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1122)
 * Updated `MRTKBaseInteractable` to follow MRTK style. [PR #1073](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1073)
+* Added a `SystemType` reference migration for `CanvasProxyInteractor`'s move from `MixedReality.Toolkit.UX` (UXCore) to `MixedReality.Toolkit.Input`.
+* Moved `MRTK_Logo_Black.png` and `MRTK_Logo_White.png` into this package from `org.mixedrealitytoolkit.standardassets`, removing the inspector header's undeclared dependency on that package. Asset GUIDs are unchanged.
 
 ## [4.0.0-pre.3] - 2026-05-20
 

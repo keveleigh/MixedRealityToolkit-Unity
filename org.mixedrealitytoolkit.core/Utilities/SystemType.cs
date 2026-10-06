@@ -238,7 +238,10 @@ namespace MixedReality.Toolkit
         /// </remarks>
         private static Dictionary<string, string> ReferenceMappings = new Dictionary<string, string>()
         {
-            // Empty for now.
+            {
+                "MixedReality.Toolkit.UX.CanvasProxyInteractor, MixedReality.Toolkit.UXCore",
+                "MixedReality.Toolkit.Input.CanvasProxyInteractor, MixedReality.Toolkit.Input"
+            },
         };
 
         /// <summary>

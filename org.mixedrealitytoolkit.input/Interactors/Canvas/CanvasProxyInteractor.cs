@@ -4,15 +4,17 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
-namespace MixedReality.Toolkit.UX
+namespace MixedReality.Toolkit.Input
 {
     /// <summary>
     /// A simple proxy interactor which will select and hover things on MRTK's behalf, for canvas input.
     /// </summary>
-    [AddComponentMenu("MRTK/UX/Canvas Proxy Interactor")]
+    [MovedFrom(true, "MixedReality.Toolkit.UX", "MixedReality.Toolkit.UXCore")]
+    [AddComponentMenu("MRTK/Input/Canvas Proxy Interactor")]
     public class CanvasProxyInteractor :
         XRBaseInteractor,
         IProxyInteractor,

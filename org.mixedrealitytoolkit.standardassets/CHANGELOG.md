@@ -2,6 +2,13 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Removed
+
+* Moved `MRTK_DefaultRay.mat`, `DashedRay.shader`, and `DefaultPointerDottedLine.png` to the `org.mixedrealitytoolkit.input` package, their only consumer. Asset GUIDs are unchanged.
+* Moved `MRTK_Logo_Black.png` and `MRTK_Logo_White.png` to the `org.mixedrealitytoolkit.core` package, their only consumer. Asset GUIDs are unchanged.
+
 ## [3.3.0-pre.1] - 2026-05-20
 
 ### Changed

@@ -77,7 +77,7 @@ MonoBehaviour:
     - reference: MixedReality.Toolkit.Input.GrabInteractor, MixedReality.Toolkit.Input
   - modeName: FlatScreen
     associatedTypes:
-    - reference: MixedReality.Toolkit.UX.CanvasProxyInteractor, MixedReality.Toolkit.UXCore
+    - reference: MixedReality.Toolkit.Input.CanvasProxyInteractor, MixedReality.Toolkit.Input
   defaultMode:
     name: Far
     priority: 0
