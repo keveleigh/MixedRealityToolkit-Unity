@@ -1518,8 +1518,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7781529056550460865}
   - component: {fileID: 7781529056550460864}
-  - component: {fileID: 802242171}
-  - component: {fileID: 802242172}
   m_Layer: 0
   m_Name: SimpleProfiler
   m_TagString: Untagged
@@ -1564,66 +1562,13 @@ MonoBehaviour:
   ramLimit: {fileID: 8646534824392283863}
   allocatedRam: {fileID: 8425767743695056147}
   peakAllocatedRam: {fileID: 7079984682886800903}
---- !u!114 &802242171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7781529056550460866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07606d041cd57684c85e7122ad8e3897, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  updateLinkedTransform: 0
-  moveLerpTime: 1
-  rotateLerpTime: 1
-  scaleLerpTime: 0
-  maintainScaleOnInitialization: 1
-  smoothing: 1
-  lifetime: 0
-  orientationType: 2
-  faceTrackedObjectWhileClamped: 1
-  faceUserDefinedTargetTransform: 0
-  targetToFace: {fileID: 0}
-  pivotAxis: 7
+  followCamera: 1
+  defaultDistance: 0.45
   minDistance: 0.4
   maxDistance: 0.5
-  defaultDistance: 0.45
   maxViewHorizontalDegrees: 30
   maxViewVerticalDegrees: 80
-  reorientWhenOutsideParameters: 1
-  orientToControllerDeadZoneDegrees: 60
-  ignoreAngleClamp: 0
-  ignoreDistanceClamp: 0
-  ignoreReferencePitchAndRoll: 0
-  pitchOffset: 45
-  verticalMaxDistance: 0.05
-  angularClampMode: 0
-  tetherAngleSteps: 6
-  boundsScaler: 1
---- !u!114 &802242172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7781529056550460866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3986155c7a728454f8bbbabd2e274601, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftInteractor: {fileID: 0}
-  rightInteractor: {fileID: 0}
-  trackedTargetType: 0
-  trackedHandedness: 3
-  trackedHandJoint: 2
-  transformOverride: {fileID: 0}
-  additionalOffset: {x: 0, y: 0, z: 0}
-  additionalRotation: {x: 0, y: 0, z: 0}
-  updateSolvers: 1
+  moveLerpTime: 1
 --- !u!1 &7791286047433672956
 GameObject:
   m_ObjectHideFlags: 0

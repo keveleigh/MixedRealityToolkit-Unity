@@ -2,6 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Unreleased
+
+### Changed
+
+* Replaced the `Follow` and `SolverHandler` components on `SimpleProfiler.prefab` with built-in camera-follow behavior, removing the prefab's undeclared dependency on `org.mixedrealitytoolkit.spatialmanipulation`.
+
 ## [3.0.3] - 2025-11-12
 
 ### Fixed

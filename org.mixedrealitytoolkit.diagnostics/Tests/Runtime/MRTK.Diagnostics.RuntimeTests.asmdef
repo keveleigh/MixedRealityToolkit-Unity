@@ -3,6 +3,7 @@
     "rootNamespace": "",
     "references": [
         "MixedReality.Toolkit.Diagnostics",
+        "MixedReality.Toolkit.Diagnostics.Visualization",
         "UnityEditor.TestRunner",
         "UnityEngine.TestRunner"
     ],

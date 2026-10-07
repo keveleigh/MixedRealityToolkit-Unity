@@ -86,7 +86,64 @@ namespace MixedReality.Toolkit.Diagnostics
 
         #endregion Memory properties
 
+        #region Positioning properties
+
+        [SerializeField]
+        [Tooltip("Whether the profiler should remain near the main camera's field of view.")]
+        private bool followCamera = false;
+
+        /// <summary>
+        /// Whether the profiler should remain near the main camera's field of view.
+        /// </summary>
+        public bool FollowCamera
+        {
+            get => followCamera;
+            set
+            {
+                followCamera = value;
+                recenterNextUpdate = value;
+            }
+        }
+
+        [SerializeField]
+        [Min(0.0f)]
+        [Tooltip("The distance at which the profiler is placed when it needs to be recentered.")]
+        private float defaultDistance = 0.45f;
+
+        [SerializeField]
+        [Min(0.0f)]
+        [Tooltip("The minimum distance the profiler can be from the main camera before it is recentered.")]
+        private float minDistance = 0.4f;
+
+        [SerializeField]
+        [Min(0.0f)]
+        [Tooltip("The maximum distance the profiler can be from the main camera before it is recentered.")]
+        private float maxDistance = 0.5f;
+
+        [SerializeField]
+        [Range(0.0f, 180.0f)]
+        [Tooltip("The maximum horizontal angle from the main camera's forward direction before the profiler is recentered.")]
+        private float maxViewHorizontalDegrees = 30.0f;
+
+        [SerializeField]
+        [Range(0.0f, 180.0f)]
+        [Tooltip("The maximum vertical angle from the main camera's forward direction before the profiler is recentered.")]
+        private float maxViewVerticalDegrees = 80.0f;
+
+        [SerializeField]
+        [Min(0.0f)]
+        [Tooltip("The approximate time, in seconds, used to smooth the profiler toward its recentered position.")]
+        private float moveLerpTime = 1.0f;
+
+        #endregion Positioning properties
+
         private const string noData = "--";
+        private bool recenterNextUpdate = true;
+
+        private void OnEnable()
+        {
+            recenterNextUpdate = followCamera;
+        }
 
         /// <summary>
         /// A Unity event function that is called on the frame when a script is enabled just before any of the update methods are called the first time.
@@ -99,6 +156,66 @@ namespace MixedReality.Toolkit.Diagnostics
 
             FrameRate.text = noData;
             RefreshRate.text = noData;
+        }
+
+        private void LateUpdate()
+        {
+            if (!followCamera || Camera.main == null)
+            {
+                return;
+            }
+
+            Transform cameraTransform = Camera.main.transform;
+            Vector3 cameraToProfiler = transform.position - cameraTransform.position;
+            float distance = cameraToProfiler.magnitude;
+
+            if (!recenterNextUpdate &&
+                distance >= minDistance &&
+                distance <= maxDistance &&
+                IsInsideView(cameraTransform, cameraToProfiler))
+            {
+                return;
+            }
+
+            float recenterDistance = Mathf.Clamp(defaultDistance, minDistance, maxDistance);
+            Vector3 goalPosition = cameraTransform.position + (cameraTransform.forward * recenterDistance);
+            Quaternion goalRotation = Quaternion.LookRotation(cameraTransform.forward, cameraTransform.up);
+
+            if (recenterNextUpdate || moveLerpTime <= 0.0f)
+            {
+                transform.SetPositionAndRotation(goalPosition, goalRotation);
+            }
+            else
+            {
+                float lerpAmount = 1.0f - Mathf.Exp(-Time.unscaledDeltaTime / moveLerpTime);
+                transform.SetPositionAndRotation(
+                    Vector3.Lerp(transform.position, goalPosition, lerpAmount),
+                    Quaternion.Slerp(transform.rotation, goalRotation, lerpAmount));
+            }
+
+            recenterNextUpdate = false;
+        }
+
+        private bool IsInsideView(Transform cameraTransform, Vector3 cameraToProfiler)
+        {
+            if (cameraToProfiler.sqrMagnitude <= Mathf.Epsilon)
+            {
+                return false;
+            }
+
+            Vector3 localDirection = cameraTransform.InverseTransformDirection(cameraToProfiler.normalized);
+            if (localDirection.z <= 0.0f)
+            {
+                return false;
+            }
+
+            float horizontalAngle = Mathf.Abs(Mathf.Atan2(localDirection.x, localDirection.z) * Mathf.Rad2Deg);
+            float verticalAngle = Mathf.Abs(
+                Mathf.Atan2(localDirection.y, new Vector2(localDirection.x, localDirection.z).magnitude) *
+                Mathf.Rad2Deg);
+
+            return horizontalAngle <= maxViewHorizontalDegrees &&
+                verticalAngle <= maxViewVerticalDegrees;
         }
 
         /// <summary>
