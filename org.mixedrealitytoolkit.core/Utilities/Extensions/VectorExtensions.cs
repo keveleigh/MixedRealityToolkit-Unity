@@ -1,9 +1,10 @@
-﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace MixedReality.Toolkit
 {
@@ -146,7 +147,7 @@ namespace MixedReality.Toolkit
                 count++;
             }
 
-            return new Vector2(x / count, y / count);
+            return count == 0 ? Vector2.zero : new Vector2(x / count, y / count);
         }
 
         /// <summary>
@@ -171,7 +172,7 @@ namespace MixedReality.Toolkit
                 count++;
             }
 
-            return new Vector3(x / count, y / count, z / count);
+            return count == 0 ? Vector3.zero : new Vector3(x / count, y / count, z / count);
         }
 
         /// <summary>
@@ -240,9 +241,32 @@ namespace MixedReality.Toolkit
         /// </returns>
         public static Vector2 Median(this IEnumerable<Vector2> vectors)
         {
-            var enumerable = vectors as Vector2[] ?? vectors.ToArray();
-            int count = enumerable.Length;
-            return count == 0 ? Vector2.zero : enumerable.OrderBy(v => v.sqrMagnitude).ElementAt(count / 2);
+            if (vectors is ICollection<Vector2> collection)
+            {
+                return Median(collection);
+            }
+
+            using (ListPool<float>.Get(out var xList))
+            using (ListPool<float>.Get(out var yList))
+            {
+                foreach (var v in vectors)
+                {
+                    xList.Add(v.x);
+                    yList.Add(v.y);
+                }
+
+                int count = xList.Count;
+                if (count == 0)
+                {
+                    return Vector2.zero;
+                }
+
+                xList.Sort();
+                yList.Sort();
+
+                int mid = count / 2;
+                return new Vector2(xList[mid], yList[mid]);
+            }
         }
 
         /// <summary>
@@ -254,9 +278,35 @@ namespace MixedReality.Toolkit
         /// </returns>
         public static Vector3 Median(this IEnumerable<Vector3> vectors)
         {
-            var enumerable = vectors as Vector3[] ?? vectors.ToArray();
-            int count = enumerable.Length;
-            return count == 0 ? Vector3.zero : enumerable.OrderBy(v => v.sqrMagnitude).ElementAt(count / 2);
+            if (vectors is ICollection<Vector3> collection)
+            {
+                return Median(collection);
+            }
+
+            using (ListPool<float>.Get(out var xList))
+            using (ListPool<float>.Get(out var yList))
+            using (ListPool<float>.Get(out var zList))
+            {
+                foreach (var v in vectors)
+                {
+                    xList.Add(v.x);
+                    yList.Add(v.y);
+                    zList.Add(v.z);
+                }
+
+                int count = xList.Count;
+                if (count == 0)
+                {
+                    return Vector3.zero;
+                }
+
+                xList.Sort();
+                yList.Sort();
+                zList.Sort();
+
+                int mid = count / 2;
+                return new Vector3(xList[mid], yList[mid], zList[mid]);
+            }
         }
 
         /// <summary>
@@ -269,7 +319,26 @@ namespace MixedReality.Toolkit
         public static Vector2 Median(this ICollection<Vector2> vectors)
         {
             int count = vectors.Count;
-            return count == 0 ? Vector2.zero : vectors.OrderBy(v => v.sqrMagnitude).ElementAt(count / 2);
+            if (count == 0)
+            {
+                return Vector2.zero;
+            }
+
+            using (ListPool<float>.Get(out var xList))
+            using (ListPool<float>.Get(out var yList))
+            {
+                foreach (var v in vectors)
+                {
+                    xList.Add(v.x);
+                    yList.Add(v.y);
+                }
+
+                xList.Sort();
+                yList.Sort();
+
+                int mid = count / 2;
+                return new Vector2(xList[mid], yList[mid]);
+            }
         }
 
         /// <summary>
@@ -282,7 +351,29 @@ namespace MixedReality.Toolkit
         public static Vector3 Median(this ICollection<Vector3> vectors)
         {
             int count = vectors.Count;
-            return count == 0 ? Vector3.zero : vectors.OrderBy(v => v.sqrMagnitude).ElementAt(count / 2);
+            if (count == 0)
+            {
+                return Vector3.zero;
+            }
+
+            using (ListPool<float>.Get(out var xList))
+            using (ListPool<float>.Get(out var yList))
+            using (ListPool<float>.Get(out var zList))
+            {
+                foreach (var v in vectors)
+                {
+                    xList.Add(v.x);
+                    yList.Add(v.y);
+                    zList.Add(v.z);
+                }
+
+                xList.Sort();
+                yList.Sort();
+                zList.Sort();
+
+                int mid = count / 2;
+                return new Vector3(xList[mid], yList[mid], zList[mid]);
+            }
         }
 
         /// <summary>

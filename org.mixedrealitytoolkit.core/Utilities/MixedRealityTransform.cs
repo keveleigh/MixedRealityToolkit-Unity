@@ -1,4 +1,4 @@
-﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
 using System;
@@ -11,7 +11,7 @@ namespace MixedReality.Toolkit
     /// A structure that wraps position, rotation, and scale structures.
     /// </summary>
     [Serializable]
-    public struct MixedRealityTransform : IEqualityComparer
+    public struct MixedRealityTransform : IEqualityComparer, IEquatable<MixedRealityTransform>
     {
         /// <summary>
         /// Initializes a new <see cref="MixedRealityTransform"/> struct.
@@ -145,7 +145,8 @@ namespace MixedReality.Toolkit
         public bool Equals(MixedRealityTransform other)
         {
             return Position == other.Position &&
-                   Rotation.Equals(other.Rotation);
+                   Rotation.Equals(other.Rotation) &&
+                   Scale == other.Scale;
         }
 
         /// <inheritdoc />
@@ -164,7 +165,11 @@ namespace MixedReality.Toolkit
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            unchecked
+            {
+                int hash = pose.GetHashCode();
+                return (hash * 397) ^ scale.GetHashCode();
+            }
         }
 
         #endregion IEqualityComparer Implementation

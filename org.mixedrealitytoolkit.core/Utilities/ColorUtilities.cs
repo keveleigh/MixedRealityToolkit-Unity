@@ -103,35 +103,31 @@ namespace MixedReality.Toolkit
 
             if (!noColor)
             {
-                for (int i = 0; i < a.colorKeys.Length; i++)
+                var aColorKeys = a.colorKeys;
+                for (int i = 0; i < aColorKeys.Length; i++)
                 {
-                    float k = a.colorKeys[i].time;
-                    if (!cachedKeyTimes.Contains(k))
-                        cachedKeyTimes.Add(k);
+                    cachedKeyTimes.Add(aColorKeys[i].time);
                 }
 
-                for (int i = 0; i < b.colorKeys.Length; i++)
+                var bColorKeys = b.colorKeys;
+                for (int i = 0; i < bColorKeys.Length; i++)
                 {
-                    float k = b.colorKeys[i].time;
-                    if (!cachedKeyTimes.Contains(k))
-                        cachedKeyTimes.Add(k);
+                    cachedKeyTimes.Add(bColorKeys[i].time);
                 }
             }
 
             if (!noAlpha)
             {
-                for (int i = 0; i < a.alphaKeys.Length; i++)
+                var aAlphaKeys = a.alphaKeys;
+                for (int i = 0; i < aAlphaKeys.Length; i++)
                 {
-                    float k = a.alphaKeys[i].time;
-                    if (!cachedKeyTimes.Contains(k))
-                        cachedKeyTimes.Add(k);
+                    cachedKeyTimes.Add(aAlphaKeys[i].time);
                 }
 
-                for (int i = 0; i < b.alphaKeys.Length; i++)
+                var bAlphaKeys = b.alphaKeys;
+                for (int i = 0; i < bAlphaKeys.Length; i++)
                 {
-                    float k = b.alphaKeys[i].time;
-                    if (!cachedKeyTimes.Contains(k))
-                        cachedKeyTimes.Add(k);
+                    cachedKeyTimes.Add(bAlphaKeys[i].time);
                 }
             }
 

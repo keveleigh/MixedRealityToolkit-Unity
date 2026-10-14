@@ -1,4 +1,4 @@
-﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
 using System;
@@ -12,12 +12,6 @@ namespace MixedReality.Toolkit
     [Serializable]
     public struct RayStep
     {
-        // Re-use static space to avoid additional allocation
-        private static Vector3 dist;
-        private static Vector3 dir;
-        private static Vector3 pos;
-
-
         /// <summary>
         /// Initializes a new instance of the <see cref="RayStep"/> struct.
         /// </summary>
@@ -61,16 +55,20 @@ namespace MixedReality.Toolkit
         /// </returns>
         public Vector3 GetPoint(float distance)
         {
-            if (Length <= distance || Length == 0f)
+            if (Length <= 0f || distance <= 0f)
             {
                 return Origin;
             }
 
-            pos.x = Origin.x + Direction.x * distance;
-            pos.y = Origin.y + Direction.y * distance;
-            pos.z = Origin.z + Direction.z * distance;
+            if (distance >= Length)
+            {
+                return Terminus;
+            }
 
-            return pos;
+            return new Vector3(
+                Origin.x + Direction.x * distance,
+                Origin.y + Direction.y * distance,
+                Origin.z + Direction.z * distance);
         }
 
         /// <summary>
@@ -86,24 +84,17 @@ namespace MixedReality.Toolkit
             Origin = origin;
             Terminus = terminus;
 
-            dist.x = Terminus.x - Origin.x;
-            dist.y = Terminus.y - Origin.y;
-            dist.z = Terminus.z - Origin.z;
+            Vector3 delta = new Vector3(Terminus.x - Origin.x, Terminus.y - Origin.y, Terminus.z - Origin.z);
+            Length = Mathf.Sqrt((delta.x * delta.x) + (delta.y * delta.y) + (delta.z * delta.z));
 
-            Length = Mathf.Sqrt((dist.x * dist.x) + (dist.y * dist.y) + (dist.z * dist.z));
-
-            if (Length > 0)
+            if (Length > 0f)
             {
-                dir.x = dist.x / Length;
-                dir.y = dist.y / Length;
-                dir.z = dist.z / Length;
+                Direction = new Vector3(delta.x / Length, delta.y / Length, delta.z / Length);
             }
             else
             {
-                dir = dist;
+                Direction = delta;
             }
-
-            Direction = dir;
         }
 
         /// <summary>
@@ -120,11 +111,10 @@ namespace MixedReality.Toolkit
             Origin = ray.origin;
             Direction = ray.direction;
 
-            pos.x = Origin.x + Direction.x * Length;
-            pos.y = Origin.y + Direction.y * Length;
-            pos.z = Origin.z + Direction.z * Length;
-
-            Terminus = pos;
+            Terminus = new Vector3(
+                Origin.x + Direction.x * Length,
+                Origin.y + Direction.y * Length,
+                Origin.z + Direction.z * Length);
         }
 
         /// <summary>
@@ -136,20 +126,9 @@ namespace MixedReality.Toolkit
         /// </returns>
         public bool Contains(Vector3 point)
         {
-            dist.x = Origin.x - point.x;
-            dist.y = Origin.y - point.y;
-            dist.z = Origin.z - point.z;
-            float sqrMagOriginPoint = (dist.x * dist.x) + (dist.y * dist.y) + (dist.z * dist.z);
-
-            dist.x = point.x - Terminus.x;
-            dist.y = point.y - Terminus.y;
-            dist.z = point.z - Terminus.z;
-            float sqrMagPointTerminus = (dist.x * dist.x) + (dist.y * dist.y) + (dist.z * dist.z);
-
-            float sqrLength = Length * Length;
-            float sqrEpsilon = epsilon * epsilon;
-
-            return (sqrMagOriginPoint + sqrMagPointTerminus) - sqrLength > sqrEpsilon;
+            float d1 = Vector3.Distance(Origin, point);
+            float d2 = Vector3.Distance(point, Terminus);
+            return (d1 + d2) - Length <= epsilon;
         }
 
         /// <summary>

@@ -16,7 +16,10 @@ namespace MixedReality.Toolkit
     /// </summary>
     public static class XRSubsystemHelpers
     {
-        private static Dictionary<Type, IList> scratchCaches = new Dictionary<Type, IList>();
+        private static class SubsystemCache<T> where T : ISubsystem
+        {
+            public static readonly List<T> Cache = new List<T>();
+        }
 
         /// <summary>
         /// Get the first active subsystem of type T.
@@ -59,7 +62,13 @@ namespace MixedReality.Toolkit
         public static List<T> GetAllRunningSubsystems<T>() where T : ISubsystem
         {
             List<T> subsystems = GetAllSubsystems<T>();
-            subsystems.RemoveAll(subsystem => !subsystem.running);
+            for (int i = subsystems.Count - 1; i >= 0; i--)
+            {
+                if (!subsystems[i].running)
+                {
+                    subsystems.RemoveAt(i);
+                }
+            }
             return subsystems;
         }
 
@@ -73,18 +82,7 @@ namespace MixedReality.Toolkit
         /// </remarks>
         public static List<T> GetAllSubsystems<T>() where T : ISubsystem
         {
-            // If we haven't queried subsystems of this type before,
-            // we'll need to add a new entry in our cache. This will
-            // allocate the first time, but subsequent queries will
-            // reuse the same cached list. (The list will still be cleared
-            // and re-filled by the GetSubsystems call, but nothing will be
-            // allocated.)
-            if (!scratchCaches.ContainsKey(typeof(T)))
-            {
-                scratchCaches.Add(typeof(T), new List<T>());
-            }
-
-            List<T> cache = scratchCaches[typeof(T)] as List<T>;
+            List<T> cache = SubsystemCache<T>.Cache;
             SubsystemManager.GetSubsystems(cache);
             return cache;
         }

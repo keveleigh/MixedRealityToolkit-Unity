@@ -1,9 +1,10 @@
-﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace MixedReality.Toolkit
 {
@@ -49,13 +50,18 @@ namespace MixedReality.Toolkit
         /// <param name="action">Delegate to apply.</param>
         public static void ApplyToHierarchy(this GameObject root, Action<GameObject> action)
         {
-            action(root);
-            Transform[] items = root.GetComponentsInChildren<Transform>();
-            int count = items.Length;
-
-            for (var i = 0; i < count; i++)
+            if (root == null || action == null)
             {
-                action(items[i].gameObject);
+                return;
+            }
+
+            using (ListPool<Transform>.Get(out var items))
+            {
+                root.GetComponentsInChildren(true, items);
+                for (var i = 0; i < items.Count; i++)
+                {
+                    action(items[i].gameObject);
+                }
             }
         }
 
@@ -79,12 +85,18 @@ namespace MixedReality.Toolkit
         /// <param name="action">Action to perform.</param>
         public static void ForEachComponent<T>(this GameObject gameObject, Action<T> action) where T : Component
         {
-            T[] components = gameObject.GetComponents<T>();
-            int count = components.Length;
-
-            for (int i = 0; i < count; i++)
+            if (gameObject == null || action == null)
             {
-                action(components[i]);
+                return;
+            }
+
+            using (ListPool<T>.Get(out var components))
+            {
+                gameObject.GetComponents(components);
+                for (int i = 0; i < components.Count; i++)
+                {
+                    action(components[i]);
+                }
             }
         }
 

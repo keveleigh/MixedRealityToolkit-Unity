@@ -1,6 +1,7 @@
 // Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace MixedReality.Toolkit
     /// The pose of an individual hand joint. Superset
     /// of a <see cref="UnityEngine.Pose"/>, adding a radius value.
     /// </summary>
-    public struct HandJointPose : IEqualityComparer
+    public struct HandJointPose : IEqualityComparer, IEquatable<HandJointPose>
     {
         /// <summary>
         /// Initializes a new <see cref="HandJointPose"/> struct.
@@ -137,7 +138,11 @@ namespace MixedReality.Toolkit
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            unchecked
+            {
+                int hash = pose.GetHashCode();
+                return (hash * 397) ^ radius.GetHashCode();
+            }
         }
 
         /// <summary>

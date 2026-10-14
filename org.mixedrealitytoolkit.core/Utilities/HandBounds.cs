@@ -1,4 +1,4 @@
-﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
 using MixedReality.Toolkit.Subsystems;
@@ -111,13 +111,16 @@ namespace MixedReality.Toolkit
             else
             {
                 HandJointPose palmPose = jointPoses[HandsUtils.ConvertToIndex(TrackedHandJoint.Palm)];
-                Bounds newGlobalBounds = new Bounds(palmPose.Position, Vector3.zero);
+                Vector3 palmPos = palmPose.Position;
+                Quaternion invPalmRot = Quaternion.Inverse(palmPose.Rotation);
+                Bounds newGlobalBounds = new Bounds(palmPos, Vector3.zero);
                 Bounds newLocalBounds = new Bounds(Vector3.zero, Vector3.zero);
 
                 for (int i = 0; i < jointPoses.Count; i++)
                 {
-                    newGlobalBounds.Encapsulate(jointPoses[i].Position);
-                    newLocalBounds.Encapsulate(Quaternion.Inverse(palmPose.Rotation) * (jointPoses[i].Position - palmPose.Position));
+                    Vector3 jointPos = jointPoses[i].Position;
+                    newGlobalBounds.Encapsulate(jointPos);
+                    newLocalBounds.Encapsulate(invPalmRot * (jointPos - palmPos));
                 }
 
                 GlobalBounds[hand] = newGlobalBounds;
@@ -125,7 +128,7 @@ namespace MixedReality.Toolkit
 
                 // We must normalize the quaternion before constructing the TRS matrix; non-unit-length quaternions
                 // may be emitted from the palm-pose and they must be renormalized.
-                boundsTransforms[hand] = Matrix4x4.TRS(palmPose.Position, palmPose.Rotation.normalized, Vector3.one);
+                boundsTransforms[hand] = Matrix4x4.TRS(palmPos, palmPose.Rotation.normalized, Vector3.one);
             }
         }
     }

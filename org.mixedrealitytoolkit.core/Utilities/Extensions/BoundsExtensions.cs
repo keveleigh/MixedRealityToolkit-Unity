@@ -1,9 +1,10 @@
-﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Pool;
 
 namespace MixedReality.Toolkit
 {
@@ -297,14 +298,15 @@ namespace MixedReality.Toolkit
             }
 
             // Transform all the local points to world space.
-            positions[LBF] = transform.TransformPoint(leftEdge, bottomEdge, frontEdge);
-            positions[LBB] = transform.TransformPoint(leftEdge, bottomEdge, backEdge);
-            positions[LTF] = transform.TransformPoint(leftEdge, topEdge, frontEdge);
-            positions[LTB] = transform.TransformPoint(leftEdge, topEdge, backEdge);
-            positions[RBF] = transform.TransformPoint(rightEdge, bottomEdge, frontEdge);
-            positions[RBB] = transform.TransformPoint(rightEdge, bottomEdge, backEdge);
-            positions[RTF] = transform.TransformPoint(rightEdge, topEdge, frontEdge);
-            positions[RTB] = transform.TransformPoint(rightEdge, topEdge, backEdge);
+            Matrix4x4 localToWorld = transform.localToWorldMatrix;
+            positions[LBF] = localToWorld.MultiplyPoint3x4(new Vector3(leftEdge, bottomEdge, frontEdge));
+            positions[LBB] = localToWorld.MultiplyPoint3x4(new Vector3(leftEdge, bottomEdge, backEdge));
+            positions[LTF] = localToWorld.MultiplyPoint3x4(new Vector3(leftEdge, topEdge, frontEdge));
+            positions[LTB] = localToWorld.MultiplyPoint3x4(new Vector3(leftEdge, topEdge, backEdge));
+            positions[RBF] = localToWorld.MultiplyPoint3x4(new Vector3(rightEdge, bottomEdge, frontEdge));
+            positions[RBB] = localToWorld.MultiplyPoint3x4(new Vector3(rightEdge, bottomEdge, backEdge));
+            positions[RTF] = localToWorld.MultiplyPoint3x4(new Vector3(rightEdge, topEdge, frontEdge));
+            positions[RTB] = localToWorld.MultiplyPoint3x4(new Vector3(rightEdge, topEdge, backEdge));
         }
 
         /// <summary>
@@ -437,14 +439,15 @@ namespace MixedReality.Toolkit
             }
 
             // Transform all the local points to world space.
-            positions[LBF] = transform.TransformPoint(leftEdge, bottomEdge, frontEdge);
-            positions[LBB] = transform.TransformPoint(leftEdge, bottomEdge, backEdge);
-            positions[LTF] = transform.TransformPoint(leftEdge, topEdge, frontEdge);
-            positions[LTB] = transform.TransformPoint(leftEdge, topEdge, backEdge);
-            positions[RBF] = transform.TransformPoint(rightEdge, bottomEdge, frontEdge);
-            positions[RBB] = transform.TransformPoint(rightEdge, bottomEdge, backEdge);
-            positions[RTF] = transform.TransformPoint(rightEdge, topEdge, frontEdge);
-            positions[RTB] = transform.TransformPoint(rightEdge, topEdge, backEdge);
+            Matrix4x4 localToWorld = transform.localToWorldMatrix;
+            positions[LBF] = localToWorld.MultiplyPoint3x4(new Vector3(leftEdge, bottomEdge, frontEdge));
+            positions[LBB] = localToWorld.MultiplyPoint3x4(new Vector3(leftEdge, bottomEdge, backEdge));
+            positions[LTF] = localToWorld.MultiplyPoint3x4(new Vector3(leftEdge, topEdge, frontEdge));
+            positions[LTB] = localToWorld.MultiplyPoint3x4(new Vector3(leftEdge, topEdge, backEdge));
+            positions[RBF] = localToWorld.MultiplyPoint3x4(new Vector3(rightEdge, bottomEdge, frontEdge));
+            positions[RBB] = localToWorld.MultiplyPoint3x4(new Vector3(rightEdge, bottomEdge, backEdge));
+            positions[RTF] = localToWorld.MultiplyPoint3x4(new Vector3(rightEdge, topEdge, frontEdge));
+            positions[RTB] = localToWorld.MultiplyPoint3x4(new Vector3(rightEdge, topEdge, backEdge));
 
             positions[LTF_RTF] = Vector3.Lerp(positions[LTF], positions[RTF], 0.5f);
             positions[LBF_RBF] = Vector3.Lerp(positions[LBF], positions[RBF], 0.5f);
@@ -487,6 +490,7 @@ namespace MixedReality.Toolkit
                 positions = new Vector3[numPoints];
             }
 
+            Matrix4x4 localToWorld = transform.localToWorldMatrix;
             switch (flattenAxis)
             {
                 case Axis.X:
@@ -497,10 +501,10 @@ namespace MixedReality.Toolkit
                     topEdge = center.y + extents.y;
 
                     // Transform all the local points to world space.
-                    positions[LT] = transform.TransformPoint(0, topEdge, leftEdge);
-                    positions[LB] = transform.TransformPoint(0, bottomEdge, leftEdge);
-                    positions[RT] = transform.TransformPoint(0, topEdge, rightEdge);
-                    positions[RB] = transform.TransformPoint(0, bottomEdge, rightEdge);
+                    positions[LT] = localToWorld.MultiplyPoint3x4(new Vector3(0, topEdge, leftEdge));
+                    positions[LB] = localToWorld.MultiplyPoint3x4(new Vector3(0, bottomEdge, leftEdge));
+                    positions[RT] = localToWorld.MultiplyPoint3x4(new Vector3(0, topEdge, rightEdge));
+                    positions[RB] = localToWorld.MultiplyPoint3x4(new Vector3(0, bottomEdge, rightEdge));
                     break;
 
                 case Axis.Y:
@@ -510,10 +514,10 @@ namespace MixedReality.Toolkit
                     topEdge = center.x + extents.x;
 
                     // Transform all the local points to world space.
-                    positions[LT] = transform.TransformPoint(topEdge, 0, leftEdge);
-                    positions[LB] = transform.TransformPoint(bottomEdge, 0, leftEdge);
-                    positions[RT] = transform.TransformPoint(topEdge, 0, rightEdge);
-                    positions[RB] = transform.TransformPoint(bottomEdge, 0, rightEdge);
+                    positions[LT] = localToWorld.MultiplyPoint3x4(new Vector3(topEdge, 0, leftEdge));
+                    positions[LB] = localToWorld.MultiplyPoint3x4(new Vector3(bottomEdge, 0, leftEdge));
+                    positions[RT] = localToWorld.MultiplyPoint3x4(new Vector3(topEdge, 0, rightEdge));
+                    positions[RB] = localToWorld.MultiplyPoint3x4(new Vector3(bottomEdge, 0, rightEdge));
                     break;
 
                 case Axis.Z:
@@ -523,10 +527,10 @@ namespace MixedReality.Toolkit
                     topEdge = center.y + extents.y;
 
                     // Transform all the local points to world space.
-                    positions[LT] = transform.TransformPoint(leftEdge, topEdge, 0);
-                    positions[LB] = transform.TransformPoint(leftEdge, bottomEdge, 0);
-                    positions[RT] = transform.TransformPoint(rightEdge, topEdge, 0);
-                    positions[RB] = transform.TransformPoint(rightEdge, bottomEdge, 0);
+                    positions[LT] = localToWorld.MultiplyPoint3x4(new Vector3(leftEdge, topEdge, 0));
+                    positions[LB] = localToWorld.MultiplyPoint3x4(new Vector3(leftEdge, bottomEdge, 0));
+                    positions[RT] = localToWorld.MultiplyPoint3x4(new Vector3(rightEdge, topEdge, 0));
+                    positions[RB] = localToWorld.MultiplyPoint3x4(new Vector3(rightEdge, bottomEdge, 0));
                     break;
             }
 
@@ -575,10 +579,11 @@ namespace MixedReality.Toolkit
         /// <returns><see langword="true"/> if bounds were calculated, otherwise <see langword="false"/>.</returns>
         public static bool GetColliderBounds(GameObject target, out Bounds bounds, LayerMask ignoreLayers)
         {
-            var boundsPoints = new List<Vector3>();
-            GetColliderBoundsPoints(target, boundsPoints, ignoreLayers);
-
-            return GetPointsBounds(boundsPoints, out bounds);
+            using (ListPool<Vector3>.Get(out var boundsPoints))
+            {
+                GetColliderBoundsPoints(target, boundsPoints, ignoreLayers);
+                return GetPointsBounds(boundsPoints, out bounds);
+            }
         }
 
         /// <summary>
@@ -619,10 +624,13 @@ namespace MixedReality.Toolkit
         /// <param name="relativeTo">Compute bounds relative to this transform.</param>
         public static void GetColliderBoundsPoints(GameObject target, List<Vector3> boundsPoints, LayerMask ignoreLayers, Transform relativeTo = null)
         {
-            Collider[] colliders = target.GetComponentsInChildren<Collider>();
-            for (int i = 0; i < colliders.Length; i++)
+            using (ListPool<Collider>.Get(out var colliders))
             {
-                GetColliderBoundsPoints(colliders[i], boundsPoints, ignoreLayers, relativeTo);
+                target.GetComponentsInChildren(colliders);
+                for (int i = 0; i < colliders.Count; i++)
+                {
+                    GetColliderBoundsPoints(colliders[i], boundsPoints, ignoreLayers, relativeTo);
+                }
             }
         }
 
@@ -630,9 +638,10 @@ namespace MixedReality.Toolkit
         {
             if (relativeTo)
             {
+                Matrix4x4 worldToLocal = relativeTo.worldToLocalMatrix;
                 for (var i = 0; i < positions.Length; ++i)
                 {
-                    positions[i] = relativeTo.InverseTransformPoint(positions[i]);
+                    positions[i] = worldToLocal.MultiplyPoint3x4(positions[i]);
                 }
             }
         }
@@ -709,10 +718,33 @@ namespace MixedReality.Toolkit
         /// <returns><see langword="true"/> if bounds were calculated, otherwise <see langword="false"/>.</returns>
         public static bool GetRenderBounds(GameObject target, out Bounds bounds, LayerMask ignoreLayers)
         {
-            var boundsPoints = new List<Vector3>();
-            GetRenderBoundsPoints(target, boundsPoints, ignoreLayers);
+            bounds = default;
+            bool hasBounds = false;
 
-            return GetPointsBounds(boundsPoints, out bounds);
+            using (ListPool<Renderer>.Get(out var renderers))
+            {
+                target.GetComponentsInChildren(renderers);
+                for (int i = 0; i < renderers.Count; ++i)
+                {
+                    Renderer rendererObj = renderers[i];
+                    if (ignoreLayers == (1 << rendererObj.gameObject.layer | ignoreLayers))
+                    {
+                        continue;
+                    }
+
+                    if (!hasBounds)
+                    {
+                        bounds = rendererObj.bounds;
+                        hasBounds = true;
+                    }
+                    else
+                    {
+                        bounds.Encapsulate(rendererObj.bounds);
+                    }
+                }
+            }
+
+            return hasBounds;
         }
 
         /// <summary>
@@ -723,17 +755,20 @@ namespace MixedReality.Toolkit
         /// <param name="ignoreLayers">A layer mask used to simplify search.</param>
         public static void GetRenderBoundsPoints(GameObject target, List<Vector3> boundsPoints, LayerMask ignoreLayers)
         {
-            Renderer[] renderers = target.GetComponentsInChildren<Renderer>();
-            for (int i = 0; i < renderers.Length; ++i)
+            using (ListPool<Renderer>.Get(out var renderers))
             {
-                Renderer rendererObj = renderers[i];
-                if (ignoreLayers == (1 << rendererObj.gameObject.layer | ignoreLayers))
+                target.GetComponentsInChildren(renderers);
+                for (int i = 0; i < renderers.Count; ++i)
                 {
-                    continue;
-                }
+                    Renderer rendererObj = renderers[i];
+                    if (ignoreLayers == (1 << rendererObj.gameObject.layer | ignoreLayers))
+                    {
+                        continue;
+                    }
 
-                rendererObj.bounds.GetCornerPositionsFromRendererBounds(ref corners);
-                boundsPoints.AddRange(corners);
+                    rendererObj.bounds.GetCornerPositionsFromRendererBounds(ref corners);
+                    boundsPoints.AddRange(corners);
+                }
             }
         }
 
@@ -749,10 +784,11 @@ namespace MixedReality.Toolkit
         /// <returns><see langword="true"/> if bounds were calculated, otherwise <see langword="false"/>.</returns>
         public static bool GetMeshFilterBounds(GameObject target, out Bounds bounds, LayerMask ignoreLayers)
         {
-            var boundsPoints = new List<Vector3>();
-            GetMeshFilterBoundsPoints(target, boundsPoints, ignoreLayers);
-
-            return GetPointsBounds(boundsPoints, out bounds);
+            using (ListPool<Vector3>.Get(out var boundsPoints))
+            {
+                GetMeshFilterBoundsPoints(target, boundsPoints, ignoreLayers);
+                return GetPointsBounds(boundsPoints, out bounds);
+            }
         }
 
         /// <summary>
@@ -763,24 +799,33 @@ namespace MixedReality.Toolkit
         /// <param name="ignoreLayers">A layer mask to simplify search.</param>
         public static void GetMeshFilterBoundsPoints(GameObject target, List<Vector3> boundsPoints, LayerMask ignoreLayers)
         {
-            MeshFilter[] meshFilters = target.GetComponentsInChildren<MeshFilter>();
-            for (int i = 0; i < meshFilters.Length; i++)
+            using (ListPool<MeshFilter>.Get(out var meshFilters))
             {
-                MeshFilter meshFilterObj = meshFilters[i];
-                if (ignoreLayers == (1 << meshFilterObj.gameObject.layer | ignoreLayers))
+                target.GetComponentsInChildren(meshFilters);
+                for (int i = 0; i < meshFilters.Count; i++)
                 {
-                    continue;
-                }
+                    MeshFilter meshFilterObj = meshFilters[i];
+                    if (ignoreLayers == (1 << meshFilterObj.gameObject.layer | ignoreLayers))
+                    {
+                        continue;
+                    }
 
-                Bounds meshBounds = meshFilterObj.sharedMesh.bounds;
-                meshBounds.GetCornerPositions(meshFilterObj.transform, ref corners);
-                boundsPoints.AddRange(corners);
+                    if (meshFilterObj.sharedMesh != null)
+                    {
+                        Bounds meshBounds = meshFilterObj.sharedMesh.bounds;
+                        meshBounds.GetCornerPositions(meshFilterObj.transform, ref corners);
+                        boundsPoints.AddRange(corners);
+                    }
+                }
             }
-            RectTransform[] rectTransforms = target.GetComponentsInChildren<RectTransform>();
-            for (int i = 0; i < rectTransforms.Length; i++)
+            using (ListPool<RectTransform>.Get(out var rectTransforms))
             {
-                rectTransforms[i].GetWorldCorners(rectTransformCorners);
-                boundsPoints.AddRange(rectTransformCorners);
+                target.GetComponentsInChildren(rectTransforms);
+                for (int i = 0; i < rectTransforms.Count; i++)
+                {
+                    rectTransforms[i].GetWorldCorners(rectTransformCorners);
+                    boundsPoints.AddRange(rectTransformCorners);
+                }
             }
         }
 
@@ -867,19 +912,26 @@ namespace MixedReality.Toolkit
         /// </summary>
         public static Rect GetScreenRectangle(this Bounds bounds, Camera camera)
         {
-            // Retrieve the bounds' corner points in screen space
-            Vector2[] screenSpaceCornerPoints = bounds.GetScreenSpaceCornerPoints(camera);
+            Vector3 center = bounds.center;
+            Vector3 extents = bounds.extents;
 
-            // Identify the minimum and maximum points in the array
-            Vector3 minScreenPoint = screenSpaceCornerPoints[0], maxScreenPoint = screenSpaceCornerPoints[0];
-            for (int screenPointIndex = 1; screenPointIndex < screenSpaceCornerPoints.Length; ++screenPointIndex)
+            Vector3 p = camera.WorldToScreenPoint(new Vector3(center.x - extents.x, center.y - extents.y, center.z - extents.z));
+            float minX = p.x, maxX = p.x;
+            float minY = p.y, maxY = p.y;
+
+            for (int i = 1; i < 8; i++)
             {
-                minScreenPoint = Vector3.Min(minScreenPoint, screenSpaceCornerPoints[screenPointIndex]);
-                maxScreenPoint = Vector3.Max(maxScreenPoint, screenSpaceCornerPoints[screenPointIndex]);
+                float x = (i & 1) == 0 ? center.x - extents.x : center.x + extents.x;
+                float y = (i & 2) == 0 ? center.y - extents.y : center.y + extents.y;
+                float z = (i & 4) == 0 ? center.z - extents.z : center.z + extents.z;
+                p = camera.WorldToScreenPoint(new Vector3(x, y, z));
+                if (p.x < minX) minX = p.x;
+                if (p.x > maxX) maxX = p.x;
+                if (p.y < minY) minY = p.y;
+                if (p.y > maxY) maxY = p.y;
             }
 
-            // Return the screen space rectangle
-            return new Rect(minScreenPoint.x, minScreenPoint.y, maxScreenPoint.x - minScreenPoint.x, maxScreenPoint.y - minScreenPoint.y);
+            return new Rect(minX, minY, maxX - minX, maxY - minY);
         }
 
         /// <summary>
