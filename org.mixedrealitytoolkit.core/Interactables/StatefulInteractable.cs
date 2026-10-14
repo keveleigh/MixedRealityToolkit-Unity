@@ -270,25 +270,41 @@ namespace MixedReality.Toolkit
         {
             using (StatefulInteractableGetSelectionProgressMarker.Auto())
             {
+                int hoveringCount = interactorsHovering.Count;
+                int selectingCount = interactorsSelecting.Count;
+
+                if (hoveringCount == 0 && selectingCount == 0)
+                {
+                    return 0.0f;
+                }
+
                 float selectionProgress = 0.0f;
 
-                foreach (var interactor in interactorsHovering)
+                for (int i = 0; i < hoveringCount; i++)
                 {
-                    if (interactor is IVariableSelectInteractor variableSelectInteractor)
+                    if (interactorsHovering[i] is IVariableSelectInteractor variableSelectInteractor)
                     {
-                        selectionProgress = Mathf.Max(selectionProgress, variableSelectInteractor.SelectProgress);
+                        float progress = variableSelectInteractor.SelectProgress;
+                        if (progress > selectionProgress)
+                        {
+                            selectionProgress = progress;
+                        }
                     }
                 }
 
-                foreach (var interactor in interactorsSelecting)
+                for (int i = 0; i < selectingCount; i++)
                 {
-                    if (interactor is IVariableSelectInteractor variableSelectInteractor)
+                    if (interactorsSelecting[i] is IVariableSelectInteractor variableSelectInteractor)
                     {
-                        selectionProgress = Mathf.Max(selectionProgress, variableSelectInteractor.SelectProgress);
+                        float progress = variableSelectInteractor.SelectProgress;
+                        if (progress > selectionProgress)
+                        {
+                            selectionProgress = progress;
+                        }
                     }
                     else
                     {
-                        selectionProgress = 1.0f;
+                        return 1.0f;
                     }
                 }
 
@@ -378,31 +394,28 @@ namespace MixedReality.Toolkit
         /// <returns><see langword="true"/> if the interactable should fire click or toggle event from this current deselect event.</returns>
         internal protected virtual bool CanClickOnLastSelectExited(SelectExitEventArgs args)
         {
-            return TriggerOnRelease && IsRegistered() && IsInteractorTracked() && IsTargetValid();
-
             // This check will prevent OnClick from firing when the interactable or interactor was unregistered.
-            bool IsRegistered()
+            if (!TriggerOnRelease || args.isCanceled)
             {
-                return !args.isCanceled;
+                return false;
             }
 
             // This check will prevent OnClick from firing when the interactor loses tracking.
             // XRI interactor interfaces don't have a good API for "is this interactor tracked?"
             // Hover-active is a good equivalent, though, as MRTK interactors set hoverActive false
             // when their controller loses tracking.
-            bool IsInteractorTracked()
+            if (args.interactorObject is IXRHoverInteractor hoverInteractor && !hoverInteractor.isHoverActive)
             {
-                return !(args.interactorObject is IXRHoverInteractor hoverInteractor) ||
-                       hoverInteractor.isHoverActive;
+                return false;
             }
 
             // This check will prevent OnClick from firing when the interactable is not being hovered.
-            bool IsTargetValid()
+            if (SelectRequiresHover && args.interactableObject is IXRHoverInteractable hoverInteractable && !hoverInteractable.isHovered)
             {
-                return !SelectRequiresHover ||
-                       !(args.interactableObject is IXRHoverInteractable hoverInteractable) ||
-                       hoverInteractable.isHovered;
+                return false;
             }
+
+            return true;
         }
 
         // Attempt to toggle our own IsToggled state.

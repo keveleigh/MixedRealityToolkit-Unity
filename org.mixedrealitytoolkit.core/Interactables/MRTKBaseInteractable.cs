@@ -19,70 +19,70 @@ namespace MixedReality.Toolkit
     {
         #region Gaze
 
-        private readonly List<IGazeInteractor> hoveringGazeInteractors = new List<IGazeInteractor>();
+        private List<IGazeInteractor> hoveringGazeInteractors;
 
         /// <summary>
         /// (Read Only) The list of <see cref="IGazeInteractor"/> components currently gazing this object.
         /// </summary>
-        public List<IGazeInteractor> HoveringGazeInteractors => hoveringGazeInteractors;
+        public List<IGazeInteractor> HoveringGazeInteractors => hoveringGazeInteractors ??= new List<IGazeInteractor>();
 
         #endregion Gaze
 
         #region GazePinch
 
-        private readonly List<IGazePinchInteractor> hoveringGazePinchInteractors = new List<IGazePinchInteractor>();
+        private List<IGazePinchInteractor> hoveringGazePinchInteractors;
 
         /// <summary>
         /// (Read Only) The list of <see cref="IGazePinchInteractor"/> components currently hovering this object.
         /// </summary>
-        public List<IGazePinchInteractor> HoveringGazePinchInteractors => hoveringGazePinchInteractors;
+        public List<IGazePinchInteractor> HoveringGazePinchInteractors => hoveringGazePinchInteractors ??= new List<IGazePinchInteractor>();
 
-        private readonly List<IGazePinchInteractor> selectingGazePinchInteractors = new List<IGazePinchInteractor>();
+        private List<IGazePinchInteractor> selectingGazePinchInteractors;
 
         /// <summary>
         /// (Read Only) The list of <see cref="IGazePinchInteractor"/> components currently selecting this object.
         /// </summary>
-        public List<IGazePinchInteractor> SelectingGazePinchInteractors => selectingGazePinchInteractors;
+        public List<IGazePinchInteractor> SelectingGazePinchInteractors => selectingGazePinchInteractors ??= new List<IGazePinchInteractor>();
 
         #endregion GazePinch
 
         #region Poke
 
-        private readonly List<IPokeInteractor> hoveringPokeInteractors = new List<IPokeInteractor>();
+        private List<IPokeInteractor> hoveringPokeInteractors;
 
         /// <summary>
         /// (Read Only) The list of <see cref="IPokeInteractor"/> components currently hovering this object.
         /// </summary>
-        public List<IPokeInteractor> HoveringPokeInteractors => hoveringPokeInteractors;
+        public List<IPokeInteractor> HoveringPokeInteractors => hoveringPokeInteractors ??= new List<IPokeInteractor>();
 
         #endregion Poke
 
         #region Grab
 
-        private readonly List<IGrabInteractor> hoveringGrabInteractors = new List<IGrabInteractor>();
+        private List<IGrabInteractor> hoveringGrabInteractors;
 
         /// <summary>
         /// (Read Only) The list of <see cref="IGrabInteractor"/> components currently hovering this object.
         /// </summary>]
-        public List<IGrabInteractor> HoveringGrabInteractors => hoveringGrabInteractors;
+        public List<IGrabInteractor> HoveringGrabInteractors => hoveringGrabInteractors ??= new List<IGrabInteractor>();
 
-        private readonly List<IGrabInteractor> selectingGrabInteractors = new List<IGrabInteractor>();
+        private List<IGrabInteractor> selectingGrabInteractors;
 
         /// <summary>
         /// (Read Only) The list of <see cref="IGrabInteractor"/> components currently selecting this object.
         /// </summary>
-        public List<IGrabInteractor> SelectingGrabInteractors => selectingGrabInteractors;
+        public List<IGrabInteractor> SelectingGrabInteractors => selectingGrabInteractors ??= new List<IGrabInteractor>();
 
         #endregion Grab
 
         #region Ray
 
-        private readonly List<IRayInteractor> hoveringRayInteractors = new List<IRayInteractor>();
+        private List<IRayInteractor> hoveringRayInteractors;
 
         /// <summary>
         /// (Read Only) The list of <see cref="IRayInteractor"/> components currently hovering this object.
         /// </summary>]
-        public List<IRayInteractor> HoveringRayInteractors => hoveringRayInteractors;
+        public List<IRayInteractor> HoveringRayInteractors => hoveringRayInteractors ??= new List<IRayInteractor>();
 
         #endregion Ray
 
@@ -213,12 +213,24 @@ namespace MixedReality.Toolkit
         /// </summary>
         public bool IsInteractorTypeValid(IXRInteractor interactor)
         {
+            if (disabledInteractorTypes == null || disabledInteractorTypes.Count == 0)
+            {
+                return true;
+            }
+
+            if (interactor == null)
+            {
+                return false;
+            }
+
             // Cache queried interactor type to extract from hot loop.
             Type interactorType = interactor.GetType();
+            int count = disabledInteractorTypes.Count;
 
-            foreach (SystemInterfaceType disabledType in disabledInteractorTypes)
+            for (int i = 0; i < count; i++)
             {
-                if (disabledType.Type.IsAssignableFrom(interactorType))
+                Type disabledType = disabledInteractorTypes[i]?.Type;
+                if (disabledType != null && disabledType.IsAssignableFrom(interactorType))
                 {
                     return false;
                 }
@@ -239,20 +251,32 @@ namespace MixedReality.Toolkit
 
         private void UpdateHoverFlags()
         {
-            IsGazeHovered.Active = hoveringGazeInteractors.Count > 0;
-            IsGazePinchHovered.Active = hoveringGazePinchInteractors.Count > 0;
-            IsRayHovered.Active = hoveringRayInteractors.Count > 0;
-            IsGrabHovered.Active = hoveringGrabInteractors.Count > 0;
-            IsPokeHovered.Active = hoveringPokeInteractors.Count > 0;
+            IsGazeHovered.Active = hoveringGazeInteractors != null && hoveringGazeInteractors.Count > 0;
+            IsGazePinchHovered.Active = hoveringGazePinchInteractors != null && hoveringGazePinchInteractors.Count > 0;
+            IsRayHovered.Active = hoveringRayInteractors != null && hoveringRayInteractors.Count > 0;
+            IsGrabHovered.Active = hoveringGrabInteractors != null && hoveringGrabInteractors.Count > 0;
+            IsPokeHovered.Active = hoveringPokeInteractors != null && hoveringPokeInteractors.Count > 0;
             IsActiveHovered.Active = activeHoverCount > 0;
         }
 
         private void UpdateSelectFlags(bool increment, IXRInteractor interactor)
         {
-            if (interactor is IRayInteractor) { raySelectCount += increment ? 1 : -1; }
-            if (interactor is IGazePinchInteractor) { gazePinchSelectCount += increment ? 1 : -1; }
-            if (interactor is IGrabInteractor) { grabSelectCount += increment ? 1 : -1; }
-            if (interactor is IPokeInteractor) { pokeSelectCount += increment ? 1 : -1; }
+            if (interactor is IRayInteractor)
+            {
+                raySelectCount = increment ? raySelectCount + 1 : (raySelectCount > 0 ? raySelectCount - 1 : 0);
+            }
+            if (interactor is IGazePinchInteractor)
+            {
+                gazePinchSelectCount = increment ? gazePinchSelectCount + 1 : (gazePinchSelectCount > 0 ? gazePinchSelectCount - 1 : 0);
+            }
+            if (interactor is IGrabInteractor)
+            {
+                grabSelectCount = increment ? grabSelectCount + 1 : (grabSelectCount > 0 ? grabSelectCount - 1 : 0);
+            }
+            if (interactor is IPokeInteractor)
+            {
+                pokeSelectCount = increment ? pokeSelectCount + 1 : (pokeSelectCount > 0 ? pokeSelectCount - 1 : 0);
+            }
 
             isRaySelected.Active = raySelectCount > 0;
             isGazePinchSelected.Active = gazePinchSelectCount > 0;
@@ -283,7 +307,12 @@ namespace MixedReality.Toolkit
 
             if (args.interactorObject is IGazePinchInteractor gazePinchInteractor)
             {
-                selectingGazePinchInteractors.Add(gazePinchInteractor);
+                (selectingGazePinchInteractors ??= new List<IGazePinchInteractor>()).Add(gazePinchInteractor);
+            }
+
+            if (args.interactorObject is IGrabInteractor grabInteractor)
+            {
+                (selectingGrabInteractors ??= new List<IGrabInteractor>()).Add(grabInteractor);
             }
         }
 
@@ -296,7 +325,12 @@ namespace MixedReality.Toolkit
 
             if (args.interactorObject is IGazePinchInteractor gazePinchInteractor)
             {
-                selectingGazePinchInteractors.Remove(gazePinchInteractor);
+                selectingGazePinchInteractors?.Remove(gazePinchInteractor);
+            }
+
+            if (args.interactorObject is IGrabInteractor grabInteractor)
+            {
+                selectingGrabInteractors?.Remove(grabInteractor);
             }
         }
 
@@ -307,7 +341,7 @@ namespace MixedReality.Toolkit
 
             if (args.interactorObject is IGazeInteractor gazeInteractor)
             {
-                hoveringGazeInteractors.Add(gazeInteractor);
+                (hoveringGazeInteractors ??= new List<IGazeInteractor>()).Add(gazeInteractor);
             }
             else // TODO: possibly move to IPassiveInteractor instead of hardcoding on gaze
             {
@@ -316,22 +350,22 @@ namespace MixedReality.Toolkit
 
             if (args.interactorObject is IGazePinchInteractor gazePinchInteractor)
             {
-                hoveringGazePinchInteractors.Add(gazePinchInteractor);
+                (hoveringGazePinchInteractors ??= new List<IGazePinchInteractor>()).Add(gazePinchInteractor);
             }
 
             if (args.interactorObject is IGrabInteractor grabInteractor)
             {
-                hoveringGrabInteractors.Add(grabInteractor);
+                (hoveringGrabInteractors ??= new List<IGrabInteractor>()).Add(grabInteractor);
             }
 
             if (args.interactorObject is IPokeInteractor pokeInteractor)
             {
-                hoveringPokeInteractors.Add(pokeInteractor);
+                (hoveringPokeInteractors ??= new List<IPokeInteractor>()).Add(pokeInteractor);
             }
 
             if (args.interactorObject is IRayInteractor rayInteractor)
             {
-                hoveringRayInteractors.Add(rayInteractor);
+                (hoveringRayInteractors ??= new List<IRayInteractor>()).Add(rayInteractor);
             }
 
             UpdateHoverFlags();
@@ -344,7 +378,7 @@ namespace MixedReality.Toolkit
 
             if (args.interactorObject is IGazeInteractor gazeInteractor)
             {
-                hoveringGazeInteractors.Remove(gazeInteractor);
+                hoveringGazeInteractors?.Remove(gazeInteractor);
             }
             else // TODO: possibly move to IPassiveInteractor instead of hardcoding on gaze
             {
@@ -353,22 +387,22 @@ namespace MixedReality.Toolkit
 
             if (args.interactorObject is IGazePinchInteractor gazePinchInteractor)
             {
-                hoveringGazePinchInteractors.Remove(gazePinchInteractor);
+                hoveringGazePinchInteractors?.Remove(gazePinchInteractor);
             }
 
             if (args.interactorObject is IGrabInteractor grabInteractor)
             {
-                hoveringGrabInteractors.Remove(grabInteractor);
+                hoveringGrabInteractors?.Remove(grabInteractor);
             }
 
             if (args.interactorObject is IPokeInteractor pokeInteractor)
             {
-                hoveringPokeInteractors.Remove(pokeInteractor);
+                hoveringPokeInteractors?.Remove(pokeInteractor);
             }
 
             if (args.interactorObject is IRayInteractor rayInteractor)
             {
-                hoveringRayInteractors.Remove(rayInteractor);
+                hoveringRayInteractors?.Remove(rayInteractor);
             }
 
             UpdateHoverFlags();
