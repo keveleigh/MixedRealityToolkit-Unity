@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 * Fix issue where `HandPoseDriver` could get into a state where it temporarily polyfilled, but then was unable to, and then got stuck in a "tracked" state. [PR #1088](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1088)
 * Fixed "leaked managed shell" issue in `InteractionModeManager`. [PR #1096](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1096)
 * Fixed `EyeCalibrationChecker` build issue on UWP when the Mixed Reality OpenXR Plugin wasn't installed. [PR #1106](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1106)
+* Fixed object identity API usages for Unity 6.4 and newer in `InteractionModeManagerEditor`. [PR #1136](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1136)
 
 ### Added
 

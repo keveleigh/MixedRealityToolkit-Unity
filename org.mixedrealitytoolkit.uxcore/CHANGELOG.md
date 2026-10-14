@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Fixed
 
 * Fixed build issue caused by `FontIconSelectorMigrationUtility` not being in an Editor-only assembly.
+* Fixed `SeeItSayItLabelEnablerTests` failure when running on platforms without speech recognition support. [PR #1141](https://github.com/MixedRealityToolkit/MixedRealityToolkit-Unity/pull/1141)
 
 ## [4.0.0-pre.3] - 2026-05-20
 
