@@ -193,10 +193,22 @@ namespace MixedReality.Toolkit
             float x = 0f;
             float y = 0f;
 
-            foreach (var pos in vectors)
+            if (vectors is IList<Vector2> list)
             {
-                x += pos.x;
-                y += pos.y;
+                for (int i = 0; i < count; i++)
+                {
+                    Vector2 pos = list[i];
+                    x += pos.x;
+                    y += pos.y;
+                }
+            }
+            else
+            {
+                foreach (var pos in vectors)
+                {
+                    x += pos.x;
+                    y += pos.y;
+                }
             }
 
             return new Vector2(x / count, y / count);
@@ -222,11 +234,24 @@ namespace MixedReality.Toolkit
             float y = 0f;
             float z = 0f;
 
-            foreach (var pos in vectors)
+            if (vectors is IList<Vector3> list)
             {
-                x += pos.x;
-                y += pos.y;
-                z += pos.z;
+                for (int i = 0; i < count; i++)
+                {
+                    Vector3 pos = list[i];
+                    x += pos.x;
+                    y += pos.y;
+                    z += pos.z;
+                }
+            }
+            else
+            {
+                foreach (var pos in vectors)
+                {
+                    x += pos.x;
+                    y += pos.y;
+                    z += pos.z;
+                }
             }
 
             return new Vector3(x / count, y / count, z / count);
@@ -261,8 +286,8 @@ namespace MixedReality.Toolkit
                     return Vector2.zero;
                 }
 
-                xList.Sort();
-                yList.Sort();
+                Sort(xList);
+                Sort(yList);
 
                 int mid = count / 2;
                 return new Vector2(xList[mid], yList[mid]);
@@ -300,9 +325,9 @@ namespace MixedReality.Toolkit
                     return Vector3.zero;
                 }
 
-                xList.Sort();
-                yList.Sort();
-                zList.Sort();
+                Sort(xList);
+                Sort(yList);
+                Sort(zList);
 
                 int mid = count / 2;
                 return new Vector3(xList[mid], yList[mid], zList[mid]);
@@ -327,14 +352,26 @@ namespace MixedReality.Toolkit
             using (ListPool<float>.Get(out var xList))
             using (ListPool<float>.Get(out var yList))
             {
-                foreach (var v in vectors)
+                if (vectors is IList<Vector2> list)
                 {
-                    xList.Add(v.x);
-                    yList.Add(v.y);
+                    for (int i = 0; i < count; i++)
+                    {
+                        Vector2 v = list[i];
+                        xList.Add(v.x);
+                        yList.Add(v.y);
+                    }
+                }
+                else
+                {
+                    foreach (var v in vectors)
+                    {
+                        xList.Add(v.x);
+                        yList.Add(v.y);
+                    }
                 }
 
-                xList.Sort();
-                yList.Sort();
+                Sort(xList);
+                Sort(yList);
 
                 int mid = count / 2;
                 return new Vector2(xList[mid], yList[mid]);
@@ -360,19 +397,111 @@ namespace MixedReality.Toolkit
             using (ListPool<float>.Get(out var yList))
             using (ListPool<float>.Get(out var zList))
             {
-                foreach (var v in vectors)
+                if (vectors is IList<Vector3> list)
                 {
-                    xList.Add(v.x);
-                    yList.Add(v.y);
-                    zList.Add(v.z);
+                    for (int i = 0; i < count; i++)
+                    {
+                        Vector3 v = list[i];
+                        xList.Add(v.x);
+                        yList.Add(v.y);
+                        zList.Add(v.z);
+                    }
+                }
+                else
+                {
+                    foreach (var v in vectors)
+                    {
+                        xList.Add(v.x);
+                        yList.Add(v.y);
+                        zList.Add(v.z);
+                    }
                 }
 
-                xList.Sort();
-                yList.Sort();
-                zList.Sort();
+                Sort(xList);
+                Sort(yList);
+                Sort(zList);
 
                 int mid = count / 2;
                 return new Vector3(xList[mid], yList[mid], zList[mid]);
+            }
+        }
+
+        /// <summary>
+        /// Non-allocating in-place sort for floating point lists.
+        /// Avoids ArraySortHelper/IComparer boxing present in Mono runtime.
+        /// </summary>
+        private static void Sort(List<float> list)
+        {
+            int count = list.Count;
+            if (count <= 32)
+            {
+                for (int i = 1; i < count; i++)
+                {
+                    float key = list[i];
+                    int j = i - 1;
+                    while (j >= 0 && list[j] > key)
+                    {
+                        list[j + 1] = list[j];
+                        j--;
+                    }
+                    list[j + 1] = key;
+                }
+            }
+            else
+            {
+                SortRange(list, 0, count - 1);
+            }
+        }
+
+        private static void SortRange(List<float> list, int low, int high)
+        {
+            while (low < high)
+            {
+                if (high - low < 16)
+                {
+                    for (int i = low + 1; i <= high; i++)
+                    {
+                        float key = list[i];
+                        int j = i - 1;
+                        while (j >= low && list[j] > key)
+                        {
+                            list[j + 1] = list[j];
+                            j--;
+                        }
+                        list[j + 1] = key;
+                    }
+                    break;
+                }
+                else
+                {
+                    float pivot = list[high];
+                    int i = low - 1;
+                    for (int j = low; j < high; j++)
+                    {
+                        if (list[j] <= pivot)
+                        {
+                            i++;
+                            float temp = list[i];
+                            list[i] = list[j];
+                            list[j] = temp;
+                        }
+                    }
+                    float t = list[i + 1];
+                    list[i + 1] = list[high];
+                    list[high] = t;
+
+                    int pi = i + 1;
+                    if (pi - low < high - pi)
+                    {
+                        SortRange(list, low, pi - 1);
+                        low = pi + 1;
+                    }
+                    else
+                    {
+                        SortRange(list, pi + 1, high);
+                        high = pi - 1;
+                    }
+                }
             }
         }
 
