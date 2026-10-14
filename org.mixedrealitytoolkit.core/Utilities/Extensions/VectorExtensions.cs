@@ -286,8 +286,8 @@ namespace MixedReality.Toolkit
                     return Vector2.zero;
                 }
 
-                Sort(xList);
-                Sort(yList);
+                xList.Sort();
+                yList.Sort();
 
                 int mid = count / 2;
                 return new Vector2(xList[mid], yList[mid]);
@@ -325,9 +325,9 @@ namespace MixedReality.Toolkit
                     return Vector3.zero;
                 }
 
-                Sort(xList);
-                Sort(yList);
-                Sort(zList);
+                xList.Sort();
+                yList.Sort();
+                zList.Sort();
 
                 int mid = count / 2;
                 return new Vector3(xList[mid], yList[mid], zList[mid]);
@@ -370,8 +370,8 @@ namespace MixedReality.Toolkit
                     }
                 }
 
-                Sort(xList);
-                Sort(yList);
+                xList.Sort();
+                yList.Sort();
 
                 int mid = count / 2;
                 return new Vector2(xList[mid], yList[mid]);
@@ -417,91 +417,12 @@ namespace MixedReality.Toolkit
                     }
                 }
 
-                Sort(xList);
-                Sort(yList);
-                Sort(zList);
+                xList.Sort();
+                yList.Sort();
+                zList.Sort();
 
                 int mid = count / 2;
                 return new Vector3(xList[mid], yList[mid], zList[mid]);
-            }
-        }
-
-        /// <summary>
-        /// Non-allocating in-place sort for floating point lists.
-        /// Avoids ArraySortHelper/IComparer boxing present in Mono runtime.
-        /// </summary>
-        private static void Sort(List<float> list)
-        {
-            int count = list.Count;
-            if (count <= 32)
-            {
-                for (int i = 1; i < count; i++)
-                {
-                    float key = list[i];
-                    int j = i - 1;
-                    while (j >= 0 && list[j] > key)
-                    {
-                        list[j + 1] = list[j];
-                        j--;
-                    }
-                    list[j + 1] = key;
-                }
-            }
-            else
-            {
-                SortRange(list, 0, count - 1);
-            }
-        }
-
-        private static void SortRange(List<float> list, int low, int high)
-        {
-            while (low < high)
-            {
-                if (high - low < 16)
-                {
-                    for (int i = low + 1; i <= high; i++)
-                    {
-                        float key = list[i];
-                        int j = i - 1;
-                        while (j >= low && list[j] > key)
-                        {
-                            list[j + 1] = list[j];
-                            j--;
-                        }
-                        list[j + 1] = key;
-                    }
-                    break;
-                }
-                else
-                {
-                    float pivot = list[high];
-                    int i = low - 1;
-                    for (int j = low; j < high; j++)
-                    {
-                        if (list[j] <= pivot)
-                        {
-                            i++;
-                            float temp = list[i];
-                            list[i] = list[j];
-                            list[j] = temp;
-                        }
-                    }
-                    float t = list[i + 1];
-                    list[i + 1] = list[high];
-                    list[high] = t;
-
-                    int pi = i + 1;
-                    if (pi - low < high - pi)
-                    {
-                        SortRange(list, low, pi - 1);
-                        low = pi + 1;
-                    }
-                    else
-                    {
-                        SortRange(list, pi + 1, high);
-                        high = pi - 1;
-                    }
-                }
             }
         }
 

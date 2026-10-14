@@ -1,9 +1,10 @@
-﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace MixedReality.Toolkit
 {
@@ -460,12 +461,54 @@ namespace MixedReality.Toolkit
             }
 
             // now find and count actual inliers and do least-squares to find best fit
-            IEnumerable<Ray> inlierList = rays.Where(r => DistanceOfPointToLine(r, nearestPoint) < ransac_threshold);
-            numActualInliers = inlierList.Count();
-            if (numActualInliers >= 2)
+            using (ListPool<Ray>.Get(out List<Ray> inlierList))
             {
-                nearestPoint = NearestPointToLinesLeastSquares(inlierList);
+                int rayCount = rays.Count;
+                for (int i = 0; i < rayCount; i++)
+                {
+                    if (DistanceOfPointToLine(rays[i], nearestPoint) < ransac_threshold)
+                    {
+                        inlierList.Add(rays[i]);
+                    }
+                }
+
+                numActualInliers = inlierList.Count;
+                if (numActualInliers >= 2)
+                {
+                    nearestPoint = NearestPointToLinesLeastSquares(inlierList);
+                }
+                return nearestPoint;
             }
+        }
+
+        /// <summary>
+        /// Find 3D point that minimizes distance to a set of 2 or more lines
+        /// </summary>
+        /// <param name="rays">each ray specifies an infinite line</param>
+        /// <returns>point nearest to the set of lines</returns>
+        public static Vector3 NearestPointToLinesLeastSquares(IList<Ray> rays)
+        {
+            Matrix4x4 sumOfProduct = Matrix4x4.zero;
+            Vector4 sumOfProductTimesDirection = Vector4.zero;
+
+            int count = rays.Count;
+            for (int i = 0; i < count; i++)
+            {
+                Ray r = rays[i];
+                Vector4 point = r.origin;
+                Matrix4x4 directionColumnMatrix = new Matrix4x4();
+                Vector3 rNormal = r.direction.normalized;
+                directionColumnMatrix.SetColumn(0, rNormal);
+                Matrix4x4 directionRowMatrix = directionColumnMatrix.transpose;
+                Matrix4x4 product = directionColumnMatrix * directionRowMatrix;
+                Matrix4x4 identityMinusDirectionProduct = Subtract(Matrix4x4.identity, product);
+                sumOfProduct = Add(sumOfProduct, identityMinusDirectionProduct);
+                Vector4 vectorProduct = identityMinusDirectionProduct * point;
+                sumOfProductTimesDirection += vectorProduct;
+            }
+
+            Matrix4x4 sumOfProductInverse = sumOfProduct.inverse;
+            Vector3 nearestPoint = sumOfProductInverse * sumOfProductTimesDirection;
             return nearestPoint;
         }
 
@@ -476,6 +519,11 @@ namespace MixedReality.Toolkit
         /// <returns>point nearest to the set of lines</returns>
         public static Vector3 NearestPointToLinesLeastSquares(IEnumerable<Ray> rays)
         {
+            if (rays is IList<Ray> list)
+            {
+                return NearestPointToLinesLeastSquares(list);
+            }
+
             // finding the point nearest to the set of lines specified by rays
             // Use the following formula, where u_i are normalized direction
             // vectors along each ray and p_i is a point along each ray.

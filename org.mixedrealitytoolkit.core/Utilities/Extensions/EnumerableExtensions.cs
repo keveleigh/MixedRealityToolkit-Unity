@@ -1,4 +1,4 @@
-﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
 using System;
@@ -21,12 +21,21 @@ namespace MixedReality.Toolkit
         public static void DisposeElements<T>(this IEnumerable<T> items)
             where T : IDisposable
         {
-            T[] array = items.ToArray();
-            int count = array.Length;
+            if (items == null) { return; }
 
-            for (int i = 0; i < count; i++)
+            if (items is IList<T> list)
             {
-                array[i]?.Dispose();
+                int count = list.Count;
+                for (int i = 0; i < count; i++)
+                {
+                    list[i]?.Dispose();
+                }
+                return;
+            }
+
+            foreach (T item in items)
+            {
+                item?.Dispose();
             }
         }
 

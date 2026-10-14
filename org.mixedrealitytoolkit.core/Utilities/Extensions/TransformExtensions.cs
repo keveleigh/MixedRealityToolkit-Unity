@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace MixedReality.Toolkit
 {
@@ -100,15 +101,18 @@ namespace MixedReality.Toolkit
         /// If no colliders attached, returns a bounds of center and extents 0</returns>
         public static Bounds GetColliderBounds(this Transform transform)
         {
-            Collider[] colliders = transform.GetComponentsInChildren<Collider>();
-            if (colliders.Length == 0) { return new Bounds(); }
-
-            Bounds bounds = colliders[0].bounds;
-            for (int i = 1; i < colliders.Length; i++)
+            using (ListPool<Collider>.Get(out List<Collider> colliders))
             {
-                bounds.Encapsulate(colliders[i].bounds);
+                transform.GetComponentsInChildren(colliders);
+                if (colliders.Count == 0) { return new Bounds(); }
+
+                Bounds bounds = colliders[0].bounds;
+                for (int i = 1; i < colliders.Count; i++)
+                {
+                    bounds.Encapsulate(colliders[i].bounds);
+                }
+                return bounds;
             }
-            return bounds;
         }
 
         /// <summary>
@@ -129,9 +133,9 @@ namespace MixedReality.Toolkit
         /// <returns>The component of type <typeparamref name="T"/>. Null if it none was found.</returns>
         public static T FindAncestorComponent<T>(this Transform startTransform, bool includeSelf = true) where T : Component
         {
-            foreach (Transform transform in startTransform.EnumerateAncestors(includeSelf))
+            for (Transform t = includeSelf ? startTransform : (startTransform != null ? startTransform.parent : null); t != null; t = t.parent)
             {
-                if (transform.TryGetComponent(out T component))
+                if (t.TryGetComponent(out T component))
                 {
                     return component;
                 }
@@ -211,21 +215,22 @@ namespace MixedReality.Toolkit
         /// <param name="t">The transform to get the depth for.</param>
         public static int GetDepth(this Transform t)
         {
-            int depth = -1;
-
-            Transform root = t.transform.root;
-            if (root == t.transform)
+            if (t == null || t.parent == null)
             {
-                return depth;
+                return -1;
             }
 
-            TryGetDepth(t, root, ref depth);
+            int depth = -1;
+            for (Transform p = t.parent; p != null; p = p.parent)
+            {
+                depth++;
+            }
 
             return depth;
         }
 
         /// <summary>
-        /// Tries to get the hierarchical depth of the Transform from the specified parent. This method is recursive.
+        /// Tries to get the hierarchical depth of the Transform from the specified parent.
         /// </summary>
         /// <param name="target">The transform to get the depth for</param>
         /// <param name="parent">The starting transform to look for the target transform in</param>
@@ -233,11 +238,18 @@ namespace MixedReality.Toolkit
         /// <returns>'true' if the depth could be retrieved, or 'false' because the transform is a root transform.</returns>
         public static bool TryGetDepth(Transform target, Transform parent, ref int depth)
         {
-            foreach (Transform child in parent)
+            if (target == null || parent == null || target == parent)
             {
-                depth++;
-                if (child == target.transform || TryGetDepth(target, child, ref depth))
+                return false;
+            }
+
+            int edges = 0;
+            for (Transform t = target.parent; t != null; t = t.parent)
+            {
+                edges++;
+                if (t == parent)
                 {
+                    depth += edges;
                     return true;
                 }
             }
