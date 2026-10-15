@@ -67,7 +67,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 directionToTarget = Vector3.ProjectOnPlane(directionToTarget, Vector3.up);
             }
 
-            if (directionToTarget.sqrMagnitude > 1e-6f)
+            if (directionToTarget.sqrMagnitude > MathUtilities.ZeroTolerance)
             {
                 transform.Rotation = Quaternion.LookRotation(faceAway ? directionToTarget : -directionToTarget);
             }

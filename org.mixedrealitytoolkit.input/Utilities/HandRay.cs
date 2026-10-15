@@ -42,7 +42,7 @@ namespace MixedReality.Toolkit.Input
         {
             get
             {
-                if (headForward.sqrMagnitude < 1e-6f)
+                if (headForward.sqrMagnitude < MathUtilities.ZeroTolerance)
                 {
                     return false;
                 }
@@ -96,7 +96,7 @@ namespace MixedReality.Toolkit.Input
             Vector3 rayPivotPoint = ComputeRayPivotPosition(handPosition, headTransform, sourceHandedness);
             Vector3 measuredRayPosition = handPosition;
             Vector3 measuredDirection = measuredRayPosition - rayPivotPoint;
-            this.palmNormal = palmNormal.sqrMagnitude > 1e-6f ? palmNormal.normalized : palmNormal;
+            this.palmNormal = palmNormal.sqrMagnitude > MathUtilities.ZeroTolerance ? palmNormal.normalized : palmNormal;
             this.headForward = headTransform.forward;
 
             stabilizedRay.AddSample(new Ray(measuredRayPosition, measuredDirection));

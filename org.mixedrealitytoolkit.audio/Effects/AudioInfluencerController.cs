@@ -279,7 +279,7 @@ namespace MixedReality.Toolkit.Audio
             Vector3 toEmitter = emitterPosition - cameraPosition;
             float distance = toEmitter.magnitude;
 
-            if (distance < 1e-5f)
+            if (distance < MathUtilities.ZeroTolerance)
             {
                 return;
             }

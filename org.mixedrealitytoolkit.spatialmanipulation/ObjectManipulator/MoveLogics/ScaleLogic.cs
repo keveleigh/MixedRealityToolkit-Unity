@@ -58,7 +58,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             }
             else
             {
-                var ratioMultiplier = startHandDistanceMeters > 1e-5f ? GetScaleBetweenInteractors(interactors, interactable) / startHandDistanceMeters : 1.0f;
+                var ratioMultiplier = startHandDistanceMeters > MathUtilities.ZeroTolerance ? GetScaleBetweenInteractors(interactors, interactable) / startHandDistanceMeters : 1.0f;
                 return startObjectScale * ratioMultiplier;
             }
         }

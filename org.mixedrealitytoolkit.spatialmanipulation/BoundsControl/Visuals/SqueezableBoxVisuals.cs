@@ -385,7 +385,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                     Vector3 handlePos = handle.transform.position;
                     Vector3 diff = handlePos - centerPos;
                     float sqrMag = diff.sqrMagnitude;
-                    Vector3 offset = sqrMag > 1e-6f ? (diff / Mathf.Sqrt(sqrMag)) * convexPadding : Vector3.zero;
+                    Vector3 offset = sqrMag > MathUtilities.ZeroTolerance ? (diff / Mathf.Sqrt(sqrMag)) * convexPadding : Vector3.zero;
 
                     projectedHandles[i] = new HandlePoint()
                     {

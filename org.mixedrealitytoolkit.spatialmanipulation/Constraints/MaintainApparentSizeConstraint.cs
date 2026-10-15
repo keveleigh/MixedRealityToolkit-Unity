@@ -51,7 +51,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         public override void ApplyConstraint(ref MixedRealityTransform transform)
         {
             Camera cam = Camera.main;
-            if (cam == null || initialDist <= Mathf.Epsilon)
+            if (cam == null || initialDist <= MathUtilities.ZeroTolerance)
             {
                 return;
             }

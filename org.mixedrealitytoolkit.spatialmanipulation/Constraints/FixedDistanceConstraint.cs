@@ -77,7 +77,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             Vector3 center = constraintTransform.position;
             Vector3 constraintToPose = transform.Position - center;
             float sqrMag = constraintToPose.sqrMagnitude;
-            if (sqrMag > 1e-6f)
+            if (sqrMag > MathUtilities.ZeroTolerance)
             {
                 transform.Position = center + (constraintToPose / Mathf.Sqrt(sqrMag)) * distanceAtManipulationStart;
             }
