@@ -1,4 +1,4 @@
-﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
 using UnityEngine;
@@ -52,11 +52,14 @@ namespace MixedReality.Toolkit.Audio
         /// </summary>
         private void Awake()
         {
-            lowPassFilter = gameObject.GetComponent<AudioLowPassFilter>();
-            highPassFilter = gameObject.GetComponent<AudioHighPassFilter>();
-            influencerController = gameObject.GetComponent<AudioInfluencerController>();
+            lowPassFilter = GetComponent<AudioLowPassFilter>();
+            highPassFilter = GetComponent<AudioHighPassFilter>();
+            influencerController = GetComponent<AudioInfluencerController>();
 
-            ApplyFilter();
+            if (Filter != null)
+            {
+                ApplyFilter();
+            }
         }
 
         private AudioBandPassFilter previousFilter = null;
@@ -67,6 +70,12 @@ namespace MixedReality.Toolkit.Audio
         private void Update()
         {
             if (previousFilter == Filter) { return; }
+
+            if (Filter == null)
+            {
+                previousFilter = null;
+                return;
+            }
 
             // If we have an attached AudioInfluencerController, we must let it know
             // about our filter settings change, otherwise other effects may not behave
@@ -85,8 +94,20 @@ namespace MixedReality.Toolkit.Audio
         /// </summary>
         private void ApplyFilter()
         {
-            lowPassFilter.cutoffFrequency = Filter.HighFrequencyCutoff;
-            highPassFilter.cutoffFrequency = Filter.LowFrequencyCutoff;
+            if (Filter == null)
+            {
+                return;
+            }
+
+            if (lowPassFilter != null)
+            {
+                lowPassFilter.cutoffFrequency = Filter.HighFrequencyCutoff;
+            }
+
+            if (highPassFilter != null)
+            {
+                highPassFilter.cutoffFrequency = Filter.LowFrequencyCutoff;
+            }
 
             previousFilter = Filter;
         }

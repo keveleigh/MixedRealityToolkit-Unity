@@ -13,6 +13,7 @@ namespace MixedReality.Toolkit.UX
     public class KeyboardAudio : MonoBehaviour
     {
         private AudioSource clickSoundPlayer;
+        private Button[] buttons;
 
         /// <summary>
         /// A Unity event function that is called on the frame when a script is enabled just before any of the update methods are called the first time.
@@ -24,17 +25,31 @@ namespace MixedReality.Toolkit.UX
 
         private void EnableTouch()
         {
-            clickSoundPlayer = gameObject.GetComponent<AudioSource>();
-            var buttons = GetComponentsInChildren<Button>(true);
+            clickSoundPlayer = GetComponent<AudioSource>();
+            buttons = GetComponentsInChildren<Button>(true);
             foreach (var button in buttons)
             {
                 button.onClick.AddListener(PlayClick);
             }
         }
 
+        private void OnDestroy()
+        {
+            if (buttons != null)
+            {
+                foreach (var button in buttons)
+                {
+                    if (button != null)
+                    {
+                        button.onClick.RemoveListener(PlayClick);
+                    }
+                }
+            }
+        }
+
         private void PlayClick()
         {
-            if (clickSoundPlayer.enabled && clickSoundPlayer.gameObject.activeInHierarchy)
+            if (clickSoundPlayer != null && clickSoundPlayer.isActiveAndEnabled)
             {
                 clickSoundPlayer.Play();
             }

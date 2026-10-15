@@ -75,6 +75,7 @@
   "testables": [
     "com.unity.inputsystem",
     "org.mixedrealitytoolkit.accessibility",
+    "org.mixedrealitytoolkit.audio",
     "org.mixedrealitytoolkit.core",
     "org.mixedrealitytoolkit.data",
     "org.mixedrealitytoolkit.diagnostics",

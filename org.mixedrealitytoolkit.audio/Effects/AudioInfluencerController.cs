@@ -1,4 +1,4 @@
-﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
 using System;
@@ -184,9 +184,9 @@ namespace MixedReality.Toolkit.Audio
 
             // Get initial values that the sound designer / developer 
             // may have applied to this game object
-            AudioLowPassFilter lowPassFilter = gameObject.GetComponent<AudioLowPassFilter>();
+            AudioLowPassFilter lowPassFilter = GetComponent<AudioLowPassFilter>();
             nativeLowPassCutoffFrequency = (lowPassFilter != null) ? lowPassFilter.cutoffFrequency : NeutralHighFrequency;
-            AudioHighPassFilter highPassFilter = gameObject.GetComponent<AudioHighPassFilter>();
+            AudioHighPassFilter highPassFilter = GetComponent<AudioHighPassFilter>();
             nativeHighPassCutoffFrequency = (highPassFilter != null) ? highPassFilter.cutoffFrequency : NeutralLowFrequency;
 
             // Preallocate the array that will be used to collect RaycastHit structures.
@@ -264,14 +264,29 @@ namespace MixedReality.Toolkit.Audio
         /// </summary>
         private void UpdateActiveInfluencerCollection()
         {
-            Transform cameraTransform = Camera.main.transform;
+            Camera mainCamera = Camera.main;
+            if (mainCamera == null)
+            {
+                return;
+            }
+
+            Transform cameraTransform = mainCamera.transform;
 
             // Influencers take effect only when between the emitter and the user.
             // Perform a raycast from the user toward the object.
-            Vector3 direction = (gameObject.transform.position - cameraTransform.position).normalized;
-            float distance = Vector3.Distance(cameraTransform.position, gameObject.transform.position);
+            Vector3 emitterPosition = transform.position;
+            Vector3 cameraPosition = cameraTransform.position;
+            Vector3 toEmitter = emitterPosition - cameraPosition;
+            float distance = toEmitter.magnitude;
 
-            int count = UnityPhysics.RaycastNonAlloc(cameraTransform.position,
+            if (distance < 1e-5f)
+            {
+                return;
+            }
+
+            Vector3 direction = toEmitter / distance;
+
+            int count = UnityPhysics.RaycastNonAlloc(cameraPosition,
                                                 direction,
                                                 hits,
                                                 distance,
@@ -280,8 +295,8 @@ namespace MixedReality.Toolkit.Audio
 
             for (int i = 0; i < count; i++)
             {
-                IAudioInfluencer influencer = hits[i].collider.gameObject.GetComponentInParent<IAudioInfluencer>();
-                if (influencer != null)
+                IAudioInfluencer influencer = hits[i].collider.GetComponentInParent<IAudioInfluencer>();
+                if (influencer != null && !effectsToApply.Contains(influencer))
                 {
                     effectsToApply.Add(influencer);
                 }

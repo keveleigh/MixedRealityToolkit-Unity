@@ -1,4 +1,4 @@
-﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
 using UnityEngine;
@@ -67,7 +67,7 @@ namespace MixedReality.Toolkit.Audio
             get { return volumePassThrough; }
             set
             {
-                cutoffFrequency = Mathf.Clamp(value, 0.0f, 1.0f);
+                volumePassThrough = Mathf.Clamp(value, 0.0f, 1.0f);
             }
         }
 
