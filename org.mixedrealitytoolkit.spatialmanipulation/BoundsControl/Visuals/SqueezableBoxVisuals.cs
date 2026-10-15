@@ -372,12 +372,25 @@ namespace MixedReality.Toolkit.SpatialManipulation
         {
             using (ConvexHullPerfMarker.Auto())
             {
+                Camera mainCamera = Camera.main;
+                if (mainCamera == null)
+                {
+                    return;
+                }
+
+                Vector3 centerPos = transform.position;
                 for (int i = 0; i < projectedHandles.Count; i++)
                 {
+                    var handle = projectedHandles[i].Handle;
+                    Vector3 handlePos = handle.transform.position;
+                    Vector3 diff = handlePos - centerPos;
+                    float sqrMag = diff.sqrMagnitude;
+                    Vector3 offset = sqrMag > 1e-6f ? (diff / Mathf.Sqrt(sqrMag)) * convexPadding : Vector3.zero;
+
                     projectedHandles[i] = new HandlePoint()
                     {
-                        Handle = projectedHandles[i].Handle,
-                        Position = Camera.main.WorldToScreenPoint(projectedHandles[i].Handle.transform.position + (projectedHandles[i].Handle.transform.position - transform.position).normalized * convexPadding),
+                        Handle = handle,
+                        Position = mainCamera.WorldToScreenPoint(handlePos + offset),
                     };
                 }
 
@@ -431,11 +444,19 @@ namespace MixedReality.Toolkit.SpatialManipulation
         {
             using (HideFlattenedHandlesPerfMarker.Auto())
             {
+                Camera mainCamera = Camera.main;
+                if (mainCamera == null)
+                {
+                    return;
+                }
+
+                Transform container = handlesContainer != null ? handlesContainer : transform;
+
                 // Determine whether the flatten vector points away from the user, or towards the user.
                 // If the vector points away, we need to correct it to point towards the user.
                 // Handles use this vector to determine their orientation for flattened visuals.
-                bool flattenPointsAway = Vector3.Dot(handlesContainer.TransformVector(flattenVector),
-                                                    handlesContainer.position - Camera.main.transform.position) > 0;
+                bool flattenPointsAway = Vector3.Dot(container.TransformVector(flattenVector),
+                                                    container.position - mainCamera.transform.position) > 0;
                 if (flattenPointsAway)
                 {
                     flattenVector = -flattenVector;

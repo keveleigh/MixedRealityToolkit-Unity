@@ -1,4 +1,4 @@
-﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
 using System.Collections.Generic;
@@ -58,7 +58,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             }
             else
             {
-                var ratioMultiplier = GetScaleBetweenInteractors(interactors, interactable) / startHandDistanceMeters;
+                var ratioMultiplier = startHandDistanceMeters > 1e-5f ? GetScaleBetweenInteractors(interactors, interactable) / startHandDistanceMeters : 1.0f;
                 return startObjectScale * ratioMultiplier;
             }
         }
@@ -69,20 +69,35 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// </summary>
         private float GetScaleBetweenInteractors(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable)
         {
-            // If only one interactor, we never change scale.
-            if (interactors.Count == 1)
+            int count = interactors != null ? interactors.Count : 0;
+            // If zero or one interactor, we never change scale.
+            if (count <= 1)
             {
                 return 1.0f;
             }
 
-            var result = float.MaxValue;
-            for (int i = 0; i < interactors.Count; i++)
+            if (count == 2)
             {
-                for (int j = i + 1; j < interactors.Count; j++)
+                var i0 = interactors[0];
+                var i1 = interactors[1];
+                var distance = Vector3.SqrMagnitude(i0.transform.position - i1.transform.position);
+                if (distance < Mathf.Epsilon)
+                {
+                    distance = Vector3.SqrMagnitude(i0.GetAttachTransform(interactable).position -
+                                                   i1.GetAttachTransform(interactable).position);
+                }
+                distance = Mathf.Max(distance, scaleDistanceSquaredEpsilon);
+                return Mathf.Sqrt(distance);
+            }
+
+            var result = float.MaxValue;
+            for (int i = 0; i < count; i++)
+            {
+                var iPos = interactors[i].transform.position;
+                for (int j = i + 1; j < count; j++)
                 {
                     // Defer square root until end for performance.
-                    var distance = Vector3.SqrMagnitude(interactors[i].transform.position -
-                                                       interactors[j].transform.position);
+                    var distance = Vector3.SqrMagnitude(iPos - interactors[j].transform.position);
 
                     // Prefer to use the interactor positions directly above for scaling stability, but
                     // fallback to attach transforms if the interactor positions appear identical.

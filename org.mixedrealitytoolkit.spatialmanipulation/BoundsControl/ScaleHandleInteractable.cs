@@ -79,29 +79,36 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 }
                 else
                 {
-                    // Then, we take these axes and project them onto screen coordinates.
-                    Vector2 originalForwardProjected = ProjectToScreen(transform.position, originalForwardGlobal);
-                    Vector2 originalUpProjected = ProjectToScreen(transform.position, originalUpGlobal);
-                    Vector2 originalRightProjected = ProjectToScreen(transform.position, originalRightGlobal);
+                    Camera mainCamera = Camera.main;
+                    if (mainCamera != null)
+                    {
+                        Vector3 handlePos = transform.position;
+                        Vector3 screenOrigin = mainCamera.WorldToScreenPoint(handlePos);
 
-                    float xyAngle = Vector2.SignedAngle(originalRightProjected, originalUpProjected);
-                    float xzAngle = Vector2.SignedAngle(originalRightProjected, originalForwardProjected);
-                    float yzAngle = Vector2.SignedAngle(originalUpProjected, originalForwardProjected);
+                        // Then, we take these axes and project them onto screen coordinates.
+                        Vector2 originalForwardProjected = ProjectToScreen(mainCamera, screenOrigin, handlePos, originalForwardGlobal);
+                        Vector2 originalUpProjected = ProjectToScreen(mainCamera, screenOrigin, handlePos, originalUpGlobal);
+                        Vector2 originalRightProjected = ProjectToScreen(mainCamera, screenOrigin, handlePos, originalRightGlobal);
 
-                    if (Mathf.Sign(xyAngle) != Mathf.Sign(xzAngle))
-                    {
-                        // x is middle
-                        transform.rotation = Quaternion.LookRotation(originalRightGlobal, originalForwardGlobal);
-                    }
-                    else if (Mathf.Sign(-xyAngle) != Mathf.Sign(yzAngle))
-                    {
-                        // y is middle
-                        transform.rotation = Quaternion.LookRotation(originalUpGlobal, originalRightGlobal);
-                    }
-                    else
-                    {
-                        // z is middle
-                        transform.rotation = Quaternion.LookRotation(originalForwardGlobal, originalUpGlobal);
+                        float xyAngle = Vector2.SignedAngle(originalRightProjected, originalUpProjected);
+                        float xzAngle = Vector2.SignedAngle(originalRightProjected, originalForwardProjected);
+                        float yzAngle = Vector2.SignedAngle(originalUpProjected, originalForwardProjected);
+
+                        if (Mathf.Sign(xyAngle) != Mathf.Sign(xzAngle))
+                        {
+                            // x is middle
+                            transform.rotation = Quaternion.LookRotation(originalRightGlobal, originalForwardGlobal);
+                        }
+                        else if (Mathf.Sign(-xyAngle) != Mathf.Sign(yzAngle))
+                        {
+                            // y is middle
+                            transform.rotation = Quaternion.LookRotation(originalUpGlobal, originalRightGlobal);
+                        }
+                        else
+                        {
+                            // z is middle
+                            transform.rotation = Quaternion.LookRotation(originalForwardGlobal, originalUpGlobal);
+                        }
                     }
                 }
             }
@@ -113,9 +120,19 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         #region Private Helpers
 
+        private Vector2 ProjectToScreen(Camera cam, Vector3 screenOrigin, Vector3 worldPoint, Vector3 worldVector)
+        {
+            return (Vector2)cam.WorldToScreenPoint(worldPoint + worldVector) - (Vector2)screenOrigin;
+        }
+
         private Vector2 ProjectToScreen(Vector3 worldPoint, Vector3 worldVector)
         {
-            return Camera.main.WorldToScreenPoint(worldPoint + worldVector) - Camera.main.WorldToScreenPoint(worldPoint);
+            Camera cam = Camera.main;
+            if (cam == null)
+            {
+                return Vector2.zero;
+            }
+            return (Vector2)cam.WorldToScreenPoint(worldPoint + worldVector) - (Vector2)cam.WorldToScreenPoint(worldPoint);
         }
 
         #endregion Private Helpers

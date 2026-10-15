@@ -1,4 +1,4 @@
-﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
 using System.Collections.Generic;
@@ -59,9 +59,11 @@ namespace MixedReality.Toolkit.SpatialManipulation
             }
         }
 
+        private const string LessThanTwoInteractorsMessage = "GetHandlebarDirection called with less than 2 interactors.";
+
         private static Vector3 GetHandlebarDirection(List<IXRSelectInteractor> interactors, IXRSelectInteractable interactable)
         {
-            Debug.Assert(interactors.Count >= 2, $"GetHandlebarDirection called with less than 2 interactors ({interactors.Count}).");
+            Debug.Assert(interactors.Count >= 2, LessThanTwoInteractorsMessage);
             return interactors[1].GetAttachTransform(interactable).position - interactors[0].GetAttachTransform(interactable).position;
         }
     }

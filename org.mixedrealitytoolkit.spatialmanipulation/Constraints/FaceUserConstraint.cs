@@ -55,9 +55,22 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// </summary>
         public override void ApplyConstraint(ref MixedRealityTransform transform)
         {
-            Vector3 directionToTarget = transform.Position - Camera.main.transform.position;
-            directionToTarget = gravityAlign ? Vector3.ProjectOnPlane(directionToTarget, Vector3.up) : directionToTarget;
-            transform.Rotation = Quaternion.LookRotation(faceAway ? directionToTarget : -directionToTarget);
+            Camera mainCam = Camera.main;
+            if (mainCam == null)
+            {
+                return;
+            }
+
+            Vector3 directionToTarget = transform.Position - mainCam.transform.position;
+            if (gravityAlign)
+            {
+                directionToTarget = Vector3.ProjectOnPlane(directionToTarget, Vector3.up);
+            }
+
+            if (directionToTarget.sqrMagnitude > 1e-6f)
+            {
+                transform.Rotation = Quaternion.LookRotation(faceAway ? directionToTarget : -directionToTarget);
+            }
         }
 
         #endregion Public Methods

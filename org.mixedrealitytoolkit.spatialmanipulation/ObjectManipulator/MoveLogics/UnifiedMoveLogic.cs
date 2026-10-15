@@ -67,15 +67,23 @@ namespace MixedReality.Toolkit.SpatialManipulation
             // to get a similar effect. Possibly, we should stabilize grabs on the thumb, or some
             // other technique.
 
-            Vector3 sumPos = Vector3.zero;
-            int count = 0;
-            foreach (IXRSelectInteractor interactor in interactors)
+            int count = interactors != null ? interactors.Count : 0;
+            if (count == 0)
             {
-                sumPos += interactor.GetAttachTransform(interactable).position;
-                count++;
+                return Vector3.zero;
+            }
+            if (count == 1)
+            {
+                return interactors[0].GetAttachTransform(interactable).position;
             }
 
-            return sumPos / Mathf.Max(1, count);
+            Vector3 sumPos = Vector3.zero;
+            for (int i = 0; i < count; i++)
+            {
+                sumPos += interactors[i].GetAttachTransform(interactable).position;
+            }
+
+            return sumPos / count;
         }
     }
 }

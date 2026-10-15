@@ -31,7 +31,15 @@ namespace MixedReality.Toolkit.SpatialManipulation
         {
             base.OnManipulationStarted(worldPose);
 
-            startObjectRotationCameraSpace = Quaternion.Inverse(Camera.main.transform.rotation) * worldPose.Rotation;
+            Camera cam = Camera.main;
+            if (cam != null)
+            {
+                startObjectRotationCameraSpace = Quaternion.Inverse(cam.transform.rotation) * worldPose.Rotation;
+            }
+            else
+            {
+                startObjectRotationCameraSpace = worldPose.Rotation;
+            }
         }
 
         /// <summary>
@@ -40,7 +48,13 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// </summary>
         public override void ApplyConstraint(ref MixedRealityTransform transform)
         {
-            Vector3 euler = Camera.main.transform.rotation.eulerAngles;
+            Camera cam = Camera.main;
+            if (cam == null)
+            {
+                return;
+            }
+
+            Vector3 euler = cam.transform.rotation.eulerAngles;
             // don't use roll (feels awkward) - just maintain yaw / pitch angle
             transform.Rotation = Quaternion.Euler(euler.x, euler.y, 0) * startObjectRotationCameraSpace;
         }
