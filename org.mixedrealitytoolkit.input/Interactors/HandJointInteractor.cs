@@ -143,15 +143,14 @@ namespace MixedReality.Toolkit.Input
                     if (interactionPointTracked)
                     {
                         transform.SetPositionAndRotation(interactionPose.position, interactionPose.rotation);
+                        attachTransform.SetPositionAndRotation(interactionPose.position, interactionPose.rotation);
                     }
                     else
                     {
                         // If we don't have a joint pose, reset to whatever our parent `TrackedPoseDriver` pose is.
                         transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+                        attachTransform.SetPositionAndRotation(transform.position, transform.rotation);
                     }
-
-                    // Ensure that the attachTransform tightly follows the interactor's transform
-                    attachTransform.SetPositionAndRotation(transform.position, transform.rotation);
                 }
             }
         }

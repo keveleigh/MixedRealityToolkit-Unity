@@ -1,4 +1,4 @@
-﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
 using System;
@@ -78,7 +78,7 @@ namespace MixedReality.Toolkit.Input
                 }
 
                 Vector3 directionToHit = hit.point - transform.position;
-                float angleToHit = Vector3.Angle(transform.forward.normalized, directionToHit);
+                float angleToHit = Vector3.Angle(transform.forward, directionToHit);
 
                 float distanceToCollider = directionToHit.magnitude;
 
@@ -110,9 +110,9 @@ namespace MixedReality.Toolkit.Input
                 float angleToCenter = Vector3.Angle(direction, directionToCenter);
 
                 // Additional work to see if there is a better point slightly further ahead on the direction line. This is only allowed if the collider isn't a mesh collider.
-                if (hit.collider.GetType() != typeof(MeshCollider))
+                if (!(hit.collider is MeshCollider))
                 {
-                    Vector3 pointFurtherAlongGazePath = (sphereCastRadius * 0.5f * direction.normalized) + FindNearestPointOnLine(origin, direction, hitPoint);
+                    Vector3 pointFurtherAlongGazePath = (sphereCastRadius * 0.5f * direction) + FindNearestPointOnLine(origin, direction, hitPoint);
                     Vector3 closestPointToPointFurtherAlongGazePath = hit.collider.ClosestPoint(pointFurtherAlongGazePath);
                     Vector3 directionToSecondaryPoint = closestPointToPointFurtherAlongGazePath - origin;
                     float angleToSecondaryPoint = Vector3.Angle(direction, directionToSecondaryPoint);
@@ -160,10 +160,11 @@ namespace MixedReality.Toolkit.Input
                 {
                     return -1;
                 }
-                else
+                else if (aScore > bScore)
                 {
                     return 1;
                 }
+                return 0;
             }
         }
 
@@ -317,19 +318,21 @@ namespace MixedReality.Toolkit.Input
             {
                 InteractableScoreMap.Clear();
                 InteractableRaycastHitMap.Clear();
-                foreach (GazeRaycastHitResult result in hitResults)
+                int count = hitResults.Count;
+                for (int i = 0; i < count; i++)
                 {
+                    GazeRaycastHitResult result = hitResults[i];
                     IXRInteractable interactable = result.targetInteractable;
                     RaycastHit raycastHit = result.raycastHit;
 
                     float score = fuzzyGazeInteractor.ScoreHit(raycastHit);
-                    if (!InteractableScoreMap.ContainsKey(interactable) || InteractableScoreMap[interactable] > score)
+                    if (!InteractableScoreMap.TryGetValue(interactable, out float currentScore) || currentScore > score)
                     {
                         InteractableScoreMap[interactable] = score;
                     }
 
                     // Update the RaycastHit mapping where applicable
-                    if (!InteractableRaycastHitMap.ContainsKey(interactable) || InteractableRaycastHitMap[interactable].precisionLevel < result.precisionLevel)
+                    if (!InteractableRaycastHitMap.TryGetValue(interactable, out GazeRaycastHitResult existing) || existing.precisionLevel < result.precisionLevel)
                     {
                         InteractableRaycastHitMap[interactable] = result;
                     }

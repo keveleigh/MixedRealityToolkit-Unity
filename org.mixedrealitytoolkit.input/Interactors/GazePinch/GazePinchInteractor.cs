@@ -491,8 +491,11 @@ namespace MixedReality.Toolkit.Input
             Vector3 sumDir = Vector3.zero;
             int count = 0;
 
-            foreach (IXRSelectInteractor interactor in interactable.interactorsSelecting)
+            var selecting = interactable.interactorsSelecting;
+            int selectingCount = selecting.Count;
+            for (int i = 0; i < selectingCount; i++)
             {
+                IXRSelectInteractor interactor = selecting[i];
                 if (interactor is GazePinchInteractor gazePinchInteractor)
                 {
                     // TODO: Replace PinchPose with explicit binding to OpenXR pinch/grip pose when the standard is available.
@@ -579,22 +582,21 @@ namespace MixedReality.Toolkit.Input
         {
             if (logicalSelectState == null)
             {
-                Debug.LogWarning("GazePinchInteractor is missing logicalSelectState, pinch state won't update.");
                 return;
             }
 
-            if (XRSubsystemHelpers.HandsAggregator == null)
+            var aggregator = XRSubsystemHelpers.HandsAggregator;
+            if (aggregator == null)
             {
-                Debug.LogWarning("XRSubsystemHelpers.HandsAggregator is null, pinch state won't update.");
                 return;
             }
 
             var xrNode = handedness.ToXRNode();
-            bool gotPinchData = XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(xrNode,
+            bool gotPinchData = aggregator.TryGetPinchProgress(xrNode,
                 out bool isPinchReady, out bool isPinching, out float pinchAmount);
             if (!gotPinchData) // Try the other hand if the set hand does not have pinch data.
             {
-                gotPinchData = XRSubsystemHelpers.HandsAggregator.TryGetPinchProgress(xrNode == XRNode.LeftHand ? XRNode.RightHand : XRNode.LeftHand,
+                gotPinchData = aggregator.TryGetPinchProgress(xrNode == XRNode.LeftHand ? XRNode.RightHand : XRNode.LeftHand,
                     out isPinchReady, out isPinching, out pinchAmount);
             }
 

@@ -80,18 +80,19 @@ namespace MixedReality.Toolkit.Input
         protected virtual bool TryGetPokeRadius(out float radius)
         {
             HandJointPose jointPose = default;
+            var aggregator = XRSubsystemHelpers.HandsAggregator;
 
 #pragma warning disable CS0618 // Type or member is obsolete
             if (forceDeprecatedInput &&
                 xrController is ArticulatedHandController handController &&
-                (XRSubsystemHelpers.HandsAggregator?.TryGetNearInteractionPoint(handController.HandNode, out jointPose) ?? false))
+                (aggregator?.TryGetNearInteractionPoint(handController.HandNode, out jointPose) ?? false))
             {
                 radius = jointPose.Radius;
                 return true;
             }
 #pragma warning restore CS0618 // Type or member is obsolete
             else if (handedness != InteractorHandedness.None &&
-                (XRSubsystemHelpers.HandsAggregator?.TryGetNearInteractionPoint(handedness.ToXRNode(), out jointPose) ?? false))
+                (aggregator?.TryGetNearInteractionPoint(handedness.ToXRNode(), out jointPose) ?? false))
             {
                 radius = jointPose.Radius;
                 return true;
@@ -189,7 +190,10 @@ namespace MixedReality.Toolkit.Input
         public override void GetValidTargets(List<IXRInteractable> targets)
         {
             targets.Clear();
-            targets.AddRange(this.targets);
+            foreach (IXRInteractable target in this.targets)
+            {
+                targets.Add(target);
+            }
         }
 
         // Was our poking point tracked the last time we checked?
@@ -270,7 +274,9 @@ namespace MixedReality.Toolkit.Input
 
                     // If the trajectory is essentially stationary, we'll do a sphere overlap instead.
                     // SphereCasts return nothing if the start/end are the same.
-                    if ((pokeTrajectory.End - pokeTrajectory.Start).sqrMagnitude <= 0.0001f)
+                    Vector3 delta = pokeTrajectory.End - pokeTrajectory.Start;
+                    float sqrMagnitude = delta.sqrMagnitude;
+                    if (sqrMagnitude <= 0.0001f)
                     {
                         int numOverlaps = UnityEngine.Physics.OverlapSphereNonAlloc(pokeTrajectory.End, PokeRadius, overlaps, UnityEngine.Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
 
@@ -288,12 +294,14 @@ namespace MixedReality.Toolkit.Input
                         // Otherwise, we perform a spherecast (essentially, a thick raycast)
                         // from the start to the end of the recorded trajectory, with a radius/thickness
                         // corresponding to the joint radius.
+                        float magnitude = Mathf.Sqrt(sqrMagnitude);
+                        Vector3 direction = delta / magnitude;
                         int numHits = UnityEngine.Physics.SphereCastNonAlloc(
                             pokeTrajectory.Start,
                             PokeRadius,
-                            (pokeTrajectory.End - pokeTrajectory.Start).normalized,
+                            direction,
                             results,
-                            (pokeTrajectory.End - pokeTrajectory.Start).magnitude,
+                            magnitude,
                             UnityEngine.Physics.DefaultRaycastLayers,
                             QueryTriggerInteraction.Ignore);
 

@@ -233,18 +233,19 @@ namespace MixedReality.Toolkit.Input
                     if (hoverActive)
                     {
                         bool isPalmFacingAway = false;
+                        var aggregator = XRSubsystemHelpers.HandsAggregator;
 
 #pragma warning disable CS0618 // Type or member is obsolete
                         if (forceDeprecatedInput &&
                             xrController is ArticulatedHandController handController &&
-                            (XRSubsystemHelpers.HandsAggregator?.TryGetPalmFacingAway(handController.HandNode, out isPalmFacingAway) ?? true))
+                            (aggregator?.TryGetPalmFacingAway(handController.HandNode, out isPalmFacingAway) ?? true))
                         {
                             hoverActive &= isPalmFacingAway;
                         }
 #pragma warning restore CS0618
                         // Attempt palm facing away check if the interactor is associated with a hand.
                         else if (handedness != InteractorHandedness.None &&
-                            (XRSubsystemHelpers.HandsAggregator?.TryGetPalmFacingAway(handedness.ToXRNode(), out isPalmFacingAway) ?? true))
+                            (aggregator?.TryGetPalmFacingAway(handedness.ToXRNode(), out isPalmFacingAway) ?? true))
                         {
                             hoverActive &= isPalmFacingAway;
                         }
