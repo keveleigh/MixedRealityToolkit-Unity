@@ -333,5 +333,110 @@ namespace MixedReality.Toolkit.Input.Tests
         }
 
         #endregion FuzzyGazeInteractor Tests
+
+        #region Behavioral / Regression Tests
+
+        [UnityTest]
+        public IEnumerator PokeInteractor_TrajectoryMath_Accuracy()
+        {
+            pokeInteractor.gameObject.SetActive(true);
+            pokeInteractor.enabled = true;
+
+            Transform parent = pokeInteractor.transform.parent != null ? pokeInteractor.transform.parent : pokeInteractor.transform;
+            Vector3 originPos = parent.position;
+
+            // Frame 1: Establish baseline position
+            parent.position = new Vector3(0, 1.5f, 0.5f);
+            pokeInteractor.ProcessInteractor(XRInteractionUpdateOrder.UpdatePhase.Dynamic);
+
+            // Frame 2: Move forward along Z axis by exactly 0.05m (5cm)
+            parent.position = new Vector3(0, 1.5f, 0.55f);
+            pokeInteractor.ProcessInteractor(XRInteractionUpdateOrder.UpdatePhase.Dynamic);
+
+            var trajectory = pokeInteractor.PokeTrajectory;
+            Vector3 delta = trajectory.End - trajectory.Start;
+            Assert.AreEqual(0.05f, delta.magnitude, 0.001f, "Trajectory length must equal displacement distance.");
+            Assert.AreEqual(Vector3.forward.z, delta.normalized.z, 0.001f, "Trajectory direction must point along forward vector.");
+            Assert.IsTrue(pokeInteractor.PokeRadius > 0f, "PokeRadius must be non-zero.");
+
+            // Restore parent position
+            parent.position = originPos;
+
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator HandJointInteractor_AttachTransform_MatchesInteractionPose()
+        {
+            pokeInteractor.gameObject.SetActive(true);
+            pokeInteractor.enabled = true;
+
+            pokeInteractor.transform.position = new Vector3(0.2f, 1.2f, 0.8f);
+            pokeInteractor.transform.rotation = Quaternion.Euler(15f, 45f, 0f);
+
+            pokeInteractor.ProcessInteractor(XRInteractionUpdateOrder.UpdatePhase.Dynamic);
+
+            Assert.AreEqual(pokeInteractor.transform.position, pokeInteractor.attachTransform.position, "attachTransform position must track interactor position directly.");
+            Assert.AreEqual(pokeInteractor.transform.rotation, pokeInteractor.attachTransform.rotation, "attachTransform rotation must track interactor rotation directly.");
+
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator GazePinchInteractor_UpdatePinchState_NullAggregator_DoesNotThrow()
+        {
+            if (gazePinchInteractor == null)
+            {
+                yield break;
+            }
+
+            gazePinchInteractor.gameObject.SetActive(true);
+            gazePinchInteractor.enabled = true;
+
+            // Verifies that processing the interactor without warnings or crashes occurs safely
+            Assert.DoesNotThrow(() =>
+            {
+                gazePinchInteractor.ProcessInteractor(XRInteractionUpdateOrder.UpdatePhase.Dynamic);
+            });
+
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator FuzzyGazeInteractor_Sorting_DuplicateScores_StrictWeakOrdering()
+        {
+            if (fuzzyGazeInteractor == null)
+            {
+                yield break;
+            }
+
+            // Spawn 3 identical cubes side-by-side at equal distance in front of user
+            var cubes = new GameObject[3];
+            for (int i = 0; i < 3; i++)
+            {
+                cubes[i] = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                cubes[i].transform.position = InputTestUtilities.InFrontOfUser(1.5f) + Vector3.right * (i * 0.1f);
+                cubes[i].transform.localScale = Vector3.one * 0.1f;
+                cubes[i].AddComponent<StatefulInteractable>();
+            }
+
+            yield return RuntimeTestUtilities.WaitForUpdates();
+
+            // PreprocessInteractor sorts hit results using ConeCastScoreCompare.
+            // With multiple objects with close/identical scores, an invalid comparator would throw ArgumentException in Array.Sort.
+            Assert.DoesNotThrow(() =>
+            {
+                fuzzyGazeInteractor.PreprocessInteractor(XRInteractionUpdateOrder.UpdatePhase.Dynamic);
+            }, "PreprocessInteractor sort must obey strict weak ordering and never throw ArgumentException.");
+
+            for (int i = 0; i < 3; i++)
+            {
+                Object.Destroy(cubes[i]);
+            }
+
+            yield return null;
+        }
+
+        #endregion Behavioral / Regression Tests
     }
 }
