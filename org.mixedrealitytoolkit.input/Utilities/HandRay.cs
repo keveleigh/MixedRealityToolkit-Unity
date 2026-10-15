@@ -1,4 +1,4 @@
-﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
 using UnityEngine;
@@ -42,7 +42,7 @@ namespace MixedReality.Toolkit.Input
         {
             get
             {
-                if (headForward.magnitude < Mathf.Epsilon)
+                if (headForward.sqrMagnitude < 1e-6f)
                 {
                     return false;
                 }
@@ -50,7 +50,7 @@ namespace MixedReality.Toolkit.Input
                 if (CursorBeamBackwardTolerance >= 0)
                 {
                     Vector3 cameraBackward = -headForward;
-                    if (Vector3.Dot(palmNormal.normalized, cameraBackward) > CursorBeamBackwardTolerance)
+                    if (Vector3.Dot(palmNormal, cameraBackward) > CursorBeamBackwardTolerance)
                     {
                         valid = false;
                     }
@@ -88,10 +88,15 @@ namespace MixedReality.Toolkit.Input
         /// <inheritdoc />
         public void Update(Vector3 handPosition, Vector3 palmNormal, Transform headTransform, Handedness sourceHandedness)
         {
+            if (headTransform == null)
+            {
+                return;
+            }
+
             Vector3 rayPivotPoint = ComputeRayPivotPosition(handPosition, headTransform, sourceHandedness);
             Vector3 measuredRayPosition = handPosition;
             Vector3 measuredDirection = measuredRayPosition - rayPivotPoint;
-            this.palmNormal = palmNormal;
+            this.palmNormal = palmNormal.sqrMagnitude > 1e-6f ? palmNormal.normalized : palmNormal;
             this.headForward = headTransform.forward;
 
             stabilizedRay.AddSample(new Ray(measuredRayPosition, measuredDirection));
@@ -118,7 +123,7 @@ namespace MixedReality.Toolkit.Input
                     HeadToPivotOffsetZ
                 );
 
-            return headTransform.position + headTransform.TransformVector(relativePivot);
+            return headTransform.TransformPoint(relativePivot);
         }
     }
 }

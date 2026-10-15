@@ -28,13 +28,15 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         private HandJointPose palm;
 
+        private const string InvalidHandErrorMessage = "The PolyfillHandRayPoseSource does not have a valid hand assigned.";
+
         /// <summary>
         /// Tries to get the pose of the hand ray in world space by deriving it from the
         /// palm and knuckle positions
         /// </summary>
         public override bool TryGetPose(out Pose pose)
         {
-            Debug.Assert(Hand == Handedness.Left || Hand == Handedness.Right, $"The {GetType().Name} does not have a valid hand assigned.");
+            Debug.Assert(Hand == Handedness.Left || Hand == Handedness.Right, InvalidHandErrorMessage);
 
             XRNode? handNode = Hand.ToXRNode();
 
@@ -44,14 +46,15 @@ namespace MixedReality.Toolkit.Input
                 return false;
             }
 
-            bool poseRetrieved = handNode.HasValue;
+            Camera mainCamera = Camera.main;
+            bool poseRetrieved = mainCamera != null;
             poseRetrieved &= XRSubsystemHelpers.HandsAggregator?.TryGetJoint(TrackedHandJoint.IndexProximal, handNode.Value, out knuckle) ?? false;
             poseRetrieved &= XRSubsystemHelpers.HandsAggregator?.TryGetJoint(TrackedHandJoint.Palm, handNode.Value, out palm) ?? false;
 
             // Tick the hand ray generator function. Uses index knuckle for position.
-            if(poseRetrieved)
+            if (poseRetrieved)
             {
-                handRay.Update(knuckle.Position, -palm.Up, Camera.main.transform, Hand);
+                handRay.Update(knuckle.Position, -palm.Up, mainCamera.transform, Hand);
 
                 pose = new Pose(
                     handRay.Ray.origin,

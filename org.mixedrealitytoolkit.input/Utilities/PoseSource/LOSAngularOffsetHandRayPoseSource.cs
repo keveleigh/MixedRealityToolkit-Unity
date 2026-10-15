@@ -37,6 +37,8 @@ namespace MixedReality.Toolkit.Input
         private readonly Vector2 MinMaxPitchAngleOffset = new Vector2(-24f, -85f);
         private const float MinMaxAngleAdjustHandProximity = .5f;
 
+        private const string InvalidHandErrorMessage = "The LOSAngularOffsetHandRayPoseSource does not have a valid hand assigned.";
+
         public LOSAngularOffsetHandRayPoseSource()
         {
             StabilizedHandRay = new Lazy<StabilizedRay>(() =>
@@ -51,7 +53,7 @@ namespace MixedReality.Toolkit.Input
         /// </summary>
         public override bool TryGetPose(out Pose pose)
         {
-            Debug.Assert(Hand == Handedness.Left || Hand == Handedness.Right, $"The {GetType().Name} does not have a valid hand assigned.");
+            Debug.Assert(Hand == Handedness.Left || Hand == Handedness.Right, InvalidHandErrorMessage);
 
             XRNode? handNode = Hand.ToXRNode();
 
@@ -61,12 +63,13 @@ namespace MixedReality.Toolkit.Input
                 return false;
             }
 
-            bool poseRetrieved = handNode.HasValue;
+            Camera mainCamera = Camera.main;
+            bool poseRetrieved = mainCamera != null;
             poseRetrieved &= XRSubsystemHelpers.HandsAggregator?.TryGetJoint(TrackedHandJoint.IndexProximal, handNode.Value, out knuckle) ?? false;
 
             if (poseRetrieved)
             {
-                pose = CalculateHandRay(knuckle.Position, Camera.main.transform, Hand);
+                pose = CalculateHandRay(knuckle.Position, mainCamera.transform, Hand);
             }
             else
             {
@@ -78,8 +81,12 @@ namespace MixedReality.Toolkit.Input
 
         private Pose CalculateHandRay(Vector3 handJointPosition, Transform headTransform, Handedness hand)
         {
+            Vector3 headPosition = headTransform.position;
+            Vector3 headForward = headTransform.forward;
+            Vector3 headUp = headTransform.up;
+
             // Approximate head center to reduce the head rotation wobble effect on the hand ray.
-            Vector3 headCenter = headTransform.position - headTransform.forward * HeadCenterOffset;
+            Vector3 headCenter = headPosition - headForward * HeadCenterOffset;
             Vector3 headToJoint = handJointPosition - headCenter;
 
             // Adjust yaw and pitch angle offsets to more closely approximate the original hand ray orientation behavior affected by hand proximity.
@@ -87,13 +94,13 @@ namespace MixedReality.Toolkit.Input
             float yawOffset = Mathf.Lerp(MinMaxYawAngleOffset.x, MinMaxYawAngleOffset.y, t) * (hand == Handedness.Right ? 1.0f : -1.0f);
             float pitchOffset = Mathf.Lerp(MinMaxPitchAngleOffset.x, MinMaxPitchAngleOffset.y, t);
 
-            Quaternion rayRotation = Quaternion.LookRotation(headToJoint, headTransform.up) * Quaternion.Euler(pitchOffset, yawOffset, 0);
+            Quaternion rayRotation = Quaternion.LookRotation(headToJoint, headUp) * Quaternion.Euler(pitchOffset, yawOffset, 0);
 
             if (stabilizedPositionHalfLife > 0 || stabilizedDirectionHalfLife > 0)
             {
                 StabilizedHandRay.Value.AddSample(new Ray(handJointPosition, rayRotation * Vector3.forward));
 
-                return new Pose(StabilizedHandRay.Value.StabilizedPosition, Quaternion.LookRotation(StabilizedHandRay.Value.StabilizedDirection, headTransform.up));
+                return new Pose(StabilizedHandRay.Value.StabilizedPosition, Quaternion.LookRotation(StabilizedHandRay.Value.StabilizedDirection, headUp));
             }
             else
             {
