@@ -352,7 +352,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// </remarks>
         public static Vector3 SmoothTo(Vector3 source, Vector3 goal, float deltaTime, float lerpTime)
         {
-            return Vector3.Lerp(source, goal, lerpTime.Equals(0.0f) ? 1f : deltaTime / lerpTime);
+            return Vector3.Lerp(source, goal, lerpTime <= 0.0f ? 1f : deltaTime / lerpTime);
         }
 
         /// <summary>
@@ -360,7 +360,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// </summary>
         public static Quaternion SmoothTo(Quaternion source, Quaternion goal, float deltaTime, float lerpTime)
         {
-            return Quaternion.Slerp(source, goal, lerpTime.Equals(0.0f) ? 1f : deltaTime / lerpTime);
+            return Quaternion.Slerp(source, goal, lerpTime <= 0.0f ? 1f : deltaTime / lerpTime);
         }
 
         /// <summary>
@@ -393,9 +393,19 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// </summary>
         public void UpdateWorkingToGoal()
         {
-            UpdateWorkingPositionToGoal();
-            UpdateWorkingRotationToGoal();
-            UpdateWorkingScaleToGoal();
+            if (updateLinkedTransform)
+            {
+                UpdateWorkingPositionToGoal();
+                UpdateWorkingRotationToGoal();
+                UpdateWorkingScaleToGoal();
+            }
+            else
+            {
+                Vector3 pos = smoothing ? SmoothTo(transform.position, GoalPosition, SolverHandler.DeltaTime, moveLerpTime) : GoalPosition;
+                Quaternion rot = smoothing ? SmoothTo(transform.rotation, GoalRotation, SolverHandler.DeltaTime, rotateLerpTime) : GoalRotation;
+                transform.SetPositionAndRotation(pos, rot);
+                UpdateWorkingScaleToGoal();
+            }
         }
 
         /// <summary>

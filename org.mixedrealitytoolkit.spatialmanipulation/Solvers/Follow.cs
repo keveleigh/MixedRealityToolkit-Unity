@@ -702,13 +702,19 @@ namespace MixedReality.Toolkit.SpatialManipulation
                     orientation = transform.rotation;
                     break;
                 case SolverOrientationType.CameraAligned:
-                    orientation = Camera.main.transform.rotation;
+                    {
+                        Camera mainCamera = Camera.main;
+                        orientation = mainCamera != null ? mainCamera.transform.rotation : Quaternion.identity;
+                    }
                     break;
                 case SolverOrientationType.FaceTrackedObject:
                     orientation = SolverHandler.TransformTarget != null ? Quaternion.LookRotation(goalPosition - ReferencePosition) : Quaternion.identity;
                     break;
                 case SolverOrientationType.CameraFacing:
-                    orientation = SolverHandler.TransformTarget != null ? Quaternion.LookRotation(goalPosition - Camera.main.transform.position) : Quaternion.identity;
+                    {
+                        Camera mainCamera = Camera.main;
+                        orientation = (SolverHandler.TransformTarget != null && mainCamera != null) ? Quaternion.LookRotation(goalPosition - mainCamera.transform.position) : Quaternion.identity;
+                    }
                     break;
                 case SolverOrientationType.FollowTrackedObject:
                     orientation = SolverHandler.TransformTarget != null ? ReferenceRotation : Quaternion.identity;

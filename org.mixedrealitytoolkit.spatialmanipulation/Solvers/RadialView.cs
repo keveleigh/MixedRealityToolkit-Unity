@@ -1,4 +1,4 @@
-﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
 using Unity.Profiling;
@@ -216,6 +216,23 @@ namespace MixedReality.Toolkit.SpatialManipulation
             }
         }
 
+        private void GetTargetInfo(out Vector3 referencePoint, out Vector3 solverReferenceDirection, out Vector3 upReference)
+        {
+            Transform target = SolverHandler.TransformTarget;
+            if (target != null)
+            {
+                referencePoint = target.position;
+                solverReferenceDirection = target.forward;
+                upReference = referenceDirection == RadialViewReferenceDirection.ObjectOriented ? target.up : Vector3.up;
+            }
+            else
+            {
+                referencePoint = Vector3.zero;
+                solverReferenceDirection = Vector3.forward;
+                upReference = Vector3.up;
+            }
+        }
+
         private static readonly ProfilerMarker SolverUpdatePerfMarker =
             new ProfilerMarker("[MRTK] RadialView.SolverUpdate");
 
@@ -225,6 +242,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
             using (SolverUpdatePerfMarker.Auto())
             {
                 Vector3 goalPosition = WorkingPosition;
+                GetTargetInfo(out Vector3 referencePoint, out Vector3 solverReferenceDirection, out Vector3 refDirUp);
 
                 if (ignoreAngleClamp)
                 {
@@ -234,25 +252,24 @@ namespace MixedReality.Toolkit.SpatialManipulation
                     }
                     else
                     {
-                        GetDesiredOrientation_DistanceOnly(ref goalPosition);
+                        GetDesiredOrientation_DistanceOnly(referencePoint, ref goalPosition);
                     }
                 }
                 else
                 {
-                    GetDesiredOrientation(ref goalPosition);
+                    GetDesiredOrientation(referencePoint, solverReferenceDirection, refDirUp, ref goalPosition);
                 }
 
                 // Element orientation
-                Vector3 refDirUp = UpReference;
                 Quaternion goalRotation;
 
                 if (orientToReferenceDirection)
                 {
-                    goalRotation = Quaternion.LookRotation(SolverReferenceDirection, refDirUp);
+                    goalRotation = Quaternion.LookRotation(solverReferenceDirection, refDirUp);
                 }
                 else
                 {
-                    goalRotation = Quaternion.LookRotation(goalPosition - ReferencePoint, refDirUp);
+                    goalRotation = Quaternion.LookRotation(goalPosition - referencePoint, refDirUp);
                 }
 
                 // If gravity aligned then zero out the x and z axes on the rotation
@@ -263,7 +280,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
                 if (UseFixedVerticalPosition)
                 {
-                    goalPosition.y = ReferencePoint.y + FixedVerticalPosition;
+                    goalPosition.y = referencePoint.y + FixedVerticalPosition;
                 }
 
                 GoalPosition = goalPosition;
@@ -277,13 +294,12 @@ namespace MixedReality.Toolkit.SpatialManipulation
         /// <summary>
         /// Optimized version of GetDesiredOrientation.
         /// </summary>
-        private void GetDesiredOrientation_DistanceOnly(ref Vector3 desiredPos)
+        private void GetDesiredOrientation_DistanceOnly(Vector3 refPoint, ref Vector3 desiredPos)
         {
             using (GetDesiredOrientationDistanceOnlyPerfMarker.Auto())
             {
                 // TODO: There should be a different solver for distance constraint.
                 // Determine reference locations and directions
-                Vector3 refPoint = ReferencePoint;
                 Vector3 elementPoint = transform.position;
                 Vector3 elementDelta = elementPoint - refPoint;
                 float elementDist = elementDelta.magnitude;
@@ -292,7 +308,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 // Clamp distance too
                 float clampedDistance = Mathf.Clamp(elementDist, minDistance, maxDistance);
 
-                if (!clampedDistance.Equals(elementDist))
+                if (clampedDistance != elementDist)
                 {
                     desiredPos = refPoint + clampedDistance * elementDir;
                 }
@@ -302,14 +318,11 @@ namespace MixedReality.Toolkit.SpatialManipulation
         private static readonly ProfilerMarker GetDesiredOrientationPerfMarker =
             new ProfilerMarker("[MRTK] Orbital.GetDesiredOrientation");
 
-        private void GetDesiredOrientation(ref Vector3 desiredPos)
+        private void GetDesiredOrientation(Vector3 referencePoint, Vector3 direction, Vector3 upDirection, ref Vector3 desiredPos)
         {
             using (GetDesiredOrientationPerfMarker.Auto())
             {
                 // Determine reference locations and directions
-                Vector3 direction = SolverReferenceDirection;
-                Vector3 upDirection = UpReference;
-                Vector3 referencePoint = ReferencePoint;
                 Vector3 elementPoint = transform.position;
                 Vector3 elementDelta = elementPoint - referencePoint;
                 float elementDist = elementDelta.magnitude;
@@ -339,7 +352,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
                     // Calculate new position
                     desiredPos = referencePoint + clampedDistance * (direction * Mathf.Cos(angRad) + perpendicularDirection * Mathf.Sin(angRad));
                 }
-                else if (!clampedDistance.Equals(elementDist))
+                else if (clampedDistance != elementDist)
                 {
                     // Only need to apply distance
                     desiredPos = referencePoint + clampedDistance * elementDir;

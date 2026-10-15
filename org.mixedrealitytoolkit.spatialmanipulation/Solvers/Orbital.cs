@@ -100,14 +100,15 @@ namespace MixedReality.Toolkit.SpatialManipulation
         {
             using (SolverUpdatePerfMarker.Auto())
             {
-                Vector3 desiredPos = SolverHandler.TransformTarget != null ? SolverHandler.TransformTarget.position : Vector3.zero;
+                Transform target = SolverHandler.TransformTarget;
+                Vector3 desiredPos = target != null ? target.position : Vector3.zero;
 
-                Quaternion targetRot = SolverHandler.TransformTarget != null ? SolverHandler.TransformTarget.rotation : Quaternion.Euler(0, 1, 0);
+                Quaternion targetRot = target != null ? target.rotation : Quaternion.Euler(0, 1, 0);
                 Quaternion yawOnlyRot = Quaternion.Euler(0, targetRot.eulerAngles.y, 0);
-                desiredPos += (SnapToTetherAngleSteps(targetRot) * LocalOffset);
-                desiredPos += (SnapToTetherAngleSteps(yawOnlyRot) * WorldOffset);
+                desiredPos += (SnapToTetherAngleSteps(targetRot, target) * LocalOffset);
+                desiredPos += (SnapToTetherAngleSteps(yawOnlyRot, target) * WorldOffset);
 
-                Quaternion desiredRot = CalculateDesiredRotation(desiredPos);
+                Quaternion desiredRot = CalculateDesiredRotation(desiredPos, target);
 
                 GoalPosition = desiredPos;
                 GoalRotation = desiredRot;
@@ -115,45 +116,51 @@ namespace MixedReality.Toolkit.SpatialManipulation
         }
 
 
-        private Quaternion SnapToTetherAngleSteps(Quaternion rotationToSnap)
+        private Quaternion SnapToTetherAngleSteps(Quaternion rotationToSnap, Transform target)
         {
-            if (!UseAngleStepping || SolverHandler.TransformTarget == null)
+            if (!UseAngleStepping || target == null)
             {
                 return rotationToSnap;
             }
 
             float stepAngle = 360f / tetherAngleSteps;
-            int numberOfSteps = Mathf.RoundToInt(SolverHandler.TransformTarget.transform.eulerAngles.y / stepAngle);
+            int numberOfSteps = Mathf.RoundToInt(target.eulerAngles.y / stepAngle);
 
             float newAngle = stepAngle * numberOfSteps;
 
             return Quaternion.Euler(rotationToSnap.eulerAngles.x, newAngle, rotationToSnap.eulerAngles.z);
         }
 
-        private Quaternion CalculateDesiredRotation(Vector3 desiredPos)
+        private Quaternion CalculateDesiredRotation(Vector3 desiredPos, Transform target)
         {
             Quaternion desiredRot = Quaternion.identity;
 
             switch (orientationType)
             {
                 case SolverOrientationType.YawOnly:
-                    float targetYRotation = SolverHandler.TransformTarget != null ? SolverHandler.TransformTarget.eulerAngles.y : 0.0f;
+                    float targetYRotation = target != null ? target.eulerAngles.y : 0.0f;
                     desiredRot = Quaternion.Euler(0f, targetYRotation, 0f);
                     break;
                 case SolverOrientationType.Unmodified:
                     desiredRot = transform.rotation;
                     break;
                 case SolverOrientationType.CameraAligned:
-                    desiredRot = Camera.main.transform.rotation;
+                    {
+                        Camera mainCamera = Camera.main;
+                        desiredRot = mainCamera != null ? mainCamera.transform.rotation : Quaternion.identity;
+                    }
                     break;
                 case SolverOrientationType.FaceTrackedObject:
-                    desiredRot = SolverHandler.TransformTarget != null ? Quaternion.LookRotation(SolverHandler.TransformTarget.position - desiredPos) : Quaternion.identity;
+                    desiredRot = target != null ? Quaternion.LookRotation(target.position - desiredPos) : Quaternion.identity;
                     break;
                 case SolverOrientationType.CameraFacing:
-                    desiredRot = SolverHandler.TransformTarget != null ? Quaternion.LookRotation(Camera.main.transform.position - desiredPos) : Quaternion.identity;
+                    {
+                        Camera mainCamera = Camera.main;
+                        desiredRot = (target != null && mainCamera != null) ? Quaternion.LookRotation(mainCamera.transform.position - desiredPos) : Quaternion.identity;
+                    }
                     break;
                 case SolverOrientationType.FollowTrackedObject:
-                    desiredRot = SolverHandler.TransformTarget != null ? SolverHandler.TransformTarget.rotation : Quaternion.identity;
+                    desiredRot = target != null ? target.rotation : Quaternion.identity;
                     break;
                 default:
                     Debug.LogError($"Invalid OrientationType for Orbital Solver on {gameObject.name}");
@@ -162,7 +169,7 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
             if (UseAngleStepping)
             {
-                desiredRot = SnapToTetherAngleSteps(desiredRot);
+                desiredRot = SnapToTetherAngleSteps(desiredRot, target);
             }
 
             return desiredRot;

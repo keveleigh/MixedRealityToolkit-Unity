@@ -1,4 +1,4 @@
-﻿// Copyright (c) Mixed Reality Toolkit Contributors
+// Copyright (c) Mixed Reality Toolkit Contributors
 // Licensed under the BSD 3-Clause
 
 using Unity.Profiling;
@@ -136,9 +136,11 @@ namespace MixedReality.Toolkit.SpatialManipulation
             {
                 if (SolverHandler != null && secondSolverHandler != null)
                 {
-                    if (SolverHandler.TransformTarget != null && secondSolverHandler.TransformTarget != null)
+                    Transform t1 = SolverHandler.TransformTarget;
+                    Transform t2 = secondSolverHandler.TransformTarget;
+                    if (t1 != null && t2 != null)
                     {
-                        AdjustPositionForOffset(SolverHandler.TransformTarget, secondSolverHandler.TransformTarget);
+                        AdjustPositionForOffset(t1, t2);
                     }
                 }
             }
@@ -148,8 +150,9 @@ namespace MixedReality.Toolkit.SpatialManipulation
         {
             if (targetTransform != null && secondTransform != null)
             {
-                Vector3 centerline = targetTransform.position - secondTransform.position;
-                GoalPosition = secondTransform.position + (centerline * partwayOffset);
+                Vector3 secondPos = secondTransform.position;
+                Vector3 centerline = targetTransform.position - secondPos;
+                GoalPosition = secondPos + (centerline * partwayOffset);
             }
         }
 

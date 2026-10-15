@@ -405,8 +405,16 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 if (inspectorOrderedSolvers.Contains(solver))
                 {
                     solvers.Add(solver);
-                    // Ensure that the solvers list obeys inspector ordering afterwards
-                    solvers = inspectorOrderedSolvers.Intersect(solvers).ToList();
+                    // Ensure that the solvers list obeys inspector ordering afterwards without LINQ allocations
+                    solvers.Clear();
+                    for (int i = 0; i < inspectorOrderedSolvers.Count; i++)
+                    {
+                        Solver s = inspectorOrderedSolvers[i];
+                        if (s.enabled)
+                        {
+                            solvers.Add(s);
+                        }
+                    }
                 }
             }
         }
@@ -454,7 +462,11 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 Transform target = null;
                 if (TrackedTargetType == TrackedObjectType.Head)
                 {
-                    target = Camera.main.transform;
+                    Camera mainCamera = Camera.main;
+                    if (mainCamera != null)
+                    {
+                        target = mainCamera.transform;
+                    }
                 }
                 else if (TrackedTargetType == TrackedObjectType.ControllerRay)
                 {
