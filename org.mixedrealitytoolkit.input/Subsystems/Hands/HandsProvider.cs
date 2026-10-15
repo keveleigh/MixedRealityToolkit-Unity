@@ -9,6 +9,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.Scripting;
 using UnityEngine.XR;
 
+using System.Runtime.CompilerServices;
+
 namespace MixedReality.Toolkit.Input
 {
     /// <summary>
@@ -24,18 +26,24 @@ namespace MixedReality.Toolkit.Input
     [Preserve]
     internal class HandsProvider<T> : HandsSubsystem.Provider where T : HandDataContainer
     {
-        private Dictionary<XRNode, T> hands = null;
+        private T leftHand = null;
+        private T rightHand = null;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private T GetHand(XRNode handNode)
+        {
+            if (handNode == XRNode.LeftHand) { return leftHand; }
+            if (handNode == XRNode.RightHand) { return rightHand; }
+            return null;
+        }
 
         /// <inheritdoc/>
         public override void Start()
         {
             base.Start();
 
-            hands ??= new Dictionary<XRNode, T>
-            {
-                { XRNode.LeftHand, Activator.CreateInstance(typeof(T), XRNode.LeftHand) as T },
-                { XRNode.RightHand, Activator.CreateInstance(typeof(T), XRNode.RightHand) as T }
-            };
+            leftHand ??= Activator.CreateInstance(typeof(T), XRNode.LeftHand) as T;
+            rightHand ??= Activator.CreateInstance(typeof(T), XRNode.RightHand) as T;
 
             InputSystem.onBeforeUpdate += ResetHands;
         }
@@ -50,8 +58,8 @@ namespace MixedReality.Toolkit.Input
 
         private void ResetHands()
         {
-            hands[XRNode.LeftHand].Reset();
-            hands[XRNode.RightHand].Reset();
+            leftHand?.Reset();
+            rightHand?.Reset();
         }
 
         #region IHandsSubsystem implementation
@@ -67,7 +75,14 @@ namespace MixedReality.Toolkit.Input
                 return false;
             }
 
-            return hands[handNode].TryGetEntireHand(out jointPoses);
+            T hand = GetHand(handNode);
+            if (hand == null)
+            {
+                jointPoses = Array.Empty<HandJointPose>();
+                return false;
+            }
+
+            return hand.TryGetEntireHand(out jointPoses);
         }
 
         /// <inheritdoc/>
@@ -81,7 +96,14 @@ namespace MixedReality.Toolkit.Input
                 return false;
             }
 
-            return hands[handNode].TryGetJoint(joint, out jointPose);
+            T hand = GetHand(handNode);
+            if (hand == null)
+            {
+                jointPose = default;
+                return false;
+            }
+
+            return hand.TryGetJoint(joint, out jointPose);
         }
 
         #endregion IHandsSubsystem implementation

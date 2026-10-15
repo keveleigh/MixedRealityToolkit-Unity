@@ -4,6 +4,7 @@
 using MixedReality.Toolkit.Subsystems;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -42,12 +43,17 @@ namespace MixedReality.Toolkit.Input
         private class AggregateHandContainer : HandDataContainer
         {
             // List of hands subsystems we will scrape hands data from.
-            private List<HandsSubsystem> handsSubsystems = new List<HandsSubsystem>();
+            private readonly List<HandsSubsystem> handsSubsystems = new List<HandsSubsystem>();
 
-            // Cached index finger length.
-            private float? indexFingerLength;
+            // Cached index finger length. -1 indicates not yet computed/valid.
+            private float indexFingerLength = -1f;
 
             public AggregateHandContainer(XRNode handNode) : base(handNode)
+            {
+                SubsystemManager.GetSubsystems(handsSubsystems);
+            }
+
+            internal void RefreshSubsystems()
             {
                 SubsystemManager.GetSubsystems(handsSubsystems);
             }
@@ -62,14 +68,20 @@ namespace MixedReality.Toolkit.Input
                 {
                     if (!AlreadyFullQueried)
                     {
+                        if (handsSubsystems.Count == 0)
+                        {
+                            RefreshSubsystems();
+                        }
+
                         bool gotPhysicalData = false;
 
-                        foreach (var sys in handsSubsystems)
+                        for (int s = 0; s < handsSubsystems.Count; s++)
                         {
+                            var sys = handsSubsystems[s];
                             // Don't scrape subsystems that aren't running.
-                            if (sys.running == false) { continue; }
+                            if (sys == null || !sys.running) { continue; }
 
-                            if (sys.TryGetEntireHand(HandNode, out IReadOnlyList<HandJointPose> data))
+                            if (sys.TryGetEntireHand(HandNode, out IReadOnlyList<HandJointPose> data) && data != null)
                             {
                                 // If we get valid physical data, we will ignore any subsequent
                                 // hands subsystems that are *not* physical data.
@@ -78,8 +90,20 @@ namespace MixedReality.Toolkit.Input
                                 // If we get a valid hand sample from at least one of the
                                 // subsystems we're listening to, we can consider ourselves
                                 // to have valid data this frame.
-                                FullQueryValid |= true;
-                                Array.Copy((HandJointPose[])data, HandJoints, (int)TrackedHandJoint.TotalJoints);
+                                FullQueryValid = true;
+
+                                if (data is HandJointPose[] array)
+                                {
+                                    Array.Copy(array, HandJoints, Math.Min(array.Length, (int)TrackedHandJoint.TotalJoints));
+                                }
+                                else
+                                {
+                                    int count = Math.Min(data.Count, (int)TrackedHandJoint.TotalJoints);
+                                    for (int i = 0; i < count; i++)
+                                    {
+                                        HandJoints[i] = data[i];
+                                    }
+                                }
                             }
 
                             if (gotPhysicalData) { break; }
@@ -105,7 +129,6 @@ namespace MixedReality.Toolkit.Input
                 using (TryGetJointPerfMarker.Auto())
                 {
                     bool thisQueryValid = false;
-
                     int jointIndex = HandsUtils.ConvertToIndex(joint);
 
                     // If we happened to have already queried the entire
@@ -114,12 +137,18 @@ namespace MixedReality.Toolkit.Input
                     // query for the single joint.
                     if (!AlreadyFullQueried)
                     {
+                        if (handsSubsystems.Count == 0)
+                        {
+                            RefreshSubsystems();
+                        }
+
                         bool gotPhysicalData = false;
 
-                        foreach (var sys in handsSubsystems)
+                        for (int s = 0; s < handsSubsystems.Count; s++)
                         {
+                            var sys = handsSubsystems[s];
                             // Don't scrape subsystems that aren't running.
-                            if (!sys.running) { continue; }
+                            if (sys == null || !sys.running) { continue; }
 
                             if (sys.TryGetJoint(joint, HandNode, out HandJointPose data))
                             {
@@ -127,7 +156,7 @@ namespace MixedReality.Toolkit.Input
                                 // hands subsystems that are *not* physical data.
                                 gotPhysicalData |= sys.subsystemDescriptor.IsPhysicalData;
 
-                                thisQueryValid |= true;
+                                thisQueryValid = true;
                                 HandJoints[jointIndex] = data;
                             }
 
@@ -152,48 +181,42 @@ namespace MixedReality.Toolkit.Input
             /// </summary>
             internal bool TryGetIndexFingerLength(out float length)
             {
-                bool gotData = true;
-
-                gotData &= TryGetJoint(TrackedHandJoint.IndexTip, out HandJointPose indexTip);
+                bool gotData = TryGetJoint(TrackedHandJoint.IndexTip, out HandJointPose indexTip);
 
                 // If our first query fails, we've lost tracking, and we reset the cached finger length
                 // to be recomputed when the hand is visible again.
                 if (!gotData)
                 {
-                    indexFingerLength = null;
+                    indexFingerLength = -1f;
                     length = 0.0f;
                     return false;
                 }
 
                 // If we are tracked and also have a cached finger length, return that.
-                if (indexFingerLength.HasValue && indexFingerLength.Value != 0.0f)
+                if (indexFingerLength > 0.0f)
                 {
-                    length = indexFingerLength.Value;
+                    length = indexFingerLength;
                     return true;
                 }
-                else
+
+                // Otherwise, we compute a fresh finger length.
+                gotData &= TryGetJoint(TrackedHandJoint.IndexProximal, out HandJointPose indexKnuckle);
+                gotData &= TryGetJoint(TrackedHandJoint.IndexIntermediate, out HandJointPose indexMiddle);
+                gotData &= TryGetJoint(TrackedHandJoint.IndexDistal, out HandJointPose indexDistal);
+
+                if (gotData)
                 {
-                    // Otherwise, we compute a fresh finger length.
-                    gotData &= TryGetJoint(TrackedHandJoint.IndexProximal, out HandJointPose indexKnuckle);
-                    gotData &= TryGetJoint(TrackedHandJoint.IndexIntermediate, out HandJointPose indexMiddle);
-                    gotData &= TryGetJoint(TrackedHandJoint.IndexDistal, out HandJointPose indexDistal);
+                    indexFingerLength = Vector3.Distance(indexKnuckle.Position, indexMiddle.Position) +
+                                        Vector3.Distance(indexMiddle.Position, indexDistal.Position) +
+                                        Vector3.Distance(indexDistal.Position, indexTip.Position);
 
-                    if (gotData)
-                    {
-                        indexFingerLength = Vector3.Distance(indexKnuckle.Position, indexMiddle.Position) +
-                                            Vector3.Distance(indexMiddle.Position, indexDistal.Position) +
-                                            Vector3.Distance(indexDistal.Position, indexTip.Position);
-
-                        length = indexFingerLength.Value;
-                        return true;
-                    }
-                    else
-                    {
-                        indexFingerLength = null;
-                        length = 0;
-                        return false;
-                    }
+                    length = indexFingerLength;
+                    return true;
                 }
+
+                indexFingerLength = -1f;
+                length = 0.0f;
+                return false;
             }
         }
 
@@ -208,10 +231,16 @@ namespace MixedReality.Toolkit.Input
             /// </summary>
             protected MRTKHandsAggregatorConfig Config { get; private set; }
 
-            private Dictionary<XRNode, AggregateHandContainer> hands = null;
+            private AggregateHandContainer leftHand;
+            private AggregateHandContainer rightHand;
 
-            // Reusable pinch pose structs to reduce allocs.
-            private HandJointPose leftPinchPose, rightPinchPose;
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            private AggregateHandContainer GetHand(XRNode handNode)
+            {
+                if (handNode == XRNode.LeftHand) { return leftHand; }
+                if (handNode == XRNode.RightHand) { return rightHand; }
+                return null;
+            }
 
             /// <inheritdoc/>
             public override void Start()
@@ -220,11 +249,10 @@ namespace MixedReality.Toolkit.Input
 
                 Config = XRSubsystemHelpers.GetConfiguration<MRTKHandsAggregatorConfig, MRTKHandsAggregatorSubsystem>();
 
-                hands ??= new Dictionary<XRNode, AggregateHandContainer>
-                {
-                    { XRNode.LeftHand, new AggregateHandContainer(XRNode.LeftHand) },
-                    { XRNode.RightHand, new AggregateHandContainer(XRNode.RightHand) }
-                };
+                leftHand ??= new AggregateHandContainer(XRNode.LeftHand);
+                rightHand ??= new AggregateHandContainer(XRNode.RightHand);
+                leftHand.RefreshSubsystems();
+                rightHand.RefreshSubsystems();
 
                 InputSystem.onBeforeUpdate += ResetHands;
             }
@@ -239,8 +267,8 @@ namespace MixedReality.Toolkit.Input
 
             private void ResetHands()
             {
-                hands[XRNode.LeftHand].Reset();
-                hands[XRNode.RightHand].Reset();
+                leftHand?.Reset();
+                rightHand?.Reset();
             }
 
             #region IHandsSubsystem implementation
@@ -259,45 +287,61 @@ namespace MixedReality.Toolkit.Input
                 gotData &= TryGetJoint(TrackedHandJoint.IndexTip, handNode, out HandJointPose indexPose);
                 gotData &= TryGetJoint(TrackedHandJoint.Palm, handNode, out HandJointPose palmPose);
 
-                HandJointPose pinchPointPose = handNode == XRNode.LeftHand ? leftPinchPose : rightPinchPose;
-
                 // Stabilize the pinch pose by a weighted average between the thumb and index.
                 // A true average (50% thumb, 50% index) is too unstable for precise manipulation.
-                pinchPointPose.Position = Vector3.Lerp(thumbPose.Position, indexPose.Position, 0.2f);
+                Vector3 position = Vector3.Lerp(thumbPose.Position, indexPose.Position, 0.2f);
 
                 // Stabilize the rotation by sampling the palm joint's rotation instead.
                 // Index + thumb rotations move too much for precise manipulation.
-                pinchPointPose.Rotation = palmPose.Rotation;
-
-                jointPose = pinchPointPose;
+                jointPose = new HandJointPose(position, palmPose.Rotation, thumbPose.Radius);
                 return gotData;
             }
 
             /// <inheritdoc/>
             public override bool TryGetPinchProgress(XRNode handNode, out bool isReadyToPinch, out bool isPinching, out float pinchAmount)
             {
+                AggregateHandContainer hand = GetHand(handNode);
+                if (hand == null)
+                {
+                    isReadyToPinch = false;
+                    isPinching = false;
+                    pinchAmount = 0.0f;
+                    return false;
+                }
+
                 bool gotData = TryGetJoint(TrackedHandJoint.Palm, handNode, out HandJointPose palm);
 
+                Camera mainCamera = Camera.main;
+                if (mainCamera == null)
+                {
+                    isReadyToPinch = false;
+                    isPinching = false;
+                    pinchAmount = 0.0f;
+                    return false;
+                }
+
+                Transform cameraTransform = mainCamera.transform;
+                Vector3 cameraForward = cameraTransform.forward;
+
                 // Is the hand far enough up/in view to be eligible for pinching?
-                bool handIsUp = Vector3.Angle(Camera.main.transform.forward, (palm.Position - Camera.main.transform.position)) < Config.HandRaiseCameraFov;
+                bool handIsUp = Vector3.Angle(cameraForward, (palm.Position - cameraTransform.position)) < Config.HandRaiseCameraFov;
 
                 gotData &= TryGetJoint(TrackedHandJoint.ThumbTip, handNode, out HandJointPose thumbTip);
                 gotData &= TryGetJoint(TrackedHandJoint.IndexTip, handNode, out HandJointPose indexTip);
 
                 // Compute index finger length (cached) for normalizing pinch thresholds to different sized hands.
-                gotData &= hands[handNode].TryGetIndexFingerLength(out float indexFingerLength);
+                gotData &= hand.TryGetIndexFingerLength(out float indexFingerLength);
 
-                if (!gotData)
+                if (!gotData || indexFingerLength <= 0.0f)
                 {
                     isReadyToPinch = false;
                     isPinching = false;
                     pinchAmount = 0.0f;
-
                     return false;
                 }
 
                 // Is the hand facing away from the head? Pinching is only allowed when this is true.
-                bool handIsFacingAway = (IsPalmFacingAway(palm));
+                bool handIsFacingAway = IsPalmFacingAway(palm, cameraForward);
 
                 // Possibly sqr magnitude for performance?
                 // Would need to adjust thresholds so that everything works in square-norm
@@ -328,7 +372,14 @@ namespace MixedReality.Toolkit.Input
                     return false;
                 }
 
-                palmFacingAway = IsPalmFacingAway(palm);
+                Camera mainCamera = Camera.main;
+                if (mainCamera == null)
+                {
+                    palmFacingAway = false;
+                    return false;
+                }
+
+                palmFacingAway = IsPalmFacingAway(palm, mainCamera.transform.forward);
                 return gotData;
             }
 
@@ -337,7 +388,14 @@ namespace MixedReality.Toolkit.Input
             {
                 Debug.Assert(handNode == XRNode.LeftHand || handNode == XRNode.RightHand, "Non-hand XRNode used in TryGetJoint query");
 
-                return hands[handNode].TryGetJoint(joint, out jointPose);
+                AggregateHandContainer hand = GetHand(handNode);
+                if (hand == null)
+                {
+                    jointPose = default;
+                    return false;
+                }
+
+                return hand.TryGetJoint(joint, out jointPose);
             }
 
             ///<inheritdoc/>
@@ -345,7 +403,14 @@ namespace MixedReality.Toolkit.Input
             {
                 Debug.Assert(handNode == XRNode.LeftHand || handNode == XRNode.RightHand, "Non-hand XRNode used in GetHand query");
 
-                return hands[handNode].TryGetEntireHand(out jointPoses);
+                AggregateHandContainer hand = GetHand(handNode);
+                if (hand == null)
+                {
+                    jointPoses = null;
+                    return false;
+                }
+
+                return hand.TryGetEntireHand(out jointPoses);
             }
 
             #endregion IHandsAggregatorSubsystem implementation
@@ -355,18 +420,13 @@ namespace MixedReality.Toolkit.Input
             /// <summary>
             /// Calculates whether the palm is facing away from the user.
             /// </summary>
-            private bool IsPalmFacingAway(HandJointPose palmJoint)
+            private bool IsPalmFacingAway(HandJointPose palmJoint, Vector3 cameraForward)
             {
-                if (Camera.main == null)
-                {
-                    return false;
-                }
-
                 Vector3 palmDown = palmJoint.Rotation * -Vector3.up;
 
                 // The original palm orientation is based on a horizontal palm facing down.
                 // So, if you bring your hand up and face it away from you, the palm.up is the forward vector.
-                if (Mathf.Abs(Vector3.Angle(palmDown, Camera.main.transform.forward)) > Config.HandFacingAwayToleranceInDegrees)
+                if (Mathf.Abs(Vector3.Angle(palmDown, cameraForward)) > Config.HandFacingAwayToleranceInDegrees)
                 {
                     return false;
                 }
